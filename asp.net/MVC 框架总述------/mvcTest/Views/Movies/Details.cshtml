@@ -1,0 +1,64 @@
+﻿@model mvcTest.Models.Movie
+    <!-- 
+        * 上一句指定传过来的数据对象类型是 模型 Models 内 的 Movie
+        * 与 View() 参数类型对应 
+        * 此时该页面有个内置对象 model 代表 Movie 对象, 即使用 (model.属性) 
+           - 获取属性名 : Html.DisplayNameFor(model => model.Title)
+           - 或属性值 : Html.DisplayFor(model => model.Title) 
+        * 对应 MoviesContorllers.cs 内的函数 
+        public ActionResult Details(int? id)
+        {
+            Movie movie = db.Movie.Find(id);
+            return View(movie);     // movie 通过 View 参数传递进来;
+        }
+       
+    -->
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

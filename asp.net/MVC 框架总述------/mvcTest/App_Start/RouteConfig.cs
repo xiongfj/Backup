@@ -37,7 +37,6 @@ namespace mvcTest
         {
             // 表示不需要处理这些路由
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");   // 定义了可以忽略的配置
-            Route s;
 
             // 设置一个路由
             routes.MapRoute(
@@ -47,10 +46,11 @@ namespace mvcTest
                 // '/' 和 '.' 作为分隔符，
                 // 不在括号或方括号的信息被看作一个常量
                 // 如果url请求不匹配这个url，也没偶定义默认url，那么路由将不处理这个请求，由asp.net解析
-                url: "{controller}/{action}/{id}",  // 带参数的 url
+                // 带参数的 url, {action} 后面是函数参数, 按顺序匹配, 参数名称与函数名称相同
+                url: "{controller}/{action}/{id}", 
 
                 // 如果只请求 http://localhost:3313 实际上就是请求 http://localhost:3313/Home/Index/xxx
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }//默认参数值
+                defaults: new { controller = "Movies", action = "Index", id = UrlParameter.Optional }//默认参数值
             );
             // 调用的是泛型模版内的函数
           //  routes.Add(new Route("Category/{action}/{categoryName}", new MvcRouteHandler()));

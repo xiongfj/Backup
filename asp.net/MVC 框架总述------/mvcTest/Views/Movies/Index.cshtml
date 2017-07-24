@@ -1,0 +1,67 @@
+﻿@model IEnumerable<mvcTest.Models.Movie>
+    <!--  
+     * 定义一个强类型, 可以使用 foreach 遍历; 传过来的数据在该页面隐藏的 Model 对象内
+     * 对应 MoviesControllers.cs 内 Index() 的返回值 View(db.Movie.ToList())  // 也是一个 IEnumerable 对象 
+    -->
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <!-- 页面上创建一个文本内容为 Create New href="Create.cshtml" 的 <a> -->
+    @Html.ActionLink("Create New", "Create")
+
+    <!-- 添加一个 <from> <input> 搜索框, 指定提交到使用 Get/Post 的 Index() 函数-->
+    @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+    {
+        <p>
+    <!-- MovieGenre 是对应 Index() 内的 ViewBag.MovieGenre, 必须保证调用这个页面的 Index() 内有这个 ViewBag, 如果是其它 Index 则显示页面失败 -->
+    <!-- 属性名还必须有 Index 的参数相同,才能通过参数传递过去 -->
+    搜索类型: @Html.DropDownList("MovieGenre", "all")
+    搜索标题: @Html.TextBox("searchString")<br/>
+            <input type="submit", value="Filter"/></p>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th><!-- 绑定显示 model 内的数据, 即 Movie.cs 内的属性名, 而不是值 -->
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td><!-- 遍历 model 内的属性值 -->
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
