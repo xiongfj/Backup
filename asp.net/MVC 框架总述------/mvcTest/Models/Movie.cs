@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 /*
- * 
- */
+* 
+*/
 
 namespace mvcTest.Models
 {
@@ -14,9 +15,11 @@ namespace mvcTest.Models
     {
         public int ID { get; set; }
 
+       // [Required] 
         [Display(Name="电影名")]       // 页面显示的时候使用中文代替
         public string Title { get; set; }
 
+        //[StringLength(100, MinimumLength = 3)]
         [Display(Name ="上映时间")]
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }

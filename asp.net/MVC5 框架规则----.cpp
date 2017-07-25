@@ -79,6 +79,10 @@
 ** Html.Display
 **** Html.DisplayFor(modelItem => item.Title)		// 是显示列的内容
 *** Html.DisplayForModel
+
+
+
+}
 	
 
 
