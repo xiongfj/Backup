@@ -90,6 +90,10 @@ namespace mvcTest.Controllers
         // 创建结束后调用这个函数, 页面数据会提交到这里
         [HttpPost]
         [ValidateAntiForgeryToken]      // 与 Create.cshtml 内的 @Html.AntiForgeryToken() 对应防止伪造跨站请求
+        /*
+         * 参数 Bind 是防御重复提交攻击;
+         * 或者放在模型类的上面一行
+         */
         public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
             if (ModelState.IsValid)
@@ -98,15 +102,17 @@ namespace mvcTest.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+           // UpdateModel(movie);
             return View(movie);
         }
 
         // GET: Movies/Edit/5
-        // 点击编辑按钮的时候会调用这个函数
+        /* 点击编辑按钮的时候会调用这个函数
+         * 显示一个表单为 <form action='Movies/Edit/id' method='post' /> 的编辑页面
+         * 该页面提交后,会提交到使用了 [HttpPost] 的 Edit(..) 方法上. 隐藏的数据是一个 Model
+         */
         public ActionResult Edit(int? id)
         {
-            //Response.Write("<script>alert('asdas')</script>");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -116,24 +122,44 @@ namespace mvcTest.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(movie);
         }
 
         // POST: Movies/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
+            // 模型状态, 用户输入验证失败后该值= false 
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Entry(movie).State = EntityState.Modified;       // 一种更新模型数据的方式
+                db.SaveChanges();                                   // 将模型内的数据更新到数据库
                 return RedirectToAction("Index");
             }
             return View(movie);
         }
+
+       /* 
+        * 除了使用 Bind 参数防止重复提交攻击外, 还可以用 UpdateModel() 指定需要更新的列表
+        * 即可防止多余的字段提交(防止注入多余字段提交)
+        * [HttpPost]
+        public ActionResult Edit(int id, FormCollection formValues)
+        {
+            try
+            {
+                Movie moive = db.Movie.FirstOrDefault(s => s.ID.Equals(id));
+                UpdateModel(moive, new string[] { "Genre", "Price"});
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                throw;
+            }
+        }*/
 
         // GET: Movies/Delete/5
         public ActionResult Delete(int? id)

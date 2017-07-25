@@ -15,7 +15,7 @@ namespace mvcTest.Models
     {
         public int ID { get; set; }
 
-       // [Required] 
+        [Required] 
         [Display(Name="电影名")]       // 页面显示的时候使用中文代替
         public string Title { get; set; }
 
@@ -30,6 +30,12 @@ namespace mvcTest.Models
         [Display(Name ="价格")]
         public decimal Price { get; set; }
     }
+
+  /*  public class MovieViewModel
+    {
+        public string Genre { set; get; }
+        public decimal Price { set; get; }
+    }*/
 
     /*
      * web.config 内的 <connectionStrings> 的 name 必须与 MovieDBContext 相同
