@@ -1,146 +1,71 @@
-var target          = Argument("target", "Default");
-var configuration   = Argument<string>("configuration", "Release");
+#tool nuget:?package=NUnit.ConsoleRunner&version=3.4.0
+//////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+//////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////
-// GLOBAL VARIABLES
-///////////////////////////////////////////////////////////////////////////////
-var packPath            = Directory("./src/IdentityServer4");
-var buildArtifacts      = Directory("./artifacts/packages");
+var target = Argument("target", "Default");
+var configuration = Argument("configuration", "Release");
 
-var isAppVeyor          = AppVeyor.IsRunningOnAppVeyor;
-var isWindows           = IsRunningOnWindows();
-var netcore             = "netcoreapp1.1";
-var netstandard         = "netstandard1.4";
+//////////////////////////////////////////////////////////////////////
+// PREPARATION
+//////////////////////////////////////////////////////////////////////
 
+// Define directories.
+var buildDir = Directory("./src/Example/bin") + Directory(configuration);
 
-///////////////////////////////////////////////////////////////////////////////
-// Clean
-///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+// TASKS
+//////////////////////////////////////////////////////////////////////
+
 Task("Clean")
     .Does(() =>
 {
-    CleanDirectories(new DirectoryPath[] { buildArtifacts });
+    CleanDirectory(buildDir);
 });
 
-///////////////////////////////////////////////////////////////////////////////
-// Restore
-///////////////////////////////////////////////////////////////////////////////
-Task("Restore")
-    .Does(() =>
-{
-    var settings = new DotNetCoreRestoreSettings
-    {
-        Sources = new [] { "https://api.nuget.org/v3/index.json" }
-    };
-
-	var projects = GetFiles("./**/*.csproj");
-
-	foreach(var project in projects)
-	{
-	    DotNetCoreRestore(project.GetDirectory().FullPath, settings);
-    }
-});
-
-///////////////////////////////////////////////////////////////////////////////
-// Build
-///////////////////////////////////////////////////////////////////////////////
-Task("Build")
+Task("Restore-NuGet-Packages")
     .IsDependentOn("Clean")
-    .IsDependentOn("Restore")
     .Does(() =>
 {
-    var settings = new DotNetCoreBuildSettings 
-    {
-        Configuration = configuration
-    };
+    NuGetRestore("./src/Example.sln");
+});
 
-    // main build (Windows local and Appveyor)
-    // build for all targets
-    if (isWindows)
+Task("Build")
+    .IsDependentOn("Restore-NuGet-Packages")
+    .Does(() =>
+{
+    if(IsRunningOnWindows())
     {
-        DotNetCoreBuild(Directory("./src/IdentityServer4"), settings);
-        DotNetCoreBuild(Directory("./test/IdentityServer.IntegrationTests"), settings);
-        DotNetCoreBuild(Directory("./test/IdentityServer.UnitTests"), settings);
-
-        if (!isAppVeyor)
-        {
-            DotNetCoreBuild(Directory("./src/Host"), settings);     
-        }
+      // Use MSBuild
+      MSBuild("./src/Example.sln", settings =>
+        settings.SetConfiguration(configuration));
     }
-    // local mac / travis
-    // don't build for .net framework
     else
     {
-        settings.Framework = netstandard;
-        DotNetCoreBuild(Directory("./src/IdentityServer4"), settings);
-        
-        settings.Framework = netcore;
-        DotNetCoreBuild(Directory("./src/Host"), settings);     
-        DotNetCoreBuild(Directory("./test/IdentityServer.IntegrationTests"), settings);
-        DotNetCoreBuild(Directory("./test/IdentityServer.UnitTests"), settings);
+      // Use XBuild
+      XBuild("./src/Example.sln", settings =>
+        settings.SetConfiguration(configuration));
     }
 });
 
-///////////////////////////////////////////////////////////////////////////////
-// Test
-///////////////////////////////////////////////////////////////////////////////
-Task("Test")
-    .IsDependentOn("Restore")
-    .IsDependentOn("Clean")
+Task("Run-Unit-Tests")
+    .IsDependentOn("Build")
     .Does(() =>
 {
-    var settings = new DotNetCoreTestSettings
-    {
-        Configuration = configuration
-    };
-
-    if (!isWindows)
-    {
-        Information("Not running on Windows - skipping tests for full .NET Framework");
-        settings.Framework = "netcoreapp1.1";
-    }
-
-    var projects = GetFiles("./test/**/*.csproj");
-    foreach(var project in projects)
-    {
-        DotNetCoreTest(project.FullPath, settings);
-    }
+    NUnit3("./src/**/bin/" + configuration + "/*.Tests.dll", new NUnit3Settings {
+        NoResults = true
+        });
 });
 
-///////////////////////////////////////////////////////////////////////////////
-// Pack
-///////////////////////////////////////////////////////////////////////////////
-Task("Pack")
-    .IsDependentOn("Restore")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-    if (!isWindows)
-    {
-        Information("Not running on Windows - skipping pack");
-        return;
-    }
-
-    var settings = new DotNetCorePackSettings
-    {
-        Configuration = configuration,
-        OutputDirectory = buildArtifacts,
-        ArgumentCustomization = args => args.Append("--include-symbols")
-    };
-
-    // add build suffix for CI builds
-    if(isAppVeyor)
-    {
-        settings.VersionSuffix = "build" + AppVeyor.Environment.Build.Number.ToString().PadLeft(5,'0');
-    }
-
-    DotNetCorePack(packPath, settings);
-});
-
+//////////////////////////////////////////////////////////////////////
+// TASK TARGETS
+//////////////////////////////////////////////////////////////////////
 
 Task("Default")
-  .IsDependentOn("Build")
-  .IsDependentOn("Test")
-  .IsDependentOn("Pack");
+    .IsDependentOn("Run-Unit-Tests");
+
+//////////////////////////////////////////////////////////////////////
+// EXECUTION
+//////////////////////////////////////////////////////////////////////
 
 RunTarget(target);
