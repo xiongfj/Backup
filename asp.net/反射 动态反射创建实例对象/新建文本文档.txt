@@ -1,0 +1,7 @@
+
+
+object h = null;
+
+// className = 命名空间.类名
+// 采用动态反射机制创建相应的IHttpHandler实现类。
+h = Activator.CreateInstance(Type.GetType(className));
