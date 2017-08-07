@@ -1,4 +1,46 @@
 
+* 设置客户端 cookies
+* 提供下载文件, 即发送文件到客户端
+
+/* 类说明
+* Response代表了服务器响应对象。每次客户端发出一个请求的时候，
+* 服务器就会用一个响应对象来处理这个请求，处理完这个请求之后，服务器就会销毁这个相应对象，以便继续接受其它客服端请求。
+*/
+
+// 发送文件到客户端
+/*
+public static void ResponseStream(Stream stream, string fileName)
+{
+	if (stream.Length > 0)
+	{
+		try
+		{
+			long fileSize = stream.Length;
+			System.Web.HttpContext.Current.Response.ContentType = "application/octet-stream";   //控制送出的文件类型
+			System.Web.HttpContext.Current.Response.AppendHeader("Content-Disposition", " attachment;filename=" + HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));//向响应输出流增加HTTP头信息
+			System.Web.HttpContext.Current.Response.AddHeader("Content-Length", fileSize.ToString());
+			byte[] fileBuffer = new byte[fileSize];
+			stream.Read(fileBuffer, 0, (int)fileSize);
+			stream.Close();
+			System.Web.HttpContext.Current.Response.BinaryWrite(fileBuffer);
+			System.Web.HttpContext.Current.Response.End();
+
+		}
+		catch (Exception ex)
+		{
+			throw;
+		}
+	}
+}
+*/
+
+// 设置客户端 cookies
+/*
+HttpCookie ck = new HttpCookie("HttpDemo");
+ck.Values.Add("UserID", "踏浪帅");
+Response.SetCookie(ck);
+Response.Redirect("Default.aspx");
+*/
 
 ------------------------ 属性 --------------------------------
 
@@ -15,6 +57,26 @@
 * ContentEncoding	// 获取或设置输出流的 HTTP 字符集
 
 * ContentType	// 获取或设置输出流的 HTTP MIME 类型
+/*
+'doc' => 'application/msword', 
+'bin' => 'application/octet-stream',  
+'exe' => 'application/octet-stream', 
+'dll' => 'application/octet-stream',  
+'pdf' => 'application/pdf',  
+'xls' => 'application/vnd.ms-excel', 
+'ppt' => 'application/vnd.ms-powerpoint', 
+'zip' => 'application/zip', 
+'mp3' => 'audio/mpeg', 
+'wav' => 'audio/x-wav', 
+'pdb' => 'chemical/x-pdb', 
+'bmp' => 'image/bmp', 
+'gif' => 'image/gif', 
+'ief' => 'image/ief', 
+'jpeg' => 'image/jpeg', 
+'jpg' => 'image/jpeg', 
+'jpe' => 'image/jpeg', 
+'png' => 'image/png',
+*/
 
 * public HttpCookieCollection Cookies { get; }	// 获取响应 Cookies 集合
 
@@ -44,10 +106,12 @@
 
 ----------------方法-----------------------------
 
-* void Redirect(string url, bool endResponse)
+* void Redirect(string url, bool endResponse)	// 页面跳转, 会销毁当前的 HttpContext, 使用 HttpContext.Server.Transfer() 则不会
 /*
 * url: 跳转的页面文件路径
 * endResponse:	可选，是否终止当前页面
+
+* 地址栏的 uri 会改变,页面刷型, 而 Server.Transfer 地址栏不会比变化, 貌似页面不会刷新!?
 */
 
 // 将内容输出到页面
