@@ -8,11 +8,14 @@
 
 <!-- 需要定义 ng-app 才能在 div 内使用 angularjs -->
 <div ng-app="">
-<!-- 貌似只能绑定有输入的标签... -->
   <p>名字 : <input type="text" ng-model="name"></p>
-  <h1>Hello {{name}}</h1>
   
+  <!-- 绑定 model 数据 -->
   <p>姓名为 <span ng-bind="name"></span></p>
+  
+  <!-- 绑定数组 -->
+<div ng-app="" ng-init="points=[1,15,19,2,40]">
+<p>第三个值为 <span ng-bind="points[2]"></span></p>
 </div>
 
 </body>

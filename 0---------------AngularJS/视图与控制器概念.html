@@ -7,15 +7,16 @@
 <body>
 
 <div ng-app="myApp" ng-controller="myCtrl">
-
-<h1>{{carname}}</h1>			<!-- 这一段叫做视图，视图引用控制器里面创建的变量 -->
-
+	<h1>{{carname}}</h1>			<!-- 这一段叫做视图，视图引用控制器里面创建的变量 -->
+	<h2>{{ age }}</h2>
 </div>
 
 <script>
+
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {		// 控制器，
-    $scope.carname = "Volvo";
+    $scope.carname = "Volvo";		// 定义一个属性
+    $scope.age = 30;
 });
 </script>
 
