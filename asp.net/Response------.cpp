@@ -107,7 +107,8 @@ Response.Redirect("Default.aspx");
 
 ----------------方法-----------------------------
 
-* void Redirect(string url, bool endResponse)	// 页面跳转, 会销毁当前的 HttpContext, 使用 HttpContext.Server.Transfer() 则不会
+* void Redirect(string url, bool endResponse)	// 页面跳转, 会销毁当前的 HttpContext, 
+// 使用 HttpContext.Server.Transfer() 则不会
 /*
 * url: 跳转的页面文件路径
 * endResponse:	可选，是否终止当前页面
@@ -115,32 +116,118 @@ Response.Redirect("Default.aspx");
 * 地址栏的 uri 会改变,页面刷型, 而 Server.Transfer 地址栏不会比变化, 貌似页面不会刷新!?
 */
 
-// 将内容输出到页面
-* void Write(char[], int, int )
-* void Write(string)
-* void Write(object)
-* void Write(char)
+public static void RemoveOutputCacheItem(string path, string providerName);
+public static void RemoveOutputCacheItem(string path);
+public void AddCacheDependency(params CacheDependency[] dependencies);
+public void AddCacheItemDependencies(ArrayList cacheKeys);
+public void AddCacheItemDependencies(string[] cacheKeys);
+public void AddCacheItemDependency(string cacheKey);
+public void AddFileDependencies(ArrayList filenames);
+public void AddFileDependencies(string[] filenames);
+public void AddFileDependency(string filename);
 
-* void WriteFile(string filename)
-* void WriteFile(string filename, long offset, long size)
-* void WriteFile(IntPtr fileHandle, long offset, long size);
-* void WriteFile(string filaname, bool readIntoMemory);
+public void AddHeader(string name, string value);
+{
+文件下载，指定默认名
+// Response.AddHeader(”content-type”,”application/x-msdownload”);
+// Response.AddHeader(”Content-Disposition”,”attachment;filename=要下载的文件名.rar”);
 
-* BinaryWrite	// 将一个二进制字符串写入 HTTP 输出流
+刷新页面
+// Response.AddHeader “REFRESH”, ”60;URL=newpath/newpage.asp”
+这等同于客户机端元素：
+// <META HTTP-EQUIV=”REFRESH”, “60;URL=newpath/newpage.asp”
 
-* Clear	// 清除缓冲区流中的所有内容输出
+页面转向
+// Response.Status = “302 Object Moved”
+// Response.Addheader “Location”, “newpath/newpage.asp”
+这等同于使用Response.Redirect方法：
+// Response.Redirect “newpath/newpage.asp”
 
-* ClearContent	// 清除缓冲区流中的所有内容输出
+强制浏览器显示一个用户名/口令对话框
+// Response.Status= “401 Unauthorized”
+// Response.Addheader “WWW-Authenticate”, “BASIC”
 
-* ClearHeaders	//清除缓冲区流中的所有头信息
+强制浏览器显示一个用户名/口令对话框，然后使用BASIC验证把它们发送回服务器（将在本书后续部分看到验证方法）。
+如何让网页不缓冲
+// Response.Expires = 0
+// Response.ExpiresAbsolute = Now() - 1
+// Response.Addheader “pragma”,”no-cache”
+// Response.Addheader “cache-control”,”private”
+// Response.CacheControl = “no-cache
 
-* Close	// 关闭客户端的套接字连接
+应用实例：文件下载
+做下载中文显示乱码怎么办
+在网站上文件下载都是直接点击文件联接就行了，这种方法有几个弊端:
+1. 有些文件不会下载会直接调用相应的程序打开该文件
+2. 不能隐藏实际文件地址。
+3. 不能够从数据库中动态读取文件名进行改名下载
+下面是asp.net,c#代码:
+string fileName;//文件在数据库中的名称
+string dir ;//文件在服务器的物理路径(如c:\aa\ddd\wj0000222.zdo)
+long size ;//文件的大小
+Response.AddHeader(”content-type”, “application/x-msdownload;”);
+Response.AddHeader(”Content-Disposition”,”attachment;filename=”+fileName[自己定义的]);
+Response.AddHeader(”content-length”, size.ToString());
+Response.WriteFile(dir,0,size);
 
-* End	// 将当前所有缓冲的输出发送到客户端。停止该页的执行，并引发 Applicaiton_EndRequest 事件
+这种方法可以实现以上的目的，但是当文件名（fileName）为中文时在ie下载端显示的是乱码，有谁知道怎么解决。
+我来做个总结吧 
+其实楼上的方法是可行的，但有局限性 
 
-* Flush	// 向客户端发送当前所有缓冲的输出，Flush 方法和 End 方法都可以将缓冲
+关键在于UrlEncode这个东东，在下面不同情况下的结果是不一样的 
+1。web.config 里responseEncoding=”gb2312″ 
+2。web.config 里responseEncoding=”utf-8″ 
+使用Server.UrlEncode的话必须responseEncoding=”utf-8″才会正确 
+
+所以不要用Server.UrlEncode，换HttpUtility.UrlEncode 
+string s=HttpUtility.UrlEncode(System.Text.UTF8Encoding.UTF8.GetBytes(”中文.txt”)); 
+Response.AppendHeader(”Content-Disposition”, “attachment; filename=” + s);
+}
+
+public void AppendCookie(HttpCookie cookie);
+public void AppendHeader(string name, string value);
+public void AppendToLog(string param);
+public string ApplyAppPathModifier(string virtualPath);
+public IAsyncResult BeginFlush(AsyncCallback callback, object state);
+public void BinaryWrite(byte[] buffer);	// 将一个二进制字符串写入 HTTP 输出流
+public void Clear();	// 清除缓冲区流中的所有内容输出
+public void ClearContent();	// 清除缓冲区流中的所有内容输出
+public void ClearHeaders();	//清除缓冲区流中的所有头信息
+public void Close();	// 关闭客户端的套接字连接
+public void DisableKernelCache();
+public void DisableUserCache();
+public void End();	// 将当前所有缓冲的输出发送到客户端。停止该页的执行，并引发 Applicaiton_EndRequest 事件
+public void EndFlush(IAsyncResult asyncResult);
+public void Flush();	// 向客户端发送当前所有缓冲的输出，Flush 方法和 End 方法都可以将缓冲
 		// 的内容发送到客户端，但是 Flush 与 End 不同之处在于，Flush 不停止页面的执行。
 		
+public void Pics(string value);
+public void Redirect(string url, bool endResponse);
+public void Redirect(string url);
+public void RedirectPermanent(string url, bool endResponse);
+public void RedirectPermanent(string url);
+public void RedirectToRoute(string routeName);
+public void RedirectToRoute(RouteValueDictionary routeValues);
+public void RedirectToRoute(string routeName, object routeValues);
+public void RedirectToRoute(string routeName, RouteValueDictionary routeValues);
+public void RedirectToRoute(object routeValues);
+public void RedirectToRoutePermanent(object routeValues);
+public void RedirectToRoutePermanent(string routeName);
+public void RedirectToRoutePermanent(RouteValueDictionary routeValues);
+public void RedirectToRoutePermanent(string routeName, object routeValues);
+public void RedirectToRoutePermanent(string routeName, RouteValueDictionary routeValues);
+public void SetCookie(HttpCookie cookie);
+public void TransmitFile(string filename, long offset, long length);
+public void TransmitFile(string filename);
+public void Write(object obj);
+public void Write(char[] buffer, int index, int count);
+public void Write(char ch);
+public void Write(string s);
+public void WriteFile(string filename);
+public void WriteFile(string filename, bool readIntoMemory);
+public void WriteFile(string filename, long offset, long size);
+public void WriteFile(IntPtr fileHandle, long offset, long size);
+public void WriteSubstitution(HttpResponseSubstitutionCallback callback);
 
 
 
