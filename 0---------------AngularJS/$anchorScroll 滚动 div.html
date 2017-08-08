@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="app" >
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+
+<style>
+#scrollArea {
+  height: 280px;
+  overflow: auto;
+}
+
+#bottom {
+  display: block;
+  margin-top: 2000px;
+}
+</style>
+</head>
+<body>
+
+<div id="scrollArea" ng-controller="controller">
+	<a ng-click="gotoBottom()">Go to bottom</a>
+	<a id="bottom"></a> You're at the bottom!
+</div>
+
+<script>
+	angular.module('app', [])
+		.controller('controller', ['$scope', '$location', '$anchorScroll',
+			function ($scope, $location, $anchorScroll) {
+				$scope.gotoBottom = function() {
+					$location.hash('bottom');
+					$anchorScroll();			// 调用该函数会检测 hash() 函数内设置的 id，并且滚动到那个元素
+				};
+	}]);
+</script>
+</body>
+</html>
+ 

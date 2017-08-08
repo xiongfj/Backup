@@ -1,0 +1,23 @@
+1、引用jQuery的前提下，和$用法基本相同：angular.element('#').html()
+
+例如：
+
+?
+1
+angular.element('#test').html()
+ 
+
+2、 不引入jQuery。
+
+1、
+angular.element(document.querySelector(''));
+
+2、
+angular.element(document).find('xx').addClass('yy')
+
+3、
+ var par = document.getElementsByTagName('p')[0];
+ angular.element(par).addClass('blue');
+ 
+4、
+angular.element('<div id="test">1111</div>').html()

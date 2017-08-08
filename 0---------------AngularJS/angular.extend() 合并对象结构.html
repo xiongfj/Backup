@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-app="app" ng-controller="controller">
+
+<script>
+var dst = {name: 'xxx', country: 'China'};
+var src = {name: 'yyy', age: 10};
+
+angular.extend(dst, src);		// 'xxx' 被 'yyy' 覆盖。貌似参数只能是对象。
+
+alert(dst.name + " - " + dst.age + " - " + dst.country);	// dst 增加了 age。。
+</script>
+
+</div>
+</body>
+</html>
+ 

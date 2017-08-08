@@ -1,0 +1,70 @@
+<!DOCTYPE html>  
+<html ng-app="copyApp">  
+<head>  
+    <meta charset="UTF-8">  
+    <title></title>  
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>  
+    <script>  
+	/*
+	AngularJS中的angular.equals()方法用于比较两个对象、值或表达式是否相等。AngularJs文档中对equals方法比较的原则是这样描述的：
+
+（1）比较的两个对象或值能够通过 === 表达式。===要求两个值不仅值相同，类型也要相同，也就是说，1 === “1”是不成立
+的。
+
+（2）比较的两个对象或值是相同类型的，而且它们所有的属性通过angular.equals()方法判断都是相等的。
+
+（3）两个值都为（NaN）。（在JavaScript中认为NaN == NaN是false）
+
+（4）两个值代表字面上相等的表达式，如两个正则表达式：/abc/与/abc/是相等的。
+*/
+      var copyApp = angular.module("copyApp", [])  
+              .controller("copyController", function($scope)  
+              {  
+                  $scope.dup = {};  
+                  $scope.same=false;  
+  
+                  $scope.user =  
+                  {  
+                      name:"",  
+                      password:"",  
+                      friends:["zhangSan", "liSi"]  
+                  }  
+  
+                  $scope.save = function(aUser)  
+                  {  
+                    angular.copy(aUser, $scope.dup);  	// aUser 拷贝进 dup
+                  }  
+  
+                  $scope.modify = function(aUser)  
+                  {  
+                      aUser.name += "_newly";  
+                      aUser.friends.push("wangWu");  
+                  }  
+  
+                  $scope.compare = function()  
+                  {  
+                     $scope.same = angular.equals($scope.user, $scope.dup);  
+                  }  
+              });  
+    </script>  
+</head>  
+<body>  
+  
+<div ng-controller="copyController">  
+    <form>  
+        username:<input type="text" ng-model="user.name"/>  
+        password:<input type="text" ng-model="user.password"/>  
+    </form>  
+    <button ng-click="save(user)">保存</button>  
+    <button ng-click="modify(user)">修改</button>  
+  
+    <hr/>  
+  
+    原值：<pre>{{user}}</pre>  
+    副本：<pre>{{dup}}</pre>  
+  
+    <button ng-click="compare()">比较</button>  
+    是否相同？{{same}}  
+</div>  
+</body>  
+</html>  

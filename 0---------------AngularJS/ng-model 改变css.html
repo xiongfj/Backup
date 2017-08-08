@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+<style>
+input.ng-invalid {
+    background-color: lightblue;
+}
+</style>
+</head>
+<body>
+
+<form ng-app="" name="myForm">
+    输入你的名字:
+    <input name="myName" ng-model="myText" required>		<!-- 1、3的 input数据会同步1 -->
+    <input name="myName" ng-model="myText2" required>	<!-- 如果没有数据或只有空格，会激发 ng-invalid css 属性 -->
+    <input name="myName" ng-model="myText" required>
+</form>
+
+<p>编辑文本域，不同状态背景颜色会发送变化。</p>
+<p>文本域添加了 required 属性，该值是必须的，如果为空则是不合法的。</p>
+
+</body>
+</html>
+
+<!-- 其它 css 属性
+ng-empty
+ng-not-empty
+ng-touched
+ng-untouched
+ng-valid
+ng-invalid
+ng-dirty
+ng-pending
+ng-pristine
+ -->

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+	// 创建moudle1
+    var rootMoudle = angular.module('moudle1', []);
+    rootMoudle.controller("controller1",function($scope){$scope.name="aty"});
+    
+    // 创建moudle2
+    var m2 = angular.module('moudle2', []);
+    m2.controller("controller2",function($scope){$scope.name="aty......"});
+    
+    // 页面加载完成后,再加载模块
+    angular.element(document).ready(function() {
+      angular.bootstrap(document.getElementById("div1"),["moudle1"]);	// 同一个模块只能被加载一次，不然会异常.
+      angular.bootstrap(document.getElementById("div2"),["moudle2"]);
+    });
+	</script>
+</head> 
+<body>
+    <div id="div1"  ng-controller="controller1">div1:{{name}}</div>
+    <div id="div2"  ng-controller="controller2">div2:{{name}}</div>
+  </body>
+</html>
+
+<!-- 每个模块之间是独立的，可以看成是两个不同的作用域。在里面定义各自的变量 -->
+
+ 

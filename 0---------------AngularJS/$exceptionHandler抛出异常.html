@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-app="app" ng-controller="controller">
+
+</div>
+
+<script>
+angular.module('app', []).factory('$exceptionHandler', function() {
+  return function(exception, cause) {
+    exception.message += ' (caused by "' + cause + '")';
+    throw exception;
+  };
+});
+</script>
+</body>
+</html>
+ 

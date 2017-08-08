@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="exampleApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="jquery-1.7.2.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.2.8/angular.min.js"></script>
+	<script>
+			
+	var exampleApp = angular.module('exampleApp',[]);
+			
+	exampleApp.controller('exampleController',['$scope', function($scope){		
+		
+		$scope.name = "boyi";
+		
+		$scope.inject = function(){
+			var $injector = angular.injector(['ng']);
+			
+			$injector.invoke(function($http) {
+				var scopes = angular.element(document.body).scope();
+				scopes.name = "博弈网络";//这里可以同http请求获得数据
+			
+			});
+			
+		};
+		
+	}]);
+	/*
+	创建一个injector对象, 调用injector对象的方法可以获得angular的service, 或者用来做依赖注入.
+	*/
+	
+</script>
+</head>
+
+<body ng-controller='exampleController'>
+<div id="test">博弈网络科技</div>
+<div>{{name}}</div>
+<div><input type="button" ng-click="inject()" value="injector"/></div>
+
+<hr>
+
+</body>	
+</html>

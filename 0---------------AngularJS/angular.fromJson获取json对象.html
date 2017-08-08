@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html ng-app="exampleApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="http://apps.bdimg.com/libs/angular.js/1.2.8/angular.min.js"></script>
+	<script>
+	/* angular.fromJson(string json);
+	返回类型
+		Object
+		Array
+		string
+		number
+	*/
+	var exampleApp = angular.module('exampleApp',[]);
+	
+	exampleApp.controller('ShowController',['$scope', function($scope){
+		
+		$scope.fromJson = function() {
+			var strUser = "{\"firstName\":\"fox\",\"lastName\":\"zhang\"}";
+			var objUser = angular.fromJson(strUser);
+			$scope.result = objUser.firstName;		// fox
+			
+			// 返回数组
+			var json = "{\"records\":[{\"name\":\"Jimi\"}, {\"name\":\"Jack\"} ]}";
+			var array = angular.fromJson(json);
+			$scope.array = array.records[1].name;		// Jack
+		}
+		
+	}]);
+
+	</script>
+</head>
+
+<body>
+<div id="test">博弈网络科技</div>
+
+	<div>
+		<div>
+		angular.fromJson("{\"firstName\":\"fox\",\"lastName\":\"zhang\"}")
+		</div>
+		
+		<div id="myCtrl" ng-controller="ShowController">
+			<p>{{result}}</p>
+			<b>{{array}}</p>
+			<input type="button" id="btnToJson" ng-click="fromJson()" value="objUser.firstName" />
+		 </div> 
+		
+	</div>
+<hr>
+
+
+
+</body>	
+</html>

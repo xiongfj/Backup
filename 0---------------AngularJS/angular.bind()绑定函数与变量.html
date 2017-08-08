@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<script src="http://apps.bdimg.com/libs/angular.js/1.2.8/angular.min.js"></script> 
+</head>
+<body>
+ 
+	<script>
+		var obj = {name:'xiong'};
+		var func = function( age ){
+			alert( this.name + ' ---- ' + age);		// this 代表 obj
+		}
+		
+		var f = angular.bind(obj, func, '123');		// 将 obj 绑定到函数内部的 this。在 func 里面就可以使用this代替 obj 了
+		f();
+		f('abc');	// 依然显示 123，不会覆盖绑定时指定的那个参数。
+		
+		var m = angular.bind(obj, func );
+		m(23);			// 没有指定第三个参数，此时可以传参。
+		 
+	</script>
+ 
+</body>
+</html>
+ 
