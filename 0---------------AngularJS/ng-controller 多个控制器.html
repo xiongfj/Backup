@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ><!-- 定义 num 变量 -->
+	<div ng-controller="myCtrl">
+	{{count}}
+	</div>
+	
+	<div ng-controller="ctrl">
+	{{name}}
+	
+	<p>无法获取另外一个 $scope 的数据 {{count}}</p>
+	</div>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.count = 0;		// 定义变量
+});
+
+app.controller('ctrl', function($scope) {
+    $scope.name = "hello woel";		// 定义变量
+});
+</script>
+
+</body>
+</html>

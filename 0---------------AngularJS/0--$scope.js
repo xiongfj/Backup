@@ -1,5 +1,6 @@
 
-
+// scope 相当于视图的代表
+// controller 用 $scope 操作视图,创建视图的属性函数之类的
 
 
 <!DOCTYPE html>

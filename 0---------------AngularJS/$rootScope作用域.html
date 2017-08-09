@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ><!-- 定义 num 变量 -->
+-------------myCtrl controller:<br/>
+	<div ng-controller="myCtrl">
+	{{count}}
+	</div>
+	
+	<div ng-controller="ctrl">-------------ctrl controller:<br/>
+	{{name}}
+	
+	<p>{{rootValue}} (我在 myCtrl 内定义的 $rootScope 数据)</p>
+	</div>
+</div>
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $rootScope) {
+    $scope.count = 0;		// 定义变量
+	$rootScope.rootValue="root-string";
+});
+
+app.controller('ctrl', function($scope, $rootScope) {
+    $scope.name = "hello woel";		// 定义变量
+});
+</script>
+
+</body>
+</html>
