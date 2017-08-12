@@ -1,0 +1,69 @@
+﻿using System;
+using System.Diagnostics.Contracts;
+
+namespace Wrox.ProCSharp.Collections
+{
+    [Serializable]
+    public class EmployeeIdException : Exception
+    {
+        public EmployeeIdException(string message) : base(message) { }
+    }
+
+    [Serializable]
+    public struct EmployeeId : IEquatable<EmployeeId>
+    {
+        private readonly char prefix;
+        private readonly int number;
+
+        public EmployeeId(string id)
+        {
+           // Contract.Requires<ArgumentNullException>(id == null);
+
+            prefix = (id.ToUpper())[0];
+            int numLength = id.Length - 1;
+            try
+            {
+                number = int.Parse(id.Substring(1, numLength > 6 ? 6 : numLength));
+            }
+            catch (FormatException)
+            {
+                throw new EmployeeIdException("Invalid EmployeeId format");
+            }
+        }
+
+        public override string ToString()
+        {
+            return prefix.ToString() + string.Format("{0,6:000000}", number);
+        }
+
+        // 必须实现, 返回一定范围内的随机数, 不同 value 最好不相同
+        public override int GetHashCode()
+        {
+            return (number ^ number << 16) * 0x15051505;
+        }
+
+        // 实现接口的函数
+        public bool Equals(EmployeeId other)
+        {
+            if (other == null) return false;
+
+            return (prefix == other.prefix && number == other.number);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals((EmployeeId)obj);
+        }
+
+        public static bool operator ==(EmployeeId left, EmployeeId right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(EmployeeId left, EmployeeId right)
+        {
+            return !(left == right);
+        }
+    }
+
+}
