@@ -82,7 +82,7 @@ namespace AspNetIdentity2Permission.Mvc.Models
         /// <summary>
         /// 功能描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } // 用Action上面的[Description("...")] 赋值
         /// <summary>
         /// 角色列表
         /// </summary>
@@ -165,7 +165,6 @@ namespace AspNetIdentity2Permission.Mvc.Models
         // 数据库创建的时候会调用这个函数?!
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             if (modelBuilder == null)
             {
                 throw new ArgumentNullException("modelBuilder");
@@ -204,6 +203,8 @@ namespace AspNetIdentity2Permission.Mvc.Models
             return new ApplicationDbContext();
         }
 
+        // 这些集合时刻与数据库保持同步!!
+        // 覆盖基类的 Roles, 因为 ApplicationRole 内添加了自定义的属性等..
         public new IDbSet<ApplicationRole> Roles { get; set; }
         public virtual IDbSet<ApplicationPermission> Permissions { get; set; }
         public virtual DbSet<Department> Departments { get; set; }

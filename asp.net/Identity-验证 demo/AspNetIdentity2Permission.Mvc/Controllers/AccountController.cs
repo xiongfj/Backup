@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -42,7 +43,7 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
         {
             get
             {
-                // 获取 Startup.Auth.cs pp.CreatePerOwinContext() 存储的 ApplicationRoleManager
+                // 获取 Startup.Auth.cs pp.CreatePerOwinContext() 存储的 ApplicationUserManager
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
@@ -54,10 +55,10 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
 
         //
         // GET: /Account/Login
-        [AllowAnonymous]
+        [AllowAnonymous]    // 允许所有用户访问
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = returnUrl;      // Url 是之前用户浏览的页面, 用于登录后跳转回
             return View();
         }
 
@@ -90,7 +91,59 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
                     return View(model);
             }
         }
+        /*
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult GoogleLogin(string returnUrl)
+        {
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleLoginCallback",
+                new { returnUrl = returnUrl })
+            };
+            HttpContext.GetOwinContext().Authentication.Challenge(properties, "Google");
+            return new HttpUnauthorizedResult();
+        }
 
+        [AllowAnonymous]
+        public async Task<ActionResult> GoogleLoginCallback(string returnUrl)
+        {
+            IAuthenticationManager AuthManager = HttpContext.GetOwinContext().Authentication;
+            ExternalLoginInfo loginInfo = await AuthManager.GetExternalLoginInfoAsync();
+            ApplicationUser user = await UserManager.FindAsync(loginInfo.Login);
+            if (user == null)
+            {
+                user = new ApplicationUser
+                {
+                    Email = loginInfo.Email,
+                    UserName = loginInfo.DefaultUserName
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return View("Error", result.Errors);
+                }
+                result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                if (!result.Succeeded)
+                {
+                    return View("Error", result.Errors);
+                }
+            }
+
+            // 定义申明
+            ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            // 添加信息到申明
+            ident.AddClaims(loginInfo.ExternalIdentity.Claims);
+            // 登录并附带申明给用户
+            AuthManager.SignIn(new AuthenticationProperties
+            {
+                IsPersistent = false
+            }, ident);
+            return Redirect(returnUrl ?? "/");
+        }
+        */
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

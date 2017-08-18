@@ -1,0 +1,11 @@
+sealed class Singleton
+{
+    private Singleton() { }
+    public static readonly Singleton Instance = new Singleton();
+
+    // 静态构造函数可是修改 readonly 的属性!!
+    static Singleton()
+    {
+
+    }
+}

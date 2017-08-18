@@ -9,12 +9,13 @@ using AutoMapper;
 using System.Collections.Generic;
 using AspNetIdentity2Permission.Mvc.Controllers;
 
+/*
+ * 获取 ApplicationDbContext 成员 Departments 对部门进行增\删\改\详\列表
+ */
 namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
 {
     public class DepartmentController : BaseController
     {
-
-        // GET: /Department/
         [Description("部门列表")]
         public async Task<ActionResult> Index(int index = 1)
         {
@@ -26,7 +27,6 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
             return View(views.ToPagedList(index, 10));
         }
 
-        // GET: /Department/Details/5
         [Description("部门详情")]
         public async Task<ActionResult> Details(int? id)
         {

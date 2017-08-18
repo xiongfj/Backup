@@ -12,6 +12,11 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Webdiyer.WebControls.Mvc;
 
+/*
+ * 一条权限记录就是: ID; controller; action; description
+ * 分数据中存在的权限 和 代码中所有的 controller-action(在 Services/ActionPermissionService.cs 内获取了程序所有权限)
+ */
+
 namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
 {
     public class PermissionsAdminController : BaseController
@@ -69,6 +74,8 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
 
             //取两者差集
             var permissions = allPermissions.Except(dbPermissions, new ApplicationPermissionEqualityComparer());
+
+            // 映射每一个 AppicationPermission 成 PermissionViewModel
             permissions.Each(t =>
             {
                 var view = Mapper.Map<PermissionViewModel>(t);
@@ -82,6 +89,7 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
         [Description("新建权限，保存")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // 根据用户选择的权限添加进数据库
         public async Task<ActionResult> Create(IEnumerable<PermissionViewModel> data)
         {
             if (data == null)

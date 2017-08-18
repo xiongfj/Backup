@@ -78,8 +78,13 @@ namespace AspNetIdentity2Permission.Mvc
 
     }
 
-    /*数据库模型改变的时候更新数据库结构*/
-    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    /*数据库模型改变的时候更新数据库结构
+     一：数据库不存在时重新创建数据库   Database.SetInitializer<testContext>(new CreateDatabaseIfNotExists<testContext>());
+    二：每次启动应用程序时创建数据库    Database.SetInitializer<testContext>(new DropCreateDatabaseAlways<testContext>());
+    三：模型更改时重新创建数据库  Database.SetInitializer<testContext>(new DropCreateDatabaseIfModelChanges<testContext>());
+    四：从不创建数据库   Database.SetInitializer<testContext>(null);
+    */
+    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -90,8 +95,14 @@ namespace AspNetIdentity2Permission.Mvc
         //创建用户名为admin@123.com，密码为“Admin@123456”并把该用户添加到角色组"Admin"中
         public static void InitializeIdentityForEF(ApplicationDbContext db)
         {
+            // 或者
+            /*
+            ApplicationUserManager userMgr = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+            ApplicationRoleManager roleMgr = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
+            */
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
+
             const string name1 = "Admin";//用户名
             const string email1 = "admin@123.com";//邮箱
             const string password1 = "Admin@123456";//密码
@@ -114,6 +125,7 @@ namespace AspNetIdentity2Permission.Mvc
             }
 
             var role2 = roleManager.FindByName(roleName2);
+            role2.Users.Select(x => x.UserId);
             if (role2 == null)
             {
                 role2 = new ApplicationRole() { Name = roleName2, Description = roleName2 };
@@ -200,7 +212,10 @@ namespace AspNetIdentity2Permission.Mvc
         }
     }
 
-    // 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
+    /* 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
+    *
+    * 继承该类是为了对 ApplicationUser 管理; 创建,查找,修改等..
+     */
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -209,28 +224,52 @@ namespace AspNetIdentity2Permission.Mvc
         }
 
         /*
-         * 创建一个 ApplicationUser 管理对象 Manager
+         * 创建一个 ApplicationUser 的管理对象 Manager
          * 传递一个 数据库上下文进去, ApplicationDbContext
          * **/
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            
             // 配置用户名的验证逻辑
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                AllowOnlyAlphanumericUserNames = false,     // true->只能包含字母数字
+                RequireUniqueEmail = true       // true-> email 地址必须唯一
             };
 
             // 配置密码的验证逻辑
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = 6,                 // 密码长度
+                RequireNonLetterOrDigit = true,     // true-必须包含一个字符, 不能是数字或字母
+                RequireDigit = true,            // true-必须包含数字
+                RequireLowercase = true,        // 必须包含小写字符
+                RequireUppercase = true,        //.. 
             };
+            /* 可以自定义密码验证
+            public class CustomPasswordValidator : PasswordValidator
+            {
+                public override async Task<IdentityResult> ValidateAsync(string password)   // 必须重写
+                {
+                    IdentityResult result = await base.ValidateAsync(password);
+                    if (password.Contains("12345"))
+                    {
+                        List<string> errors = result.Errors.ToList();
+                        errors.Add("密码不能包含连续数字");
+                        result = new IdentityResult(errors);
+                    }
+                    return result;
+                }
+            }
+            manager.PasswordValidator = new CustomPasswordValidator{
+                RequiredLength = 6,                 // 密码长度
+                RequireNonLetterOrDigit = true,     // true-必须包含一个字符, 不能是数字或字母
+                RequireDigit = true,            // true-必须包含数字
+                RequireLowercase = true,        // 必须包含小写字符
+                RequireUppercase = true,        //.. 
+            }
+            */
 
             // 配置用户锁定默认值
             manager.UserLockoutEnabledByDefault = true;

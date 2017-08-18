@@ -52,19 +52,20 @@ namespace AspNetIdentity2Permission.Mvc.Services
             }
             return result;
         }
-        /// <summary>
-        /// 使用Descriptor,取程序集中所有Action的元数据
-        /// </summary>
-        /// <returns></returns>
+
+        /*
+         * 获取BaseController 子类所有的 controller.Name 和 Action.Name
+         */
         public static IEnumerable<ApplicationPermission> GetAllActionByAssembly()
         {
             var result = new List<ApplicationPermission>();
-            //取程序集中的全部类型
+
+            // 获取命名空间下所有的类型
             var types = Assembly.Load("AspNetIdentity2Permission.Mvc").GetTypes();
             //取控制器
             foreach (var type in types)
             {
-                if (type.BaseType == typeof(BaseController))//如果是BaseController                
+                if (type.BaseType == typeof(BaseController))//如果是 BaseController 的子类           
                 {
                     //反射控制器
                     var controller = new ReflectedControllerDescriptor(type);

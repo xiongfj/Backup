@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Webdiyer.WebControls.Mvc;
@@ -26,6 +27,7 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
         [Description("角色列表")]
         public ActionResult Index(int index = 1)
         {
+            ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
             var roles = _roleManager.Roles;
             var views = new List<RoleViewModel>();
             foreach (var role in roles)

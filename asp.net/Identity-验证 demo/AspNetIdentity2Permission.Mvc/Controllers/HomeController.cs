@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Claims;
+using System.Web.Mvc;
 
 namespace AspNetIdentity2Permission.Mvc.Controllers
 {
@@ -7,7 +8,17 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
+           // System.Security.Claims.ClaimTypes sd;
+            if (claimsIdentity == null)
+            {
+                return View("Error", new string[] { "未找到声明" });
+            }
+            else
+            {
+                var v = claimsIdentity.Claims;
+                return View(v);
+            }
         }
 
         public ActionResult About()

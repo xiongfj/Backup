@@ -17,6 +17,7 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
     {
         // GET: RolePermissions
         [Description("角色-权限列表")]
+        // 显示某个角色拥有的所有权限
         public ActionResult Index(string roleId, int index = 1)
         {
             //取role列表
@@ -48,6 +49,7 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
 
         // GET: RolePermissions/Details/5
         [Description("角色-权限详情")]
+        // 显示某条权限信息
         public async Task<ActionResult> Details(string roleId, string permissionId)
         {
             if (string.IsNullOrWhiteSpace(roleId) || string.IsNullOrWhiteSpace(permissionId))
@@ -83,7 +85,8 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers
 
             //取角色权限ID
             var rolePermissions = _roleManager.GetRolePermissions(roleId);
-            //取全部权限与角色权限的差集
+
+            //取数据库中的权限与角色权限的差集
             var allPermission = _db.Permissions.ToList();
             var permissions = allPermission.Except(rolePermissions, new ApplicationPermissionEqualityComparer());
             //创建ViewModel

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 
@@ -24,8 +25,8 @@ public partial class Startup
             // 配置登录 Cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie, // 使用cookie验证
+                LoginPath = new PathString("/Account/Login"),       // 验证失败跳转的 url
                 Provider = new CookieAuthenticationProvider
                 {
                     // 当用户登录时使应用程序可以验证安全戳。
@@ -58,11 +59,12 @@ public partial class Startup
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            // google 第三方登录
+            /*app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+               ClientId = "165066370005-6nhsp87llelff3tou91hhktg6eqgr0ke.apps.googleusercontent.com",
+               ClientSecret = "euWbCSUZujjQGKMqOyz0msbq"
+            });*/
         }
     }
 }
