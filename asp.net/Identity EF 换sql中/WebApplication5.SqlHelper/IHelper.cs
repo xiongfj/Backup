@@ -26,6 +26,8 @@ namespace WebApplication5.SqlHelper
         public abstract void BeginTransaction();
         public abstract void RollBack();
         public abstract void Commit();
+
+        //public abstract IList<WebApplication5.IModel.IModel> ExecuteTable_List(string sql);
         public abstract System.Data.DataTable ExecuteTable(string sql);
         public abstract System.Data.DataTable ExecuteTable(string sql, DbParameter param);
         public abstract System.Data.DataTable ExecuteTable(string sql, DbParameter[] list);

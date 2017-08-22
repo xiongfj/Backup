@@ -1,0 +1,31 @@
+﻿
+@model List<mvcIdentity.Areas.SuperAdmin.Model.DepartmentViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div> 
+    <table>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+    }
+    </table>
+</div>

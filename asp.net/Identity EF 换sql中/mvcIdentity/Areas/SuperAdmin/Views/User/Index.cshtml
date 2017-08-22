@@ -1,0 +1,37 @@
+﻿
+@model List<mvcIdentity.Areas.SuperAdmin.Model.UserViewModel>
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<div>
+    <table>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                角色
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                </td>
+            </tr>
+        }
+    </table>
+</div>

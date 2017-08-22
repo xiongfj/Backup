@@ -167,7 +167,7 @@ namespace WebApplication5.SqlHelper
         }
         #endregion
 
-        #region ExecuteTable（执行查询）
+        #region ExecuteTable（执行查询
         /// <summary>
         /// 执行查询
         /// </summary>
@@ -185,8 +185,8 @@ namespace WebApplication5.SqlHelper
             }
             catch (SqlException e)
             {
-                result = null;
-                throw e;
+                //result = null;
+                //throw e;
             }
             finally
             {

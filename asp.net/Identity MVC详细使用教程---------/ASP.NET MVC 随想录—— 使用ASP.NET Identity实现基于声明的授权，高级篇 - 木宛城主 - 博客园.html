@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/analytics.js.下载"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASP.NET MVC 随想录——  使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/bundle-LessIsMoreRight.css">
+<link type="text/css" rel="stylesheet" href="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/88841.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/bundle-LessIsMoreRight-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/OceanEyes/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/OceanEyes/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/OceanEyes/wlwmanifest.xml">
+<script src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/jquery.js.下载" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'OceanEyes', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+</head>
+<body><link href="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/jiathis_share.css" rel="stylesheet" type="text/css"><div class="jiathis_style" style="height: auto; position: fixed; z-index: 100000000; top: 150px; right: 0px; overflow: hidden; width: 26px;"><table cellpadding="0" cellspacing="0"><tbody style="background:transparent"><tr><td style="background:transparent"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/r.gif" style="cursor:pointer;" onmouseover="$CKE.over()" onclick="$CKE.center(this)"></td><td><div><div class="jiadiv_01"><div style="width:100%;background:#F2F2F2;border-bottom:1px solid #E5E5E5;line-height:200%;padding-left:5px;font-size:12px"><table width="100%"><tbody><tr class="jt_sharetitle"><td align="left" style="text-align:left;line-height:25px;font-size:14px;font-weight:bold;color:#000000;">分享到...</td><td align="right" style="text-align:right;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/img_exit.gif" border="0" style="opacity:0.5;filter:alpha(opacity=50);margin:0 10px;cursor:pointer;" onclick="$CKE.shareClose();"></td></tr></tbody></table></div><div class="jiadiv_02" style="width:100%;" id="jiathis_sers"><a href="javascript:;" onclick="jiathis_sendto(&#39;weixin&#39;);return false;" class="jiatitle"><span class="jtico jtico_weixin">微信</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tsina&#39;);return false;" class="jiatitle"><span class="jtico jtico_tsina">微博</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;copy&#39;);return false;" class="jiatitle"><span class="jtico jtico_copy">复制网址</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;email&#39;);return false;" class="jiatitle"><span class="jtico jtico_email">邮件</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;cqq&#39;);return false;" class="jiatitle"><span class="jtico jtico_cqq">QQ好友</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;qzone&#39;);return false;" class="jiatitle"><span class="jtico jtico_qzone">QQ空间</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;renren&#39;);return false;" class="jiatitle"><span class="jtico jtico_renren">人人网</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;kaixin001&#39;);return false;" class="jiatitle"><span class="jtico jtico_kaixin001">开心网</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;evernote&#39;);return false;" class="jiatitle"><span class="jtico jtico_evernote">印象笔记</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;linkedin&#39;);return false;" class="jiatitle"><span class="jtico jtico_linkedin">领英</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;feixin&#39;);return false;" class="jiatitle"><span class="jtico jtico_feixin">飞信</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;douban&#39;);return false;" class="jiatitle"><span class="jtico jtico_douban">豆瓣</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;twitter&#39;);return false;" class="jiatitle"><span class="jtico jtico_twitter">Twitter</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;fb&#39;);return false;" class="jiatitle"><span class="jtico jtico_fb">Facebook</span></a><a href="javascript:;" onclick="jiathis_sendto(&#39;ishare&#39;);return false;" class="jiatitle"><span class="jtico jtico_ishare">一键分享</span></a><a href="javascript:;" onclick="$CKE.center(this);return false;" class="jiatitle"><span class="jtico jtico_jiathis">查看更多(96)</span></a><div style="clear:both"></div></div><div class="ckepopBottom" style="width:100%;"><div style="float:left;font-size:10px"><a href="http://www.jiathis.com/help/html/what-is-jiathis" class="link_01" style="color:#333333;display:none;" target="_blank">这是什么工具?</a></div><div style="float:right;font-size:11px;margin:0 5px 0 0;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/img_012.gif" align="absmiddle" border="0"><a href="http://www.jiathis.com/index2" style="color:#333333;padding:0 3px;" class="link_01" target="_blank">JiaThis</a></div><div style="clear:both"></div></div></div></div></td></tr></tbody></table></div><iframe frameborder="0" style="position: absolute; display: none;" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/saved_resource.html"></iframe><div class="jiathis_style" style="height: auto; position: absolute; z-index: 100000000; display: none; top: 50%; left: 50%; overflow: auto;"><div style="border:10px solid #7F7F7F; width:300px;"><div class="jiadiv_01" style="width:300px;"><div style="background:#F2F2F2;line-height:100%;height:30px;overflow:hidden;width:300px;"><table width="100%" style="margin:5px 0 0 0;"><tbody><tr class="jt_sharetitle" style="line-height:20px!important;"><td align="left" style="text-align:left;font-size:12px;">分享到各大网站</td><td align="right"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/img_exit.gif" border="0" style="margin:0 4px;cursor:pointer;" onclick="$CKE.centerClose();"></td></tr></tbody></table></div><div class="searchTxtCont"><div style="background:url(http://v2.jiathis.com/code/images/img_so.gif) no-repeat center;height:30px; width:281px"><form onsubmit="return false;"><input class="searchTxt" name="" type="text" onclick="this.value=&#39;&#39;;this.style.color=&#39;#000&#39;;" value="输入网站名或拼音缩写" onkeyup="$CKE.choose(this);"></form></div></div><div id="jiathis_sharelist" class="jiadiv_02" style="width:300px;height:300px;overflow-y:auto;"><a href="javascript:;" onclick="jiathis_sendto(&#39;weixin&#39;);return false;" class="jiatitle"><span class="jtico jtico_weixin">微信</span><input type="hidden" value="weixin,微信,wx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tsina&#39;);return false;" class="jiatitle"><span class="jtico jtico_tsina">微博</span><input type="hidden" value="tsina,微博,xlwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;cqq&#39;);return false;" class="jiatitle"><span class="jtico jtico_cqq">QQ好友</span><input type="hidden" value="cqq,QQ好友,cqq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;qzone&#39;);return false;" class="jiatitle"><span class="jtico jtico_qzone">QQ空间</span><input type="hidden" value="qzone,QQ空间,qqkj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;copy&#39;);return false;" class="jiatitle"><span class="jtico jtico_copy">复制网址</span><input type="hidden" value="copy,复制网址,fzwz"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;fav&#39;);return false;" class="jiatitle"><span class="jtico jtico_fav">收藏夹</span><input type="hidden" value="fav,收藏夹,scj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;print&#39;);return false;" class="jiatitle"><span class="jtico jtico_print">打印</span><input type="hidden" value="print,打印,dy"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;email&#39;);return false;" class="jiatitle"><span class="jtico jtico_email">邮件</span><input type="hidden" value="email,邮件,yj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;renren&#39;);return false;" class="jiatitle"><span class="jtico jtico_renren">人人网</span><input type="hidden" value="renren,人人网,rrw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;kaixin001&#39;);return false;" class="jiatitle"><span class="jtico jtico_kaixin001">开心网</span><input type="hidden" value="kaixin001,开心网,kxw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;evernote&#39;);return false;" class="jiatitle"><span class="jtico jtico_evernote">印象笔记</span><input type="hidden" value="evernote,印象笔记,evernote"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;linkedin&#39;);return false;" class="jiatitle"><span class="jtico jtico_linkedin">领英</span><input type="hidden" value="linkedin,领英,linkedin"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;feixin&#39;);return false;" class="jiatitle"><span class="jtico jtico_feixin">飞信</span><input type="hidden" value="feixin,飞信,fx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;douban&#39;);return false;" class="jiatitle"><span class="jtico jtico_douban">豆瓣</span><input type="hidden" value="douban,豆瓣,db"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;twitter&#39;);return false;" class="jiatitle"><span class="jtico jtico_twitter">Twitter</span><input type="hidden" value="twitter,Twitter,twitter"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;fb&#39;);return false;" class="jiatitle"><span class="jtico jtico_fb">Facebook</span><input type="hidden" value="fb,Facebook,facebook"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;ishare&#39;);return false;" class="jiatitle"><span class="jtico jtico_ishare">一键分享</span><input type="hidden" value="ishare,一键分享,yjfx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;ujian&#39;);return false;" class="jiatitle"><span class="jtico jtico_ujian">猜你喜欢</span><input type="hidden" value="ujian,猜你喜欢,cnxh"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;yixin&#39;);return false;" class="jiatitle"><span class="jtico jtico_yixin">易信</span><input type="hidden" value="yixin,易信,yx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;huaban&#39;);return false;" class="jiatitle"><span class="jtico jtico_huaban">花瓣网</span><input type="hidden" value="huaban,花瓣网,hbw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tqq&#39;);return false;" class="jiatitle"><span class="jtico jtico_tqq">腾讯微博</span><input type="hidden" value="tqq,腾讯微博,txwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;googleplus&#39;);return false;" class="jiatitle"><span class="jtico jtico_googleplus">Google+</span><input type="hidden" value="googleplus,Google+,googlej"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;alibaba&#39;);return false;" class="jiatitle"><span class="jtico jtico_alibaba">阿里巴巴</span><input type="hidden" value="alibaba,阿里巴巴,albb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;xiaoyou&#39;);return false;" class="jiatitle"><span class="jtico jtico_xiaoyou">朋友网</span><input type="hidden" value="xiaoyou,朋友网,pyw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;sdonote&#39;);return false;" class="jiatitle"><span class="jtico jtico_sdonote">麦库记事</span><input type="hidden" value="sdonote,麦库记事,mkjs"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;baidu&#39;);return false;" class="jiatitle"><span class="jtico jtico_baidu">百度搜藏</span><input type="hidden" value="baidu,百度搜藏,bdsc"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;gmail&#39;);return false;" class="jiatitle"><span class="jtico jtico_gmail">Gmail邮箱</span><input type="hidden" value="gmail,Gmail邮箱,gmailyx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;ydnote&#39;);return false;" class="jiatitle"><span class="jtico jtico_ydnote">有道云笔记</span><input type="hidden" value="ydnote,有道云笔记,ydybj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tianya&#39;);return false;" class="jiatitle"><span class="jtico jtico_tianya">天涯社区</span><input type="hidden" value="tianya,天涯社区,tysq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tieba&#39;);return false;" class="jiatitle"><span class="jtico jtico_tieba">百度贴吧</span><input type="hidden" value="tieba,百度贴吧,bdtb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;qingbiji&#39;);return false;" class="jiatitle"><span class="jtico jtico_qingbiji">轻笔记</span><input type="hidden" value="qingbiji,轻笔记,qbj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tifeng&#39;);return false;" class="jiatitle"><span class="jtico jtico_tifeng">凤凰微博</span><input type="hidden" value="tifeng,凤凰微博,fhwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;fanfou&#39;);return false;" class="jiatitle"><span class="jtico jtico_fanfou">饭否</span><input type="hidden" value="fanfou,饭否,ff"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;mingdao&#39;);return false;" class="jiatitle"><span class="jtico jtico_mingdao">明道</span><input type="hidden" value="mingdao,明道,md"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;douban9dian&#39;);return false;" class="jiatitle"><span class="jtico jtico_douban9dian">豆瓣9点</span><input type="hidden" value="douban9dian,豆瓣9点,db9d"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;google&#39;);return false;" class="jiatitle"><span class="jtico jtico_google">谷歌</span><input type="hidden" value="google,谷歌,gg"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;buzz&#39;);return false;" class="jiatitle"><span class="jtico jtico_buzz">谷歌Buzz</span><input type="hidden" value="buzz,谷歌Buzz,ggbuzz"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;youdao&#39;);return false;" class="jiatitle"><span class="jtico jtico_youdao">有道书签</span><input type="hidden" value="youdao,有道书签,ydsq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;qq&#39;);return false;" class="jiatitle"><span class="jtico jtico_qq">QQ书签</span><input type="hidden" value="qq,QQ书签,qqsq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;msn&#39;);return false;" class="jiatitle"><span class="jtico jtico_msn">MSN</span><input type="hidden" value="msn,MSN,msn"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;pinterest&#39;);return false;" class="jiatitle"><span class="jtico jtico_pinterest">Pinterest</span><input type="hidden" value="pinterest,Pinterest,pinterest"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;duitang&#39;);return false;" class="jiatitle"><span class="jtico jtico_duitang">堆糖</span><input type="hidden" value="duitang,堆糖,dt"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tyaolan&#39;);return false;" class="jiatitle"><span class="jtico jtico_tyaolan">摇篮微博</span><input type="hidden" value="tyaolan,摇篮微博,ylwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;hi&#39;);return false;" class="jiatitle"><span class="jtico jtico_hi">百度空间</span><input type="hidden" value="hi,百度空间,bdkj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;hotmail&#39;);return false;" class="jiatitle"><span class="jtico jtico_hotmail">Hotmail邮箱</span><input type="hidden" value="hotmail,Hotmail邮箱,hotmailyx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;xqw&#39;);return false;" class="jiatitle"><span class="jtico jtico_xqw">雪球</span><input type="hidden" value="xqw,雪球,xqw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;hexun&#39;);return false;" class="jiatitle"><span class="jtico jtico_hexun">和讯</span><input type="hidden" value="hexun,和讯,hx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;139mail&#39;);return false;" class="jiatitle"><span class="jtico jtico_139mail">139邮箱</span><input type="hidden" value="139mail,139邮箱,139yx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;189mail&#39;);return false;" class="jiatitle"><span class="jtico jtico_189mail">189邮箱</span><input type="hidden" value="189mail,189邮箱,189yx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;189cn&#39;);return false;" class="jiatitle"><span class="jtico jtico_189cn">翼友圈</span><input type="hidden" value="189cn,翼友圈,yyq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tpeople&#39;);return false;" class="jiatitle"><span class="jtico jtico_tpeople">人民微博</span><input type="hidden" value="tpeople,人民微博,rmwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;txinhua&#39;);return false;" class="jiatitle"><span class="jtico jtico_txinhua">新华微博</span><input type="hidden" value="txinhua,新华微博,xhwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;translate&#39;);return false;" class="jiatitle"><span class="jtico jtico_translate">谷歌翻译</span><input type="hidden" value="translate,谷歌翻译,ggfy"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tuita&#39;);return false;" class="jiatitle"><span class="jtico jtico_tuita">推他</span><input type="hidden" value="tuita,推他,tt"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;mop&#39;);return false;" class="jiatitle"><span class="jtico jtico_mop">猫扑推客</span><input type="hidden" value="mop,猫扑推客,mptk"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;meilishuo&#39;);return false;" class="jiatitle"><span class="jtico jtico_meilishuo">美丽说</span><input type="hidden" value="meilishuo,美丽说,mls"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;mogujie&#39;);return false;" class="jiatitle"><span class="jtico jtico_mogujie">蘑菇街</span><input type="hidden" value="mogujie,蘑菇街,mgj"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;ganniu&#39;);return false;" class="jiatitle"><span class="jtico jtico_ganniu">赶牛网</span><input type="hidden" value="ganniu,赶牛网,gnw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;poco&#39;);return false;" class="jiatitle"><span class="jtico jtico_poco">Poco网</span><input type="hidden" value="poco,Poco网,pocow"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;leihou&#39;);return false;" class="jiatitle"><span class="jtico jtico_leihou">雷猴网</span><input type="hidden" value="leihou,雷猴网,lhw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;thexun&#39;);return false;" class="jiatitle"><span class="jtico jtico_thexun">和讯微博</span><input type="hidden" value="thexun,和讯微博,hxwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;dream163&#39;);return false;" class="jiatitle"><span class="jtico jtico_dream163">游戏江湖</span><input type="hidden" value="dream163,游戏江湖,yxjh"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;jcrb&#39;);return false;" class="jiatitle"><span class="jtico jtico_jcrb">法律微博</span><input type="hidden" value="jcrb,法律微博,flwb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;tumblr&#39;);return false;" class="jiatitle"><span class="jtico jtico_tumblr">Tumblr</span><input type="hidden" value="tumblr,Tumblr,tumblr"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;reddit&#39;);return false;" class="jiatitle"><span class="jtico jtico_reddit">Reddit</span><input type="hidden" value="reddit,Reddit,reddit"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;instapaper&#39;);return false;" class="jiatitle"><span class="jtico jtico_instapaper">Instapaper</span><input type="hidden" value="instapaper,Instapaper,instapaper"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;pocket&#39;);return false;" class="jiatitle"><span class="jtico jtico_pocket">Pocket</span><input type="hidden" value="pocket,Pocket,pocket"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;caimi&#39;);return false;" class="jiatitle"><span class="jtico jtico_caimi">财迷</span><input type="hidden" value="caimi,财迷,cm"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;iwo&#39;);return false;" class="jiatitle"><span class="jtico jtico_iwo">WO+分享</span><input type="hidden" value="iwo,WO+分享,iwo"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;waakee&#39;);return false;" class="jiatitle"><span class="jtico jtico_waakee">挖客网</span><input type="hidden" value="waakee,挖客网,wkw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;cyzone&#39;);return false;" class="jiatitle"><span class="jtico jtico_cyzone">创业邦</span><input type="hidden" value="cyzone,创业邦,cyb"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;99earth&#39;);return false;" class="jiatitle"><span class="jtico jtico_99earth">救救地球</span><input type="hidden" value="99earth,救救地球,jjdq"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;chouti&#39;);return false;" class="jiatitle"><span class="jtico jtico_chouti">抽屉网</span><input type="hidden" value="chouti,抽屉网,ctw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;dig24&#39;);return false;" class="jiatitle"><span class="jtico jtico_dig24">递客网</span><input type="hidden" value="dig24,递客网,dkw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;yijee&#39;);return false;" class="jiatitle"><span class="jtico jtico_yijee">易集网</span><input type="hidden" value="yijee,易集网,yjw"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;pdfonline&#39;);return false;" class="jiatitle"><span class="jtico jtico_pdfonline">Pdf在线转换</span><input type="hidden" value="pdfonline,Pdf在线转换,pdfzxzh"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;printfriendly&#39;);return false;" class="jiatitle"><span class="jtico jtico_printfriendly">友好打印</span><input type="hidden" value="printfriendly,友好打印,yhdy"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;w3c&#39;);return false;" class="jiatitle"><span class="jtico jtico_w3c">W3c验证</span><input type="hidden" value="w3c,W3c验证,w3cyz"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;bitly&#39;);return false;" class="jiatitle"><span class="jtico jtico_bitly">Bit.ly</span><input type="hidden" value="bitly,Bit.ly,bitly"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;digg&#39;);return false;" class="jiatitle"><span class="jtico jtico_digg">Digg</span><input type="hidden" value="digg,Digg,digg"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;mailru&#39;);return false;" class="jiatitle"><span class="jtico jtico_mailru">Mail.ru</span><input type="hidden" value="mailru,Mail.ru,mail.ru"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;diigo&#39;);return false;" class="jiatitle"><span class="jtico jtico_diigo">Diigo</span><input type="hidden" value="diigo,Diigo,diigo"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;friendfeed&#39;);return false;" class="jiatitle"><span class="jtico jtico_friendfeed">FriendFeed</span><input type="hidden" value="friendfeed,FriendFeed,friendfeed"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;myspace&#39;);return false;" class="jiatitle"><span class="jtico jtico_myspace">Myspace</span><input type="hidden" value="myspace,Myspace,myspace"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;mixx&#39;);return false;" class="jiatitle"><span class="jtico jtico_mixx">Mixx</span><input type="hidden" value="mixx,Mixx,mixx"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;netlog&#39;);return false;" class="jiatitle"><span class="jtico jtico_netlog">NetLog</span><input type="hidden" value="netlog,NetLog,netlog"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;netvibes&#39;);return false;" class="jiatitle"><span class="jtico jtico_netvibes">Netvibes</span><input type="hidden" value="netvibes,Netvibes,netvibes"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;phonefavs&#39;);return false;" class="jiatitle"><span class="jtico jtico_phonefavs">Phonefavs</span><input type="hidden" value="phonefavs,Phonefavs,phonefavs"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;pingfm&#39;);return false;" class="jiatitle"><span class="jtico jtico_pingfm">Ping.fm</span><input type="hidden" value="pingfm,Ping.fm,ping.fm"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;plaxo&#39;);return false;" class="jiatitle"><span class="jtico jtico_plaxo">Plaxo</span><input type="hidden" value="plaxo,Plaxo,plaxo"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;delicious&#39;);return false;" class="jiatitle"><span class="jtico jtico_delicious">Delicious</span><input type="hidden" value="delicious,Delicious,delicious"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;wong&#39;);return false;" class="jiatitle"><span class="jtico jtico_wong">Mister Wong</span><input type="hidden" value="wong,Mister Wong,misterwong"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;stumbleupon&#39;);return false;" class="jiatitle"><span class="jtico jtico_stumbleupon">Stumbleupon</span><input type="hidden" value="stumbleupon,Stumbleupon,stumbleupon"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;plurk&#39;);return false;" class="jiatitle"><span class="jtico jtico_plurk">Plurk</span><input type="hidden" value="plurk,Plurk,plurk"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;funp&#39;);return false;" class="jiatitle"><span class="jtico jtico_funp">Funp</span><input type="hidden" value="funp,Funp,funp"></a><a href="javascript:;" onclick="jiathis_sendto(&#39;myshare&#39;);return false;" class="jiatitle"><span class="jtico jtico_myshare">Myshare</span><input type="hidden" value="myshare,Myshare,myshare"></a><div style="clear:both"></div></div><div class="centerBottom"><div style="float:left;font-size:10px;"><a href="http://www.jiathis.com/help/html/what-is-jiathis" class="link_01" style="color:#333333;display:none;" target="_blank">这是什么工具?</a></div><div style="float:right;font-size:11px;margin:0 10px 0 0;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/img_012.gif" align="absmiddle" border="none">&nbsp;<a href="http://www.jiathis.com/index2" style="color:#333333;" class="link_01" target="_blank">JiaThis</a></div><div style="clear:both"></div></div></div></div></div><iframe frameborder="0" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/jiathis_utility.html" style="display: none;"></iframe>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<a href="https://github.com/MEyes"><img style="position: absolute; top: 0; right: 0; border: 0;" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+<!--PageBeginHtml Block End-->
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/OceanEyes/"><b style="color:#2B6695;margin-left:30px">大鹏一日同风起，扶摇直上九万里</b></a></div>
+<div class="subtitle"><div style="float:left;margin-left:11px;">
+<img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/o_apple-touch-icon.png" height="89px">
+</div></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/OceanEyes/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E6%9C%A8%E5%AE%9B%E5%9F%8E%E4%B8%BB">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/OceanEyes/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/OceanEyes/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-152&nbsp;
+文章-0&nbsp;
+评论-1321&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html">ASP.NET MVC 随想录——  使用ASP.NET Identity实现基于声明的授权，高级篇</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><a name="_labelTop"></a><div id="navCategory"><p style="font-size:18px"><b>阅读目录</b></p><ul><li><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_label0">走进声明的世界</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_label1">创建并使用声明</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_label2">基于声明的授权</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_label3">使用第三方来身份验证</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_label4">小节</a></li></ul></div><blockquote>
+<p><span style="font-size: 15px;">在这篇文章中，我将继续ASP.NET Identity 之旅，这也是ASP.NET Identity 三部曲的最后一篇。在本文中，将为大家介绍ASP.NET Identity 的高级功能，它支持声明式并且还可以灵活的与ASP.NET MVC 授权结合使用，同时，它还支持使用第三方来实现身份验证。</span></p>
+<p><span style="font-size: 15px;">关于ASP.NET Identity 的基础知识，请参考如下文章：</span></p>
+<p><span style="font-size: 15px;"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html">ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></span></p>
+<p><span style="font-size: 15px;"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-apply-asp-net-identity-authentication.html">ASP.NET MVC 随想录——探索ASP.NET Identity 身份验证和基于角色的授权，中级篇</a></span></p>
+<p><span style="font-size: 15px;">本文的示例，你可以在此下载和预览：</span></p>
+<p><span style="font-size: 15px;"><a href="https://myusermanagement.azurewebsites.net/" target="_blank">点此进行预览 </a></span></p>
+<p><span style="font-size: 15px;"><a href="https://github.com/MEyes/ASP.NET-Identity-User-Management" target="_blank">点此下载示例代码 </a></span></p>
+</blockquote>
+<div style="text-align: right"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_labelTop">回到顶部</a><a name="_label0"></a></div><h3><span style="font-size: 15px;">走进声明的世界</span></h3>
+<p><span style="font-size: 15px;">在旧的用户管理系统，例如使用了ASP.NET Membership的应用程序，我们的应用程序被认为是获取用户所有信息的权威来源，所以本质上可以将应用程序视为封闭的系统，它包含了所有的用户信息。在上一篇文章中，我使用ASP.NET Identity 验证用户存储在数据库的凭据，并根据与这些凭据相关联的角色进行授权访问，所以本质上身份验证和授权所需要的用户信息来源于我们的应用程序。</span></p>
+<p><span style="font-size: 15px;">ASP.NET Identity 还支持使用声明来和用户打交道，它效果很好，而且应用程序并不是用户信息的唯一来源，有可能来自外部，这比传统角色授权来的更为灵活和方便。</span></p>
+<p><span style="font-size: 15px;">接下来我将为大家介绍ASP.NET Identity 是如何支持基于声明的授权（claims-based authorization）。</span></p>
+<p><span style="font-size: 15px;"><strong>1.理解什么是声明 </strong></span></p>
+<p><span style="font-size: 15px;">声明（Claims）其实就是用户相关的一条一条信息的描述，这些信息包括用户的身份（如Name、Email、Country等）和角色成员，而且，它描述了这些信息的类型、值以及发布声明的认证方等。我们可以使用声明来实现基于声明的授权。声明可以从外部系统获得，当然也可以从本地用户数据库获取。</span></p>
+<p><span style="font-size: 15px;">对于ASP.NET MVC应用程序，通过自定义AuthorizeAttribute，声明能够被灵活的用来对指定的Action 方法授权访问，不像传统的使用角色授权那么单一，基于声明的授权更加丰富和灵活，它允许使用用户信息来驱动授权访问。</span></p>
+<p><span style="font-size: 15px;">既然声明（Claim）是一条关于用户信息的描述，最简单的方式来阐述什么是声明就是通过具体的例子来展示，这比抽象概念的讲解来的更有用。所以，我在示例项目中添加了一个名为Claims 的 Controller，它的定义如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> ClaimsController : Controller </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;[Authorize] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> ActionResult Index() </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClaimsIdentity claimsIdentity = HttpContext.User.Identity <span style="color: blue;">as</span> ClaimsIdentity; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (claimsIdentity == <span style="color: blue;">null</span>) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View("<span style="color: darkred;">Error</span>", <span style="color: blue;">new</span> <span style="color: blue;">string</span>[] {"<span style="color: darkred;">未找到声明</span>"}); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">else</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View(claimsIdentity.Claims); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">在这个例子中可以看出ASP.NET Identity 已经很好的集成到ASP.NET 平台中，而HttpContext.User.Identity 属性返回一个 IIdentity 接口的实现，而当与ASP.NET Identity 结合使用时，返回的是ClaimsIdentity 对象。</span></p>
+<p><span style="font-size: 15px;">ClaimsIdentity 类被定义在System.Security.Claims 名称空间下，它包含如下重要的成员:</span></p>
+<div>
+<table style="border-collapse: collapse; height: 273px; width: 921px;" border="0"><colgroup><col style="width: 312px;"><col style="width: 312px;"></colgroup>
+<tbody valign="top">
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border: solid 0.5pt;">
+<p><span style="font-size: 15px;">Claims</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid 0.5pt; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回用户包含的声明对象集合</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">AddClaim(claim)</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">为用户添加一个声明</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">AddClaims(claims)</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">为用户添加一系列声明</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">HasClaim(predicate)</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">判断是否包含声明，如果是，返回True</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">RemoveClaim(claim)</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">为用户移除声明</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">当然ClaimsIdentity 类还有更多的成员，但上述表描述的是在Web应用程序中使用频率很高的成员。在上述代码中，将HttpContext.User.Identity 转换为ClaimsIdentity 对象，并通过该对象的Claims 属性获取到用户相关的所有声明。</span></p>
+<p><span style="font-size: 15px;">一个声明对象代表了用户的一条单独的信息数据，声明对象包含如下属性：</span></p>
+<div>
+<table style="border-collapse: collapse; height: 226px; width: 919px;" border="0"><colgroup><col style="width: 312px;"><col style="width: 312px;"></colgroup>
+<tbody valign="top">
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border: solid 0.5pt;">
+<p><span style="font-size: 15px;">Issuer</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid 0.5pt; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回提供声明的认证方名称</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">Subject</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回声明指向的ClaimIdentity 对象</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">Type</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回声明代表的信息类型</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">Value</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回声明代表的用户信息的值</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">有了对声明的基本概念，对上述代码的View进行修改，它呈现用户所有声明信息，相应的视图代码如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">@using System.Security.Claims </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">@using Users.Infrastructure </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">@model IEnumerable<span style="color: blue;">&lt;<span style="color: maroon;">Claim<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">@{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ViewBag.Title = "Index"; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">&lt;<span style="color: maroon;">div</span> <span style="color: red;">class</span>="panel panel-primary"&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">div</span> <span style="color: red;">class</span>="panel-heading"&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;声<span style="font-family: 宋体;">明</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;/<span style="color: maroon;">div<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">table</span> <span style="color: red;">class</span>="table table-striped"&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">tr<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">th<span style="color: blue;">&gt;</span>Subject<span style="color: blue;">&lt;/<span style="color: maroon;">th<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">th<span style="color: blue;">&gt;</span>Issuer<span style="color: blue;">&lt;/<span style="color: maroon;">th<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">th<span style="color: blue;">&gt;</span>Type<span style="color: blue;">&lt;/<span style="color: maroon;">th<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">th<span style="color: blue;">&gt;</span>Value<span style="color: blue;">&lt;/<span style="color: maroon;">th<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;/<span style="color: maroon;">tr<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@foreach (Claim claim in Model.OrderBy(x=&gt;x.Type)) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">tr<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">td<span style="color: blue;">&gt;</span>@claim.Subject.Name<span style="color: blue;">&lt;/<span style="color: maroon;">td<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">td<span style="color: blue;">&gt;</span>@claim.Issuer<span style="color: blue;">&lt;/<span style="color: maroon;">td<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">td<span style="color: blue;">&gt;</span>@Html.ClaimType(claim.Type)<span style="color: blue;">&lt;/<span style="color: maroon;">td<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">td<span style="color: blue;">&gt;</span>@claim.Value<span style="color: blue;">&lt;/<span style="color: maroon;">td<span style="color: blue;">&gt;</span> </span></span></span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;/<span style="color: maroon;">tr<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;/<span style="color: maroon;">table<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="color: blue; font-size: 15px;">&lt;/<span style="color: maroon;">div<span style="color: blue;">&gt;</span> </span></span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">Claim对象的Type属性返回URI Schema，这对于我们来说并不是特别有用，常见的被用来当作值的Schema定义在System.Security.Claims.ClaimType 类中，所以要使输出的内容可读性更强，我添加了一个HTML helper，它用来格式化Claim.Type 的值：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">static</span> MvcHtmlString ClaimType(<span style="color: blue;">this</span> HtmlHelper html, <span style="color: blue;">string</span> claimType) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;FieldInfo[] fields = <span style="color: blue;">typeof</span>(ClaimTypes).GetFields(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">foreach</span> (FieldInfo field <span style="color: blue;">in</span> fields) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (field.GetValue(<span style="color: blue;">null</span>).ToString() == claimType) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> <span style="color: blue;">new</span> MvcHtmlString(field.Name); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> <span style="color: blue;">new</span> MvcHtmlString(<span style="color: blue;">string</span>.Format("<span style="color: darkred;">{0}</span>", </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;claimType.Split('/', '.').Last())); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">有了上述的基础设施代码后，我请求ClaimsController 下的Index Action时，显示用户关联的所有声明，如下所示：</span></p>
+<p><span style="font-size: 15px;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/299214-20150926063818678-2073241869.png" alt="" width="930" height="287"></span></p>
+<div style="text-align: right"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_labelTop">回到顶部</a><a name="_label1"></a></div><h3><span style="font-size: 15px;">创建并使用声明</span></h3>
+<p><span style="font-size: 15px;">有两个原因让我觉得声明很有趣。第一个原因是，应用程序能从多个来源获取声明，而不是仅仅依靠本地数据库来获取。在稍后，我会向你展示如何使用外部第三方系统来验证用户身份和创建声明，但此时我添加一个类，来模拟一个内部提供声明的系统，将它命名为LocationClaimsProvider，如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">static</span> <span style="color: blue;">class</span> LocationClaimsProvider </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">static</span> IEnumerable&lt;Claim&gt; GetClaims(ClaimsIdentity user) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;Claim&gt; claims=<span style="color: blue;">new</span> List&lt;Claim&gt;(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (user.Name.ToLower()=="<span style="color: darkred;">admin</span>") </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claims.Add(CreateClaim(ClaimTypes.PostalCode, "<span style="color: darkred;">DC 20500</span>")); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claims.Add(CreateClaim(ClaimTypes.StateOrProvince, "<span style="color: darkred;">DC</span>")); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">else</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claims.Add(CreateClaim(ClaimTypes.PostalCode, "<span style="color: darkred;">NY 10036</span>")); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claims.Add(CreateClaim(ClaimTypes.StateOrProvince, "<span style="color: darkred;">NY</span>")); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> claims; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;</span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">private</span> <span style="color: blue;">static</span> Claim CreateClaim(<span style="color: blue;">string</span> type,<span style="color: blue;">string</span> <span style="color: blue;">value</span>) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> <span style="color: blue;">new</span> Claim(type, <span style="color: blue;">value</span>, ClaimValueTypes.String, "<span style="color: darkred;">RemoteClaims</span>"); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">上述代码中，GetClaims 方法接受一个参数为ClaimsIdentity 对象并为用户创建了PostalCode和StateOrProvince的声明。在这个类中，假设我模拟一个系统，如一个中央的人力资源数据库，那么这将是关于工作人员本地信息的权威来源。</span></p>
+<p><span style="font-size: 15px;">声明是在身份验证过程被添加到用户中，故在Account/Login Action对代码稍作修改：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[HttpPost] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[AllowAnonymous] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[ValidateAntiForgeryToken] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> async Task&lt;ActionResult&gt; Login(LoginModel model,<span style="color: blue;">string</span> returnUrl) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (ModelState.IsValid) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AppUser user = await UserManager.FindAsync(model.Name, model.Password); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (user==<span style="color: blue;">null</span>) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModelState.AddModelError("","<span style="color: darkred;">无效的用户名或密码</span>"); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">else</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var claimsIdentity = </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity)); </strong></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthManager.SignOut(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthManager.SignIn(<span style="color: blue;">new</span> AuthenticationProperties {IsPersistent = <span style="color: blue;">false</span>}, claimsIdentity); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> Redirect(returnUrl); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ViewBag.returnUrl = returnUrl; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;</span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View(model); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">修改完毕，运行应用程序，身份验证成功过后，浏览Claims/Index 地址，你就可以看到已经成功对用户添加声明了，如下截图所示：</span></p>
+<p><span style="font-size: 15px;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/299214-20150926063819006-1369356758.png" alt="" width="918" height="331"></span></p>
+<p><span style="font-size: 15px;">获取声明来自多个来源意味着我们的应用程序不会有重复数据并可以和外部数据集成。Claim 对象的Issuer 属性 告诉你这个声明的来源，这能帮助我们精确判断数据的来源。举个例子，从中央人力资源数据库获取的信息比从外部供应商邮件列表获取的信息会更准确。</span></p>
+<p><span style="font-size: 15px;">声明是有趣的第二个原因是你能用他们来管理用户访问，这比使用标准的角色控制来的更为灵活。在前一篇文章中，我创建了一个专门负责角色的管理RoleContoller，在RoleController里实现用户和角色的绑定，一旦用户被赋予了角色，则该成员将一直隶属于这个角色直到他被移除掉。这会有一个潜在的问题，在大公司工作时间很长的员工，当他们换部门时换工作时，如果旧的角色没被删除，那么可能会出现资料泄露的风险。</span></p>
+<p><span style="font-size: 15px;">考虑使用声明吧，如果把传统的角色控制视为静态的话，那么声明是动态的，我们可以在程序运行时动态创建声明。声明可以直接基于已知的用户信息来授权用户访问，这样确保当声明数据更改时授权也更改。</span></p>
+<p><span style="font-size: 15px;">最简单的是使用Role 声明来对Action 受限访问，这我们已经很熟悉了，因为ASP.NET Identity 已经很好的集成到了ASP.NET 平台中了，当使用ASP.NET Identity 时，HttpContext.User 返回的是ClaimsPrincipal 对象，它实现了IsInRole 方法并使用HasClaim来判断指定的角色声明是否存在，从而达到授权。</span></p>
+<p><span style="font-size: 15px;">接着刚才的话题，我们想让授权是动态的，是由用户信息（声明）驱动的，所以我创建了一个ClaimsRoles类，用来模拟生成声明，如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> ClaimsRoles </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">static</span> IEnumerable&lt;Claim&gt; CreateRolesFromClaims(ClaimsIdentity user) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;Claim&gt; claims = <span style="color: blue;">new</span> List&lt;Claim&gt;(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (user.HasClaim(x =&gt; x.Type == ClaimTypes.StateOrProvince </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; x.Issuer == "<span style="color: darkred;">RemoteClaims</span>" &amp;&amp; x.Value == "<span style="color: darkred;">北京</span>") </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; user.HasClaim(x =&gt; x.Type == ClaimTypes.Role </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; x.Value == "<span style="color: darkred;">Employee</span>")) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claims.Add(<span style="color: blue;">new</span> Claim(ClaimTypes.Role, "<span style="color: darkred;">BjStaff</span>")); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> claims; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">初略看一下CreateRolesFromClaims方法中的代码，使用Lambda表达式检查用户是否有来自Issuer为RemoteClaims ，值为北京的StateOrProvince声明和值为Employee 的Role声明，如果用户都包含两者，新增一个值为BjStaff 的 Role 声明。最后在Login Action 时调用此方法，如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[HttpPost] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[AllowAnonymous] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[ValidateAntiForgeryToken] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> async Task&lt;ActionResult&gt; Login(LoginModel model,<span style="color: blue;">string</span> returnUrl) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (ModelState.IsValid) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AppUser user = await UserManager.FindAsync(model.Name, model.Password); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (user==<span style="color: blue;">null</span>) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ModelState.AddModelError("","<span style="color: darkred;">无效的用户名或密码</span>"); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">else</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var claimsIdentity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;claimsIdentity.AddClaims(LocationClaimsProvider.GetClaims(claimsIdentity)); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>claimsIdentity.AddClaims(ClaimsRoles.CreateRolesFromClaims(claimsIdentity)); </strong></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthManager.SignOut(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AuthManager.SignIn(<span style="color: blue;">new</span> AuthenticationProperties {IsPersistent = <span style="color: blue;">false</span>}, claimsIdentity); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> Redirect(returnUrl); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ViewBag.returnUrl = returnUrl; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;</span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View(model); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">现在就可以基于角色为BjStaff对OtherAction受限访问，如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[Authorize(Roles = "<span style="color: darkred;">BjStaff</span>")] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">string</span> OtherAction() </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> "<span style="color: darkred;">这是一个受保护的Action</span>"; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">当用户信息发生改变时，如若生成的声明不为BjStaff，那么他也就没权限访问OtherAction了，这完全是由用户信息所驱动，而非像传统的在RoleController中显示修改用户和角色的关系。</span></p>
+<div style="text-align: right"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_labelTop">回到顶部</a><a name="_label2"></a></div><h3><span style="font-size: 15px;">基于声明的授权</span></h3>
+<p><span style="font-size: 15px;">在前一个例子中证明了如何使用声明来授权，但是这有点不直接因为我基于声明来产生角色然后再基于新的角色来授权。一个更加直接和灵活的方法是通过创建一个自定义的授权过滤器特性来实现，如下展示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">class</span> ClaimsAccessAttribute:AuthorizeAttribute </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">string</span> Issuer { <span style="color: blue;">get</span>; <span style="color: blue;">set</span>; } </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">string</span> ClaimType { <span style="color: blue;">get</span>; <span style="color: blue;">set</span>; } </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">public</span> <span style="color: blue;">string</span> Value { <span style="color: blue;">get</span>; <span style="color: blue;">set</span>; } </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">protected</span> <span style="color: blue;">override</span> <span style="color: blue;">bool</span> AuthorizeCore(HttpContextBase context) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> context.User.Identity.IsAuthenticated </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; context.User.Identity <span style="color: blue;">is</span> ClaimsIdentity </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; ((ClaimsIdentity)context.User.Identity).HasClaim(x =&gt; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x.Issuer == Issuer &amp;&amp; x.Type == ClaimType &amp;&amp; x.Value == Value </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">ClaimsAccessAttribute 特性继承自AuthorizeAttribute，并Override了 AuthorizeCore 方法，里面的业务逻辑是当用户验证成功并且IIdentity的实现是ClaimsIdentity 对象，同时用户包含通过属性传入的声明，最后将此Attribute 放在AnOtherAction 前，如下所示：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;[ClaimsAccess(Issuer = "<span style="color: darkred;">RemoteClaims</span>", ClaimType = ClaimTypes.PostalCode, Value = "<span style="color: darkred;">200000</span>")] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> <span style="color: blue;">string</span> AnotherAction() </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> "<span style="color: darkred;">这也是一个受保护的Action</span>"; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<div style="text-align: right"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_labelTop">回到顶部</a><a name="_label3"></a></div><h3><span style="font-size: 15px;">使用第三方来身份验证</span></h3>
+<p><span style="font-size: 15px;">像ASP.NET Identity 这类基于声明的系统的一个好处是任何声明能从外部系统获取，这意味着其他应用程序能帮我们来身份验证。ASP.NET Identity 基于这个原则增加对第三方如Google、Microsoft、FaceBook身份验证的支持。</span></p>
+<p><span style="font-size: 15px;">使用第三方身份验证有许多好处：许多用户已经有一个第三方账户了，并且你也不想在这个应用程序管理你的凭据。用户也不想在每一个网站上注册账户并都记住密码。使用一个统一的账户会比较灵活。</span></p>
+<p><span style="font-size: 15px;"><strong>1.启用Google 账户身份验证 </strong></span></p>
+<p><span style="font-size: 15px;">ASP.NET Identity 发布了对第三方身份验证的支持，通过Nuget来安装：</span></p>
+<p><span style="font-size: 15px;">Install-Package Microsoft.Owin.Security.Google</span></p>
+<p><span style="font-size: 15px;">当Package 安装完成后，在OWIN Startup启动项中，添加对身份验证服务的支持：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: green;">//http://www.asp.net/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">app.UseGoogleAuthentication(<span style="color: blue;">new</span> GoogleOAuth2AuthenticationOptions() </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ClientId = "<span style="color: darkred;">165066370005-6nhsp87llelff3tou91hhktg6eqgr0ke.apps.googleusercontent.com</span>", </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ClientSecret = "<span style="color: darkred;">euWbCSUZujjQGKMqOyz0msbq</span>", </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">}); </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">在View中，添加一个通过Google 登陆的按钮：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">@using (Html.BeginForm("GoogleLogin", "Account")) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">input</span> <span style="color: red;">type</span>="hidden"</span> <span style="color: red;">name</span>=<span style="color: blue;">"returnUrl"</span> <span style="color: red;">value</span>=<span style="color: blue;">"@ViewBag.returnUrl"</span> <span style="color: blue;">/&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">&lt;<span style="color: maroon;">button</span> <span style="color: red;">class</span>="btn btn-primary"</span> <span style="color: red;">type</span>=<span style="color: blue;">"submit"&gt;</span>Google 账户登录<span style="color: blue;"> &lt;/<span style="color: maroon;">button<span style="color: blue;">&gt;</span> </span></span></span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">当点击按钮时，Post到Account/GoogleLogin ：</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[HttpPost] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[AllowAnonymous] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> ActionResult GoogleLogin(<span style="color: blue;">string</span> returnUrl) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;var properties = <span style="color: blue;">new</span> AuthenticationProperties </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RedirectUri = Url.Action("<span style="color: darkred;">GoogleLoginCallback</span>", </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">new</span> { returnUrl = returnUrl }) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;}; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;HttpContext.GetOwinContext().Authentication.Challenge(properties, "<span style="color: darkred;">Google</span>"); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> <span style="color: blue;">new</span> HttpUnauthorizedResult(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">GoogleLogin 方法创建了AuthenticationProperties 类型的对象，并制定RedirectUri为当前Controller下的GoogleLoginCallBack Action，接下来就是见证奇迹的时候，返回401 Unauthorize 然后OWIN 中间件重定向到Google 登陆页面，而不是默认的Account/Login。这意味着，当用户点击以Google登陆按钮后，浏览器重定向到Google 身份验证服务然后一旦身份验证通过，重定向到GoogleLoginCallBack:</span></p>
+<ol>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: gray;">/// &lt;summary&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: gray;">/// Google登陆成功后（即授权成功）回掉此Action</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: gray;">/// &lt;/summary&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: gray;">/// &lt;param name="returnUrl"&gt;&lt;/param&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: gray;">/// &lt;returns&gt;&lt;/returns&gt;</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">[AllowAnonymous] </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;"><span style="color: blue;">public</span> async Task&lt;ActionResult&gt; GoogleLoginCallback(<span style="color: blue;">string</span> returnUrl) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ExternalLoginInfo loginInfo = await AuthManager.GetExternalLoginInfoAsync(); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;AppUser user = await UserManager.FindAsync(loginInfo.Login); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (user == <span style="color: blue;">null</span>) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user = <span style="color: blue;">new</span> AppUser </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email = loginInfo.Email, </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UserName = loginInfo.DefaultUserName, </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;City = Cities.Shanghai, </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country = Countries.China </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}; </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;</span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IdentityResult result = await UserManager.CreateAsync(user); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (!result.Succeeded) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View("<span style="color: darkred;">Error</span>", result.Errors); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = await UserManager.AddLoginAsync(user.Id, loginInfo.Login); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">if</span> (!result.Succeeded) </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> View("<span style="color: darkred;">Error</span>", result.Errors); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;} </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user, </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DefaultAuthenticationTypes.ApplicationCookie); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;ident.AddClaims(loginInfo.ExternalIdentity.Claims); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;AuthManager.SignIn(<span style="color: blue;">new</span> AuthenticationProperties </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;{ </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsPersistent = <span style="color: blue;">false</span> </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;}, ident); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: blue;">return</span> Redirect(returnUrl ?? "<span style="color: darkred;">/</span>"); </span></div>
+</li>
+<li>
+<div style="background: #f4f4f4;"><span style="font-size: 15px;">} </span></div>
+</li>
+</ol>
+<p><span style="font-size: 15px;">对上述代码中，通过AuthManager.GetExternalLoginInfoAsync 方法获取外部登陆详细信息，ExternalLoginInfo 类定义了如下属性：</span></p>
+<div>
+<table style="border-collapse: collapse; height: 221px; width: 919px;" border="0"><colgroup><col style="width: 312px;"><col style="width: 312px;"></colgroup>
+<tbody valign="top">
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border: solid 0.5pt;">
+<p><span style="font-size: 15px;">DefaultUserName</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: solid 0.5pt; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回用户名</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">Email</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回Email 地址</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">ExternalIdentity</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回代表用户的ClaimIdentity</span></p>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: solid 0.5pt; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">Login</span></p>
+</td>
+<td style="padding-left: 7px; padding-right: 7px; border-top: none; border-left: none; border-bottom: solid 0.5pt; border-right: solid 0.5pt;">
+<p><span style="font-size: 15px;">返回一个UserLoginInfo用来描述外部登陆</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">接着使用定义在UserManager对象中的FindAsync方法，传入ExternalLoginInfo.Login 属性，来获取AppUser对象，如果返回的对象不存在，这意味这这是该用户第一次登录到我们的应用程序中，所以我创建了一个AppUser对象并填充了属性然后将其保存到数据库中。</span></p>
+<p><span style="font-size: 15px;">我同样也保存了用户登陆的详细信息以便下一次能找到。</span></p>
+<p><span style="font-size: 15px;">最后，创建ClaimsIdentity 对象并创建Cookie，让应用程序知道用户已经验证通过了。</span></p>
+<p><span style="font-size: 15px;">为了测试Google 身份验证，我们启动应用程序，当验证通过后，访问Claims/Index，得到如下声明：</span></p>
+<p><span style="font-size: 15px;"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/299214-20150926063819365-499633496.png" alt="" width="825" height="388"></span></p>
+<p><span style="font-size: 15px;">&nbsp;</span></p>
+<p><span style="font-size: 15px;">可以看到一些声明的认证发布者是Google，而且这些信息来自于第三方。</span></p>
+<div style="text-align: right"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#_labelTop">回到顶部</a><a name="_label4"></a></div><h3><span style="font-size: 15px;">小节</span></h3>
+<p>&nbsp;</p>
+<blockquote>
+<p>在这篇文章中，我为大家介绍了ASP.NET Identity 支持的一些高级功能，并解释了Claim是如何运行以及怎样创建灵活的授权访问。在本文最后演示了如和通过Google来身份验证。</p>
+<p>&nbsp;</p>
+<p>在技术领域，我们往往会对一些晦涩难翻译的术语感到惶恐，甚至会排斥它，比如yield、Identity、Claim。<br>在夜生人静时，泡一壶茶，拿上一本书，细细品读，或许会有别样的精彩正等在我们。</p>
+</blockquote>
+<p>&nbsp;</p></div><div id="MySignature" style="display: block;"> <fieldset style="background-color:#ffffa0; font-family:微软雅黑; font-size:15px;color:Black; width:650px;">
+  <legend><a href="http://creativecommons.org/licenses/by/2.5/cn/"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/88x31.png"></a></legend>
+<div style=" border-style:dotted;">
+本博客为<a href="http://www.cnblogs.com/OceanEyes/p/www.cnblogs.com/oceaneyes" target="_blank">木宛城主</a>原创，基于<a href="http://creativecommons.org/licenses/by/2.5/cn/">Creative Commons Attribution 2.5 China Mainland License</a>发布，欢迎转载，演绎或用于商业目的，但是必须保留本文的署名<a href="http://www.cnblogs.com/OceanEyes/p/www.cnblogs.com/oceaneyes" target="_blank">木宛城主</a>（包含链接）。如您有任何疑问或者授权方面的协商，请给我留言。
+</div>
+</fieldset></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/OceanEyes/category/393525.html" target="_blank">ASP.NET MVC</a>,<a href="http://www.cnblogs.com/OceanEyes/category/696137.html" target="_blank">ASP.NET MVC 随想录</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(4839924,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;7d9cc6a0-df7a-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/OceanEyes/" target="_blank"><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/20150329043854.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/OceanEyes/">木宛城主</a><br>
+            <a href="http://home.cnblogs.com/u/OceanEyes/followees">关注 - 0</a><br>
+            <a href="http://home.cnblogs.com/u/OceanEyes/followers">粉丝 - 1454</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;7d9cc6a0-df7a-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg"><div style="padding-bottom: 5px"><span class="icon_favorite" style="padding-top: 2px; padding-bottom: 2px"></span><a onclick="follow(&#39;7d9cc6a0-df7a-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);" style="font-weight: bold; padding-left: 5px;">关注木宛城主</a></div>
+    <div class="diggit" onclick="votePost(4839924,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">43</span>
+    </div>
+    <div class="buryit" onclick="votePost(4839924,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-apply-asp-net-identity-authentication.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-apply-asp-net-identity-authentication.html" title="发布于2015-09-06 22:54">ASP.NET MVC 随想录——探索ASP.NET Identity 身份验证和基于角色的授权，中级篇</a><br><a href="http://www.cnblogs.com/OceanEyes/p/Scrum-Solution.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/OceanEyes/p/Scrum-Solution.html" title="发布于2016-01-19 00:42">敏捷开发解决方案</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2015-09-26 06:49</span> <a href="http://www.cnblogs.com/OceanEyes/">木宛城主</a> 阅读(<span id="post_view_count">8565</span>) 评论(<span id="post_comment_count">17</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=4839924" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#" onclick="AddToWz(4839924);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=88841,cb_entryId=4839924,cb_blogApp=currentBlogApp,cb_blogUserGuid='7d9cc6a0-df7a-e011-a53f-842b2b196315',cb_entryCreatedDate='2015/9/26 6:49:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3275129" class="layer">#1楼</a><a name="3275129" id="comment_anchor_3275129"></a>  <span class="comment_date">2015-09-26 18:54</span> <a id="a_comment_author_3275129" href="http://www.cnblogs.com/jirigala/" target="_blank">通用C#系统架构</a> <a href="http://msg.cnblogs.com/send/%E9%80%9A%E7%94%A8C%23%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3275129" class="blog_comment_body">文章看着不错，顶一下。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3275129,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3275129,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3275129_avatar" style="display:none;">http://pic.cnblogs.com/face/u35584.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3275131" class="layer">#2楼</a><a name="3275131" id="comment_anchor_3275131"></a>  <span class="comment_date">2015-09-26 19:08</span> <a id="a_comment_author_3275131" href="http://www.cnblogs.com/shenyun/" target="_blank">沈赟</a> <a href="http://msg.cnblogs.com/send/%E6%B2%88%E8%B5%9F" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3275131" class="blog_comment_body">谢谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3275131,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3275131,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3275131_avatar" style="display:none;">http://pic.cnblogs.com/face/u30988.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3275174" class="layer">#3楼</a><a name="3275174" id="comment_anchor_3275174"></a>  <span class="comment_date">2015-09-26 21:07</span> <a id="a_comment_author_3275174" href="http://www.cnblogs.com/code-beautiful/" target="_blank">小彩笔</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E5%BD%A9%E7%AC%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3275174" class="blog_comment_body">学习中，谢谢分享</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3275174,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3275174,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3275236" class="layer">#4楼</a><a name="3275236" id="comment_anchor_3275236"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2015-09-26 23:34</span> <a id="a_comment_author_3275236" href="http://www.cnblogs.com/OceanEyes/" target="_blank">木宛城主</a> <a href="http://msg.cnblogs.com/send/%E6%9C%A8%E5%AE%9B%E5%9F%8E%E4%B8%BB" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3275236" class="blog_comment_body"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3275174" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3275174);">@</a>
+小彩笔<br>@沈赟<br>@通用C#系统架构<br>：）</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3275236,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3275236,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3275236_avatar" style="display:none;">http://pic.cnblogs.com/face/299214/20150329043854.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3277767" class="layer">#5楼</a><a name="3277767" id="comment_anchor_3277767"></a>  <span class="comment_date">2015-10-02 02:24</span> <a id="a_comment_author_3277767" href="http://www.cnblogs.com/fej121/" target="_blank">文楚</a> <a href="http://msg.cnblogs.com/send/%E6%96%87%E6%A5%9A" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3277767" class="blog_comment_body">谢谢分享，我想问问ClaimsIdentity 是否全部会生成cookie。还有吐槽下identity的命名方式，一堆的接口。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3277767,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3277767,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3277767_avatar" style="display:none;">http://pic.cnblogs.com/face/28457/20141210231443.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3279321" class="layer">#6楼</a><a name="3279321" id="comment_anchor_3279321"></a>  <span class="comment_date">2015-10-07 12:56</span> <a id="a_comment_author_3279321" href="http://home.cnblogs.com/u/818356/" target="_blank">phbrother001</a> <a href="http://msg.cnblogs.com/send/phbrother001" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3279321" class="blog_comment_body">您好，我在创业中，已经拿到投资，游戏产品已经完成，现在在处理游戏细节，等细节处理完成后做上线前的准备。<br>现在在招人，请问有兴趣加入么，我的QQ55763</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3279321,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3279321,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3284121" class="layer">#7楼</a><a name="3284121" id="comment_anchor_3284121"></a>  <span class="comment_date">2015-10-13 23:03</span> <a id="a_comment_author_3284121" href="http://www.cnblogs.com/shucha/" target="_blank">shucha</a> <a href="http://msg.cnblogs.com/send/shucha" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3284121" class="blog_comment_body">如果是web api 使用token会不会跟mvc的认证不统一？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3284121,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3284121,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3302897" class="layer">#8楼</a><a name="3302897" id="comment_anchor_3302897"></a>  <span class="comment_date">2015-11-10 23:01</span> <a id="a_comment_author_3302897" href="http://home.cnblogs.com/u/294873/" target="_blank">xhma44</a> <a href="http://msg.cnblogs.com/send/xhma44" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3302897" class="blog_comment_body">这系列看了一遍，感觉写的很全。概念太多，有很多不懂的地方。实例是最让人能理解的的东西<br>楼主何不从头写一个实例，把之前讲到的知识点融入其中。让更多人获益。谢谢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3302897,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3302897,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3303440" class="layer">#9楼</a><a name="3303440" id="comment_anchor_3303440"></a>  <span class="comment_date">2015-11-11 16:42</span> <a id="a_comment_author_3303440" href="http://home.cnblogs.com/u/294873/" target="_blank">xhma44</a> <a href="http://msg.cnblogs.com/send/xhma44" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3303440" class="blog_comment_body"><div class="cnblogs_Highlighter sh-gutter"><div><div id="highlighter_387378" class="syntaxhighlighter  csharp"><div class="toolbar"><span><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp plain">[ClaimsAccess(Issuer = </code><code class="csharp string">"RemoteClaims"</code><code class="csharp plain">, ClaimType = ClaimTypes.PostalCode, Value = </code><code class="csharp string">"200000"</code><code class="csharp plain">)] </code></div></div></td></tr></tbody></table></div></div></div><br><br>这里要如何通过数据库更灵活的使用。总不能在使用的系统，每次不同需求都要修改源码。求教。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3303440,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3303440,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3478485" class="layer">#10楼</a><a name="3478485" id="comment_anchor_3478485"></a>  <span class="comment_date">2016-07-28 17:15</span> <a id="a_comment_author_3478485" href="http://home.cnblogs.com/u/69648/" target="_blank">南海糊涂仙</a> <a href="http://msg.cnblogs.com/send/%E5%8D%97%E6%B5%B7%E7%B3%8A%E6%B6%82%E4%BB%99" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3478485" class="blog_comment_body">写得不错，内容很好，结构清晰，很有文采的博主。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3478485,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3478485,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3510685" class="layer">#11楼</a><a name="3510685" id="comment_anchor_3510685"></a>  <span class="comment_date">2016-09-14 17:33</span> <a id="a_comment_author_3510685" href="http://home.cnblogs.com/u/103770/" target="_blank">小驴</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E9%A9%B4" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3510685" class="blog_comment_body">楼主好，想问一下 有 基于声明的授权（claims-based authorization）  有没有基于声明的认证（claims-based authentication）的？谢谢！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3510685,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3510685,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3578497" class="layer">#12楼</a><a name="3578497" id="comment_anchor_3578497"></a>  <span class="comment_date">2016-12-12 13:39</span> <a id="a_comment_author_3578497" href="http://home.cnblogs.com/u/395253/" target="_blank">自然最美</a> <a href="http://msg.cnblogs.com/send/%E8%87%AA%E7%84%B6%E6%9C%80%E7%BE%8E" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3578497" class="blog_comment_body">楼主好，IE浏览器登录支不支持啊，我这遇到了这个问题，麻烦楼主帮忙解答一下，谢谢了~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3578497,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3578497,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3607842" class="layer">#13楼</a><a name="3607842" id="comment_anchor_3607842"></a>  <span class="comment_date">2017-01-20 20:48</span> <a id="a_comment_author_3607842" href="http://www.cnblogs.com/dudeping/" target="_blank">浪里淘沙</a> <a href="http://msg.cnblogs.com/send/%E6%B5%AA%E9%87%8C%E6%B7%98%E6%B2%99" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3607842" class="blog_comment_body">楼主好，请问你这个示例代码里的Https是怎么搭建的呢？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3607842,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3607842,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3607842_avatar" style="display:none;">http://pic.cnblogs.com/face/902133/20160303143758.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3652661" class="layer">#14楼</a><a name="3652661" id="comment_anchor_3652661"></a>  <span class="comment_date">2017-03-27 16:53</span> <a id="a_comment_author_3652661" href="http://home.cnblogs.com/u/560775/" target="_blank">小王八羔子</a> <a href="http://msg.cnblogs.com/send/%E5%B0%8F%E7%8E%8B%E5%85%AB%E7%BE%94%E5%AD%90" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3652661" class="blog_comment_body">其实就是在项目上右键&gt;属性&gt;WEB  这里面修改成<a href="https://......./" target="_blank">https://.......</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3652661,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3652661,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3710488" class="layer">#15楼</a><a name="3710488" id="comment_anchor_3710488"></a>  <span class="comment_date">2017-06-09 09:46</span> <a id="a_comment_author_3710488" href="http://home.cnblogs.com/u/1179811/" target="_blank">偷得一日闲</a> <a href="http://msg.cnblogs.com/send/%E5%81%B7%E5%BE%97%E4%B8%80%E6%97%A5%E9%97%B2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3710488" class="blog_comment_body">@木宛城主，楼主，关于ASP.NET Identity，我想请教个我一直没有搞明白的问题：<br>按照ASP.NET Identity的设计，Role是可以在运行期增删的，但是Role对Controller的可访问性，是通过[Authorize(Roles = "BjStaff")] 特性关联，这种硬编码写死的方式，只能是在开发阶段定义吧，这是否是一个矛盾？<br>这样的话，运行期再增减Role的意义在哪里呢？<br>我没有发现ASP.NET Identity的设计中，有动态维护Role和Controller或者Action之间关联的设计，需要开发者自己扩展实现？这是否是一个缺陷？<br>是否ASP.NET Identity不能做复杂的权限管理？比如权限功能粒度比较细的，以及动态授权的方式</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3710488,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3710488,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3710770" class="layer">#16楼</a><a name="3710770" id="comment_anchor_3710770"></a>[<span class="louzhu">楼主</span>]  <span class="comment_date">2017-06-09 14:16</span> <a id="a_comment_author_3710770" href="http://www.cnblogs.com/OceanEyes/" target="_blank">木宛城主</a> <a href="http://msg.cnblogs.com/send/%E6%9C%A8%E5%AE%9B%E5%9F%8E%E4%B8%BB" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3710770" class="blog_comment_body"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3710488" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3710488);">@</a>
+偷得一日闲<br>[Authorize(Roles = "BjStaff")]像这样肯定是写死了。<br>我之前的一种实现方式是，有一个配置界面，配置用户和访问页面（Controller/Action）的关系。<br>然后自定义一个Filter，在Filter里面检查当前用户是否对当前页面有权限访问。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3710770,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3710770,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3710770_avatar" style="display:none;">http://pic.cnblogs.com/face/299214/20150329043854.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3759494" class="layer">#17楼</a><a name="3759494" id="comment_anchor_3759494"></a><span id="comment-maxId" style="display:none;">3759494</span><span id="comment-maxDate" style="display:none;">2017/8/16 15:47:36</span>  <span class="comment_date">2017-08-16 15:47</span> <a id="a_comment_author_3759494" href="http://home.cnblogs.com/u/863253/" target="_blank">随心520</a> <a href="http://msg.cnblogs.com/send/%E9%9A%8F%E5%BF%83520" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3759494" class="blog_comment_body">喜欢楼主的写作风格，特别喜欢最后那一句话。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3759494,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3759494,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jiguang.cn/devservice?bky" target="_blank">【推荐】极光开发者服务平台，五大功能一站集齐</a><br><a href="https://dnspod.cloud.tencent.com/act/seckill?fromSource=gwzcw.410370.410370.410370" target="_blank">【推荐】腾讯云域名+云解析 限时折扣抓紧抢购</a><br><a href="http://click.aliyun.com/m/18488/" target="_blank">【推荐】阿里云“全民云计算”优惠升级</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.330910.330910.330910" target="_blank">【推荐】一小时搭建人工智能应用，让技术更容易入门</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://click.aliyun.com/m/26126/" target="_blank"><img width="300" height="250" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/24442-20170718132533661-166801094.jpg" alt="阿里云0718"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/576636/" target="_blank">京东28元划痕传奇布：一抹去除汽车划痕</a><br> ·  <a href="http://news.cnblogs.com/n/576635/" target="_blank">比太阳能更稳的定发电技术：日本秀洋流黑科技</a><br> ·  <a href="http://news.cnblogs.com/n/576634/" target="_blank">西安女子获赠支付宝空白机票 目的地随便填</a><br> ·  <a href="http://news.cnblogs.com/n/576633/" target="_blank">索尼PlayStation官方推特被黑 结果出人意外</a><br> ·  <a href="http://news.cnblogs.com/n/576632/" target="_blank">丝般顺滑！安卓8.0正式版新功能体验：智能、人性化</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="https://www.jiguang.cn/devservice?source=bky&amp;hmsr=%E5%8D%9A%E5%AE%A2%E5%9B%AD&amp;hmpl=&amp;hmcu=&amp;hmkw=&amp;hmci=" target="_blank"><img width="468" height="60" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/24442-20170727100914671-839522651.gif" alt="极光0801"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575829/" target="_blank">做到这一点，你也可以成为优秀的程序员</a><br> ·  <a href="http://kb.cnblogs.com/page/566880/" target="_blank">写给立志做码农的大学生</a><br> ·  <a href="http://kb.cnblogs.com/page/569057/" target="_blank">架构腐化之谜</a><br> ·  <a href="http://kb.cnblogs.com/page/572854/" target="_blank">学会思考，而不只是编程</a><br> ·  <a href="http://kb.cnblogs.com/page/574767/" target="_blank">编写Shell脚本的最佳实践</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p>微信公众号</p>
+<img width="200px" height="200px" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/o_qrcode_for_gh_455306acb3af_430.jpg">
+
+
+<h3 style="background-color: #3E6D8E;
+border-bottom: 2px solid #F90;
+color: white;
+font-size: 105%;
+margin: 15px 0 5px;
+padding: 2px 5px;
+cursor: pointer;">About Me</h3>
+<p><img src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/o_MVP.png" alt="">&nbsp;</p>
+<p><br>
+</p>
+C# &amp; .NET交流群：
+<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=60001c3d8e382464db3891e0ab5c132695c1ee58c0dc8092852db6073d2c790b"><img border="0" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/group.png" alt=".NET交流1（.NET）" title=".NET交流1（.NET）"></a>
+<br>
+SharePoint交流群：
+<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=4fd3826e28d62883d12382cbf90bb989a7799d2b36366f34c6b4590f96d4dbed"><img border="0" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/group.png" alt="SharePoint 2013入门与提高" title="SharePoint 2013入门与提高"></a><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/OceanEyes/">木宛城主</a><br>园龄：<a href="http://home.cnblogs.com/u/OceanEyes/" title="入园时间：2011-05-10">6年3个月</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/OceanEyes/followers/">1454</a><br>关注：<a href="http://home.cnblogs.com/u/OceanEyes/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;7d9cc6a0-df7a-e011-a53f-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/OceanEyes/p/log_strategy.html">1. Unity应用架构设计(13)——日志组件的实施</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html">2. Unity应用架构设计(12)——AOP思想的实践</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/implement_a_interpreter.html">3. 从编译原理看一个解释器的实现</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/building_service_layer.html">4. Unity应用架构设计(11)——一个网络层的构建</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html">5. Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_threading.html">6. Unity应用架构设计(10)——绕不开的协程和多线程（Part 1）</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/thinking_in_repository_pattern.html">7. Unity应用架构设计(9)——构建统一的 Repository</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/using_service_locator.html">8. Unity应用架构设计(8)——使用ServiceLocator实现对象的注入</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/factory_pattern.html">9. Unity应用架构设计(7)——IoC工厂理念先行</a></li><li><a href="http://www.cnblogs.com/OceanEyes/p/setting_up_observablelist.html">10. Unity应用架构设计(6)——设计动态数据集合ObservableList</a></li>
+</ul>
+</div>
+</div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(198)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/OceanEyes/category/839970.html">.NET Core(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/OceanEyes/category/300842.html">Algorithms(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/OceanEyes/category/374646.html">ASP.NET(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/OceanEyes/category/404304.html">ASP.NET Essential(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/OceanEyes/category/393525.html">ASP.NET MVC(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/OceanEyes/category/696137.html">ASP.NET MVC 随想录(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/OceanEyes/category/670354.html">Bootstrap(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/OceanEyes/category/392686.html">CLR via C# 技术内幕(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/OceanEyes/category/567607.html">Disaster Recovery(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/OceanEyes/category/659690.html">Hyper-V(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/OceanEyes/category/382251.html">JavaScript</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/OceanEyes/category/400473.html">Lucene.Net(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/OceanEyes/category/466830.html">PowerShell For SharePoint(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/OceanEyes/category/780275.html">Scrum(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/OceanEyes/category/582195.html">SharePoint 2013 Step by Step(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/OceanEyes/category/471158.html">SharePoint In Action(40)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/OceanEyes/category/507122.html">SharePoint 项目实战(18)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/OceanEyes/category/381976.html">SQL SERVER T-TQL(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/OceanEyes/category/352178.html">Thinking In Design Pattern(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/OceanEyes/category/827748.html">Unity 3D(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/OceanEyes/category/972425.html">Unity应用架构设计(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/OceanEyes/category/971418.html">VR SPACE</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/OceanEyes/category/613125.html">跟我学SharePoint 2013视频培训课程(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/OceanEyes/category/353453.html">架构思想(10)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/OceanEyes/category/350874.html">木宛城(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/OceanEyes/category/385667.html">网络编程(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/OceanEyes/category/401324.html">项目管理(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/OceanEyes/category/353286.html">杂谈(7)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(152)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/OceanEyes/archive/2017/07.html">2017年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/OceanEyes/archive/2017/06.html">2017年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/OceanEyes/archive/2017/05.html">2017年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/OceanEyes/archive/2017/03.html">2017年3月 (11)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/OceanEyes/archive/2016/06.html">2016年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/OceanEyes/archive/2016/05.html">2016年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/OceanEyes/archive/2016/01.html">2016年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/OceanEyes/archive/2015/09.html">2015年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/OceanEyes/archive/2015/08.html">2015年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/OceanEyes/archive/2015/07.html">2015年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/OceanEyes/archive/2015/06.html">2015年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/OceanEyes/archive/2015/05.html">2015年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/OceanEyes/archive/2015/04.html">2015年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/OceanEyes/archive/2015/03.html">2015年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/OceanEyes/archive/2015/02.html">2015年2月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/OceanEyes/archive/2015/01.html">2015年1月 (13)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/OceanEyes/archive/2014/09.html">2014年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/OceanEyes/archive/2014/08.html">2014年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/OceanEyes/archive/2014/07.html">2014年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/OceanEyes/archive/2014/06.html">2014年6月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/OceanEyes/archive/2014/05.html">2014年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/OceanEyes/archive/2014/04.html">2014年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/OceanEyes/archive/2014/03.html">2014年3月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/OceanEyes/archive/2014/02.html">2014年2月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/OceanEyes/archive/2014/01.html">2014年1月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/OceanEyes/archive/2013/12.html">2013年12月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/OceanEyes/archive/2013/11.html">2013年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/OceanEyes/archive/2013/10.html">2013年10月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/OceanEyes/archive/2013/09.html">2013年9月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/OceanEyes/archive/2013/08.html">2013年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/OceanEyes/archive/2013/07.html">2013年7月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/OceanEyes/archive/2013/06.html">2013年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/OceanEyes/archive/2013/04.html">2013年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/OceanEyes/archive/2013/03.html">2013年3月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/OceanEyes/archive/2012/12.html">2012年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/OceanEyes/archive/2012/11.html">2012年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/OceanEyes/archive/2012/10.html">2012年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/OceanEyes/archive/2012/09.html">2012年9月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/OceanEyes/archive/2012/08.html">2012年8月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/OceanEyes/archive/2012/07.html">2012年7月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/OceanEyes/archive/2012/06.html">2012年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/OceanEyes/archive/2012/05.html">2012年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/OceanEyes/archive/2012/04.html">2012年4月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/OceanEyes/archive/2012/03.html">2012年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/OceanEyes/archive/2012/02.html">2012年2月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/OceanEyes/archive/2012/01.html">2012年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/OceanEyes/archive/2011/10.html">2011年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/OceanEyes/archive/2011/07.html">2011年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/OceanEyes/archive/2011/05.html">2011年5月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3759494">1. Re:ASP.NET MVC 随想录——  使用ASP.NET Identity实现基于声明的授权，高级篇</a></li>
+        <li class="recent_comment_body">喜欢楼主的写作风格，特别喜欢最后那一句话。。。</li>
+        <li class="recent_comment_author">--随心520</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/using-bootstrap-javascript-plugins.html#3752670">2. Re:ASP.NET MVC使用Bootstrap系列（4）——使用JavaScript插件</a></li>
+        <li class="recent_comment_body">好文章</li>
+        <li class="recent_comment_author">--墨暖</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/archive/2012/08/13/aspnetEssential-1.html#3741668">3. Re:ASP.NET那点不为人知的事（一）</a></li>
+        <li class="recent_comment_body">请问楼主大牛还有邹老师的视频吗？网上好像找不到了</li>
+        <li class="recent_comment_author">--又见阿郎</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/archive/2012/08/13/aspnetEssential-1.html#3730972">4. Re:ASP.NET那点不为人知的事（一）</a></li>
+        <li class="recent_comment_body">为什么不管看多少遍，能记住的也就只有里面两三个方法？是因为我始终找不到场景使用吗？</li>
+        <li class="recent_comment_author">--故乡的星空</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/get-started-with-bootstrap.html#3730142">5. Re:ASP.NET MVC使用Bootstrap系列（1）——开始使用Bootstrap</a></li>
+        <li class="recent_comment_body">最新Bootstrap手册：<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--武鸿达</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/creating-bootstrap-helpers.html#3729912">6. Re:ASP.NET MVC使用Bootstrap系列（5）——创建ASP.NET MVC Bootstrap Helpers</a></li>
+        <li class="recent_comment_body">最新Bootstrap手册：<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--武鸿达</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/using-bootstrap-components.html#3729636">7. Re:ASP.NET MVC使用Bootstrap系列（3）——使用Bootstrap 组件</a></li>
+        <li class="recent_comment_body">最新Bootstrap手册：<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--武鸿达</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/bootstrap-html-elements.html#3729588">8. Re:ASP.NET MVC使用Bootstrap系统（2）——使用Bootstrap CSS和HTML元素</a></li>
+        <li class="recent_comment_body">最新Bootstrap手册：<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--武鸿达</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html#3728768">9. Re:Unity应用架构设计(12)——AOP思想的实践</a></li>
+        <li class="recent_comment_body">支持一下！</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html#3728559">10. Re:Unity应用架构设计(12)——AOP思想的实践</a></li>
+        <li class="recent_comment_body">@Lemon丶说得好，受教了...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html#3728558">11. Re:Unity应用架构设计(12)——AOP思想的实践</a></li>
+        <li class="recent_comment_body">@木宛城主反射性能是一回事。另一方面，aop 是否支持拦截器管道链式调用，aop是否可以简便配置，以及能否和IoC友好的集成都是需要考虑的地方...</li>
+        <li class="recent_comment_author">--Lemon丶</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html#3728477">12. Re:Unity应用架构设计(12)——AOP思想的实践</a></li>
+        <li class="recent_comment_body">@Lemon丶好的。不过反射性能，仁者见仁智者见智吧，很多框架都是基于反射实现的。...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/aop_in_action.html#3728474">13. Re:Unity应用架构设计(12)——AOP思想的实践</a></li>
+        <li class="recent_comment_body">直接反射不是一个好的实践~<br>对于.net上的AOP ，最佳实践可以看我写的 <a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html" target="_blank"></a></li>
+        <li class="recent_comment_author">--Lemon丶</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3725156">14. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">原来是迁移文件搞得鬼，虽然不懂原理，但是把迁移文件夹删除之后一切都好了</li>
+        <li class="recent_comment_author">--BsaGyy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3725144">15. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">为什么我照这么改了还是不能初始化数据库，崩溃了</li>
+        <li class="recent_comment_author">--BsaGyy</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/implement_a_interpreter.html#3718773">16. Re:从编译原理看一个解释器的实现</a></li>
+        <li class="recent_comment_body">直接使用Lua 就可以了啊！  在复杂的字符串表达式都是可以的</li>
+        <li class="recent_comment_author">--游戏开发实验室</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/implement_a_interpreter.html#3717183">17. Re:从编译原理看一个解释器的实现</a></li>
+        <li class="recent_comment_body">mark</li>
+        <li class="recent_comment_author">--假程序猿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/implement_a_interpreter.html#3717105">18. Re:从编译原理看一个解释器的实现</a></li>
+        <li class="recent_comment_body">牛 深入简出！</li>
+        <li class="recent_comment_author">--Crazy_Yang</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/implement_a_interpreter.html#3717048">19. Re:从编译原理看一个解释器的实现</a></li>
+        <li class="recent_comment_body">学习一下</li>
+        <li class="recent_comment_author">--自由布鲁斯</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3711478">20. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">代码运行失败，数据库没有初始化的同学看这里：在 AppIdentityDbContext 里把 public class IdentityDbInit:NullDatabaseInitializer......</li>
+        <li class="recent_comment_author">--科刘</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3710770">21. Re:ASP.NET MVC 随想录——  使用ASP.NET Identity实现基于声明的授权，高级篇</a></li>
+        <li class="recent_comment_body">@偷得一日闲[Authorize(Roles = "BjStaff")]像这样肯定是写死了。我之前的一种实现方式是，有一个配置界面，配置用户和访问页面（Controller/Action）的关系。然后......</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#3710488">22. Re:ASP.NET MVC 随想录——  使用ASP.NET Identity实现基于声明的授权，高级篇</a></li>
+        <li class="recent_comment_body">@木宛城主，楼主，关于ASP.NET Identity，我想请教个我一直没有搞明白的问题：按照ASP.NET Identity的设计，Role是可以在运行期增删的，但是Role对Controller的......</li>
+        <li class="recent_comment_author">--偷得一日闲</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/building_service_layer.html#3709867">23. Re:Unity应用架构设计(11)——一个网络层的构建</a></li>
+        <li class="recent_comment_body">@马三小伙儿多谢支持...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/building_service_layer.html#3709836">24. Re:Unity应用架构设计(11)——一个网络层的构建</a></li>
+        <li class="recent_comment_body">支持一下~ 很不错~</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3702311">25. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">@蝈蝈520Demo的的迁移策略是针对第三篇文章的，你试试：public class AppIdentityDbContext : IdentityDbContext { public......</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3702295">26. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">“/”应用程序中的服务器错误。找不到对象“dbo.AspNetUsers”，因为它不存在或者您没有所需的权限。说明: 执行当前 Web 请求期间，出现未经处理的异常。请检查堆栈跟踪信息，以了解有关该错......</li>
+        <li class="recent_comment_author">--蝈蝈520</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3702292">27. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">@风也无奈你解决没！...</li>
+        <li class="recent_comment_author">--蝈蝈520</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html#3701539">28. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li>
+        <li class="recent_comment_body">@大程序猿小故事过奖了...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html#3701537">29. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li>
+        <li class="recent_comment_body">大神</li>
+        <li class="recent_comment_author">--大程序猿小故事</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html#3701510">30. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li>
+        <li class="recent_comment_body">@木宛城主 666，蛤蛤...</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html#3701509">31. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li>
+        <li class="recent_comment_body">@马三小伙儿可以的...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_multithreading_part2.html#3701507">32. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 2）</a></li>
+        <li class="recent_comment_body">学习一下，话说 “生产者-消费者模式” 这块用观察者模式来实现是不是可以呢？</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_threading.html#3700133">33. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 1）</a></li>
+        <li class="recent_comment_body">@木宛城主哈哈 博主的文章很有质量，必看啊！...</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_threading.html#3700129">34. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 1）</a></li>
+        <li class="recent_comment_body">@马三小伙儿多谢支持，每次都是你沙发：)...</li>
+        <li class="recent_comment_author">--木宛城主</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/coroutine_vs_threading.html#3700127">35. Re:Unity应用架构设计(10)——绕不开的协程和多线程（Part 1）</a></li>
+        <li class="recent_comment_body">非常不错~ 学习一下！</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/using-bootstrap-components.html#3692329">36. Re:ASP.NET MVC使用Bootstrap系列（3）——使用Bootstrap 组件</a></li>
+        <li class="recent_comment_body">mark</li>
+        <li class="recent_comment_author">--马甲线</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-apply-asp-net-identity-authentication.html#3686807">37. Re:ASP.NET MVC 随想录——探索ASP.NET Identity 身份验证和基于角色的授权，中级篇</a></li>
+        <li class="recent_comment_body">Mark</li>
+        <li class="recent_comment_author">--我_爱编程</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/archive/2012/08/27/linq-2.html#3681416">38. Re:Linq快速入门——Lambda表达式的前世今生</a></li>
+        <li class="recent_comment_body">讲得很好，很具体，有事件的博客文章吗？</li>
+        <li class="recent_comment_author">--XX的一些事一些情</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/factory_pattern.html#3656186">39. Re:Unity 3D Framework Designing(7)——IoC工厂理念先行</a></li>
+        <li class="recent_comment_body">非常不错~ 支持一下~ 原来的公司也是用的依赖注入解耦的~</li>
+        <li class="recent_comment_author">--马三小伙儿</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/OceanEyes/p/thinking-in-asp-net-mvc-get-started-with-identity.html#3654932">40. Re:ASP.NET MVC 随想录——开始使用ASP.NET Identity，初级篇</a></li>
+        <li class="recent_comment_body">我第一次真心赞别人的文章. 你的写的真真好</li>
+        <li class="recent_comment_author">--愚</li>
+</ul>
+</div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 木宛城主
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<div align="center"><a href="http://www.inkjetdeals.info/brands/dell.html"><img border="0" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/9248710.png" alt="multifunction lasers"><br>访问人数</a></div>
+<script language="javascript" type="text/javascript">
+//生成目录索引列表
+function GenerateContentList()
+{
+    var jquery_h3_list = $('#cnblogs_post_body h3');//如果你的章节标题不是h3,只需要将这里的h3换掉即可
+    if(jquery_h3_list .length<=0){
+       jquery_h3_list=$('#cnblogs_post_body h1');
+     }
+    if(jquery_h3_list.length>0)
+    {
+        var content = '<a name="_labelTop"></a>';
+        content    += '<div id="navCategory">';
+        content    += '<p style="font-size:18px"><b>阅读目录</b></p>';
+        content    += '<ul>';
+        for(var i =0;i<jquery_h3_list.length;i++)
+        {
+            var go_to_top = '<div style="text-align: right"><a href="#_labelTop">回到顶部</a><a name="_label' + i + '"></a></div>';
+            $(jquery_h3_list[i]).before(go_to_top);
+            var li_content = '<li><a href="#_label' + i + '">' + $(jquery_h3_list[i]).text() + '</a></li>';
+            content += li_content;
+        }
+        content    += '</ul>';
+        content    += '</div>';
+        if($('#cnblogs_post_body').length != 0 )
+        {
+            $($('#cnblogs_post_body')[0]).prepend(content);
+        }
+    }    
+}
+GenerateContentList();
+</script>
+<!--PageEndHtml Block Begin-->
+
+
+<div id="roll">
+	<div title="回到顶部" id="roll_top">
+	</div>
+</div>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/jiathis_r.js.下载" charset="utf-8"></script><script src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/ckepop.js.下载" charset="utf-8"></script><script src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/ckecenterpop.js.下载" charset="utf-8"></script><script type="text/javascript" src="./ASP.NET MVC 随想录—— 使用ASP.NET Identity实现基于声明的授权，高级篇 - 木宛城主 - 博客园_files/plugin.client.js.下载" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<style>
+
+	#back-to-top{
+		position:fixed;
+		bottom:150px;
+		right:74px;
+	}
+	#back-to-top a{
+		text-align:center;
+		text-decoration:none;
+		color:#d1d1d1;
+		display:block;
+		width:80px;
+		/*使用CSS3中的transition属性给跳转链接中的文字添加渐变效果*/
+		-moz-transition:color 1s; 
+		-webkit-transition:color 1s;
+		-o-transition:color 1s;
+	}
+	#back-to-top a:hover{
+		color:#979797;
+	}
+	#back-to-top a span{
+		border-radius:6px;
+		display:block;
+		height:80px;
+		width:80px;
+		background:url(http://pic002.cnblogs.com/images/2011/36987/2011051823234124.png) no-repeat center center;
+		margin-bottom:5px;
+		-moz-transition:background 1s;
+		-webkit-transition:background 1s;
+		-o-transition:background 1s;
+	}
+	#back-to-top a:hover span{
+		background:#979797 url(http://pic002.cnblogs.com/images/2011/36987/2011051823234124.png) no-repeat center center;
+	}
+</style>
+<script type="text/javascript">
+  $("head").prepend('');
+
+      $(document).ready(function () {
+          //首先将#back-to-top隐藏
+          $("#back-to-top").hide();
+          //当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+          $(function () {
+              $(window).scroll(function () {
+                  if ($(window).scrollTop() > 100) {
+                      $("#back-to-top").fadeIn(1500);
+                  }
+                  else {
+                      $("#back-to-top").fadeOut(1500);
+                  }
+              });
+              //当点击跳转链接后，回到页面顶部位置
+              $("#back-to-top").click(function () {
+                  $('body,html').animate({ scrollTop: 0 }, 1000);
+                  return false;
+              });
+          });
+      });
+  </script>
+<p id="back-to-top" style="display: none;">
+	<a href="http://www.cnblogs.com/OceanEyes/p/asp-net-identity-claim-based-authorization.html#top"><span></span></a>
+</p>
+<script type="text/javascript">
+     function SetFavorite(){
+	if( $("#div_digg").length < 1 ){
+		setTimeout(SetFavorite, 1000); return;
+	}
+
+	$("<div style='padding-bottom: 5px'></div>")
+		.append($("<span class='icon_favorite' style='padding-top: 2px; padding-bottom: 2px'></span>"))
+		.append($("#green_channel_follow").clone(true).text("关注木宛城主")
+				.removeAttr("id").css({ "font-weight": "bold", "padding-left": "5px" }))
+		.prependTo("#div_digg");
+}
+ SetFavorite();
+</script>
+<!--PageEndHtml Block End-->
+
+<!--uMVVM-->
+<!--PageEndHtml Block End-->
+
+
+</body></html>
