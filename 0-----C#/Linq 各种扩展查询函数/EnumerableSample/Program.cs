@@ -38,10 +38,10 @@ namespace Wrox.ProCSharp.LINQ
            // GroupJoinLinq();
              //GroupJoin2();
              // SetOperations();
-             // Except();
+              Except();
              // ZipOperation();
              // Partitioning();
-              Aggregate();
+             /// Aggregate();
              // Aggregate2();
              // Untyped();
              // CombineRacers();
@@ -157,26 +157,26 @@ namespace Wrox.ProCSharp.LINQ
         private static void Except()
         {
             var racers = Formula1.GetChampionships().SelectMany(cs => new List<RacerInfo>()
-       {
-         new RacerInfo {
-           Year = cs.Year,
-           Position = 1,
-           FirstName = cs.First.FirstName(),
-           LastName = cs.First.LastName()
-         },
-         new RacerInfo {
-           Year = cs.Year,
-           Position = 2,
-           FirstName = cs.Second.FirstName(),
-           LastName = cs.Second.LastName()
-         },
-         new RacerInfo {
-           Year = cs.Year,
-           Position = 3,
-           FirstName = cs.Third.FirstName(),
-           LastName = cs.Third.LastName()
-         }
-       });
+		   {
+			 new RacerInfo {
+			   Year = cs.Year,
+			   Position = 1,
+			   FirstName = cs.First.FirstName(),
+			   LastName = cs.First.LastName()
+			 },
+			 new RacerInfo {
+			   Year = cs.Year,
+			   Position = 2,
+			   FirstName = cs.Second.FirstName(),
+			   LastName = cs.Second.LastName()
+			 },
+			 new RacerInfo {
+			   Year = cs.Year,
+			   Position = 3,
+			   FirstName = cs.Third.FirstName(),
+			   LastName = cs.Third.LastName()
+			 }
+		   });
 
 
             var nonChampions = racers.Select(r =>

@@ -1,0 +1,23 @@
+-------------------------------
+某个类 People.cs:
+
+private event Action<object, LoginStatusChangedEventModel> LoginEvent;
+public void AddAction(Action<object, LoginStatusChangedEventModel> loginAction)
+{
+	LoginEvent += loginAction;
+}
+
+// 发布事件
+public void SendEvent()
+{
+	LoginEvent(obj, xxModel);
+}
+
+----------------------------------
+某个类 Listener.cs 监听事件:
+
+people.AddAction(LoginEevent);
+
+public void LoginEevent(object obj, LoginStatusChangedEventModel>  model)
+{
+}

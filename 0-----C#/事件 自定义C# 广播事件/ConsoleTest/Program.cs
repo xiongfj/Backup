@@ -49,6 +49,9 @@ namespace ConsoleTest
         {
             EventSender.myEvent += onEvent;
 
+			// 事件发送只能在定义这个事件的类里面发送!!!??!?
+			//EventSender.myEvent(this, new MyEventArgs("Lambda 表达式响应事件."));
+
             // 直接指定响应函数
             EventSender.myEvent2 += (o, arg) =>
                 {
