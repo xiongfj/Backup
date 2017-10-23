@@ -19,10 +19,32 @@ namespace mvcIdentity.Models
         }
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class MyApplicationUser : MyIdentityUser
+	public class ApplicationRole : IdentityRole
+	{
+		public ApplicationRole()
+			: base()
+		{
+			//Permissions = new List<ApplicationRolePermission>();
+		}
+		public ApplicationRole(string roleName)
+			: this()
+		{
+			base.Name = roleName;
+		}
+
+		//[Display(Name = "角色描述")]
+		public string Description { get; set; }
+		/// <summary>
+		/// 权限列表
+		/// </summary>
+		//public ICollection<ApplicationRolePermission> Permissions { get; set; }
+	}
+
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public class MyApplicationUser : MyIdentityUser
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<MyApplicationUser> manager)
         {

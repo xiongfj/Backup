@@ -33,8 +33,24 @@ namespace mvcIdentity
         }
     }
 
-    // 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+	public class ApplicationRoleManager : RoleManager<ApplicationRole>
+	{
+		public ApplicationRoleManager(IRoleStore<ApplicationRole, string> roleStore)
+			: base(roleStore)
+		{
+		}
+
+		// 创建用于管理 ApplicationRole 的 Manager 类, 
+		// 同时将数据库上下文 ApplicationDbContext 传递进去
+		// 内部使用这个上下文操作数据库
+		public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+		{
+			return new ApplicationRoleManager(new RoleStore<ApplicationRole>(context.Get<ApplicationDbContext>()));
+		}
+	}
+
+		// 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
+	public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
