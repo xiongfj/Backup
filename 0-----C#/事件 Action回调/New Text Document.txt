@@ -18,6 +18,6 @@ public void SendEvent()
 
 people.AddAction(LoginEevent);
 
-public void LoginEevent(object obj, LoginStatusChangedEventModel>  model)
+public void LoginEevent(object obj, LoginStatusChangedEventModel model)
 {
 }
