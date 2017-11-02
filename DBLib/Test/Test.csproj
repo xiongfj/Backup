@@ -92,13 +92,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj">
-      <Project>{A8CF7DE7-2FC8-44EB-810F-FDDFCE7FA786}</Project>
-      <Name>BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{060C67A6-C629-4141-B7F8-F9BA57E39E5A}</Project>
-      <Name>Model</Name>
+    <ProjectReference Include="..\DBLib\DBLib.csproj">
+      <Project>{da3a5c20-c04e-461f-a2d0-bfbd23c89b0c}</Project>
+      <Name>DBLib</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

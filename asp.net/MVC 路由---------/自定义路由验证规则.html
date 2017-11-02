@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://www.cnblogs.com/huangxincheng/p/5545841.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>asp.net mvc 之旅—— 第三站  路由模板中强大的自定义IRouteConstraint约束 - 一线码农 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./自定义路由验证规则_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./自定义路由验证规则_files/bundle-iMetro_HD.css">
+<link type="text/css" rel="stylesheet" href="./自定义路由验证规则_files/85195.css">
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="./自定义路由验证规则_files/bundle-iMetro_HD-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/huangxincheng/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/huangxincheng/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/huangxincheng/wlwmanifest.xml">
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" src="./自定义路由验证规则_files/encoder.js.download"></script><script src="./自定义路由验证规则_files/jquery.js.download" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'huangxincheng', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./自定义路由验证规则_files/blog-common.js.download" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/huangxincheng/"><img id="blogLogo" src="./自定义路由验证规则_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/huangxincheng/"></a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	 <div style=" color: green; font-family:微软雅黑; font-size: 15px;"><div style=" color: blue; font-family:微软雅黑;  font-size: 17px; ">		<span>业余喜爱：</span> 泡妞，喝花酒，格局风水，	三更灯火五更鸡,正是男儿发愤时。黑发不知勤学早,白首方悔读书迟。</div>	<div style=" color: green; font-family:微软雅黑; font-size: 15px;">		<span>技术爱好：</span>asp.net mvc,net core,redis,mongodb,zookeeper,分布式架构,大数据处理 <span style="color:red;font-size:18px"> ==&gt;.Net交流群：333758620</span>	</div>	<div style=" height:35px; font-family: 微软雅黑; color:#f00; font-size:14px; font-weight:bold; ">		<span style=" font-size: 15px;">我的视频：</span><a href="https://item.taobao.com/item.htm?id=559102500362" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">zookeeper</a><a href="https://item.taobao.com/item.htm?id=554120855675" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">quartz.net</a><a href="https://item.taobao.com/item.htm?id=549569218065" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">C#多线程</a><a href="https://item.taobao.com/item.htm?id=547749442688" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">asp.net mvc5</a><a href="https://item.taobao.com/item.htm?id=547672364111" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">redis 3.2.6</a><a href="https://item.taobao.com/item.htm?id=547752874600" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">rabbitmq 3.6.5</a><a href="https://item.taobao.com/item.htm?id=547780863627" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">mongodb 3.2.8</a><a href="https://item.taobao.com/item.htm?id=547778967830" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">设计模式</a><a href="https://huangxincheng.taobao.com/" target="_blank" style=" color: #2981a2; font-size: 15px; text-decoration: underline; padding-right: 10px;">更多</a>	</div><div style="height:35px;font-family: 微软雅黑;color: #ee8282;font-size:18px;font-weight:bold;">招聘： 上海携程招3年以上.net开发工程师，前端工程师，主推【商旅,攻略事业部】</div></div>					<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/huangxincheng/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E4%B8%80%E7%BA%BF%E7%A0%81%E5%86%9C">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/huangxincheng/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/huangxincheng/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 253&nbsp; </span>
+<span id="stats_article_count">文章 - 1&nbsp; </span>
+<span id="stats-comment_count">评论 - 4399</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/huangxincheng/p/5545841.html">asp.net mvc 之旅—— 第三站  路由模板中强大的自定义IRouteConstraint约束</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>&nbsp; &nbsp; &nbsp; 我们在写mvc的时候，经常会配置各种url模板，比如controller，action，id 组合模式，其实呢，我们还可以对这三个参数进行单独的配置，采用的方式自然</p>
+<p>就是MapRoute中的constraints属性。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">一：简单的正则匹配</span></p>
+<p>&nbsp; &nbsp; 正则匹配算是最最简单的一个方法，比如针对上面路由中id的值，我可以用正则进行限定，也就是说id只能是整数，这个可以做到吗？？？对这么扩展性极强的mvc，</p>
+<p>当然可以做到，比如我下面写的这样：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">            routes.MapRoute(
+                name: </span><span style="color: #800000;">"</span><span style="color: #800000;">Default</span><span style="color: #800000;">"</span><span style="color: #000000;">,
+                url: </span><span style="color: #800000;">"</span><span style="color: #800000;">{controller}/{action}/{id}</span><span style="color: #800000;">"</span><span style="color: #000000;">,
+                defaults: </span><span style="color: #0000ff;">new</span> { controller = <span style="color: #800000;">"</span><span style="color: #800000;">Home</span><span style="color: #800000;">"</span>, action = <span style="color: #800000;">"</span><span style="color: #800000;">Index</span><span style="color: #800000;">"</span><span style="color: #000000;"> },
+                constraints: </span><span style="color: #0000ff;">new</span> { id = <span style="color: #800000;">@"</span><span style="color: #800000;">\d+</span><span style="color: #800000;">"</span><span style="color: #000000;"> }
+            );</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>然后，我输入一个正确的url，效果是这样的。</p>
+<p><img src="./自定义路由验证规则_files/214741-20160531141839102-413586024.png" alt=""></p>
+<p>&nbsp;</p>
+<p>当我把id改成abc的话，效果居然是这样滴。。。。</p>
+<p><img src="./自定义路由验证规则_files/214741-20160531141905227-1395533896.png" alt=""></p>
+<p>&nbsp;</p>
+<p>牛逼吧，页面已经无法打开，是不是很开心，接着就有吊毛找你，这个id限制能不能再强大点，根据数据库的配置，或者第三方逻辑来显示到底要不要显示，</p>
+<p>这时候是不是有点悲剧，目前的id貌似只有正则匹配，貌似并不能强大到自定义逻辑控制id值，不过不要灰心，刚才我也说了，mvc是一个扩展性极强的框架，</p>
+<p>这点事情自己有办法处理。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">二：IRouteConstraint 强大的自定义逻辑验证</span></p>
+<p>&nbsp; &nbsp; &nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; 可以看到IRouteConstraint 是一个接口，接口定义如下：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./自定义路由验证规则_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span>     <span style="color: #008000;">//</span>
+<span style="color: #008080;"> 2</span>     <span style="color: #008000;">//</span><span style="color: #008000;"> 摘要:
+</span><span style="color: #008080;"> 3</span>     <span style="color: #008000;">//</span><span style="color: #008000;">     定义类必须实现才能检查某 URL 参数值是否对约束有效的协定。</span>
+<span style="color: #008080;"> 4</span>     [TypeForwardedFrom(<span style="color: #800000;">"</span><span style="color: #800000;">System.Web.Routing, Version=3.5.0.0, Culture=Neutral, PublicKeyToken=31bf3856ad364e35</span><span style="color: #800000;">"</span><span style="color: #000000;">)]
+</span><span style="color: #008080;"> 5</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">interface</span><span style="color: #000000;"> IRouteConstraint
+</span><span style="color: #008080;"> 6</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 7</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;"> 8</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 摘要:
+</span><span style="color: #008080;"> 9</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     确定 URL 参数是否包含此约束的有效值。
+</span><span style="color: #008080;">10</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">11</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 参数:
+</span><span style="color: #008080;">12</span>         <span style="color: #008000;">//</span><span style="color: #008000;">   httpContext:
+</span><span style="color: #008080;">13</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     一个对象，封装有关 HTTP 请求的信息。
+</span><span style="color: #008080;">14</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">15</span>         <span style="color: #008000;">//</span><span style="color: #008000;">   route:
+</span><span style="color: #008080;">16</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     此约束所属的对象。
+</span><span style="color: #008080;">17</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">18</span>         <span style="color: #008000;">//</span><span style="color: #008000;">   parameterName:
+</span><span style="color: #008080;">19</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     正在检查的参数的名称。
+</span><span style="color: #008080;">20</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">21</span>         <span style="color: #008000;">//</span><span style="color: #008000;">   values:
+</span><span style="color: #008080;">22</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     一个包含 URL 的参数的对象。
+</span><span style="color: #008080;">23</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">24</span>         <span style="color: #008000;">//</span><span style="color: #008000;">   routeDirection:
+</span><span style="color: #008080;">25</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     一个对象，指示在处理传入请求或生成 URL 时，是否正在执行约束检查。
+</span><span style="color: #008080;">26</span>         <span style="color: #008000;">//</span>
+<span style="color: #008080;">27</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 返回结果:
+</span><span style="color: #008080;">28</span>         <span style="color: #008000;">//</span><span style="color: #008000;">     如果 URL 参数包含有效值，则为 true；否则为 false。</span>
+<span style="color: #008080;">29</span>         <span style="color: #0000ff;">bool</span> Match(HttpContextBase httpContext, Route route, <span style="color: #0000ff;">string</span><span style="color: #000000;"> parameterName, RouteValueDictionary values, RouteDirection routeDirection);
+</span><span style="color: #008080;">30</span>     }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./自定义路由验证规则_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>在这个接口中提供了一个Match方法，而我要做的就是实现一个继承它的类就可以了，当返回true代表通过，返回false代表匹配失败。。。。就像我现在</p>
+<p>这样的烂代码:</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./自定义路由验证规则_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: #008080;"> 1</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> RouteConfig
+</span><span style="color: #008080;"> 2</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;"> 3</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> RegisterRoutes(RouteCollection routes)
+</span><span style="color: #008080;"> 4</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;"> 5</span>             routes.IgnoreRoute(<span style="color: #800000;">"</span><span style="color: #800000;">{resource}.axd/{*pathInfo}</span><span style="color: #800000;">"</span><span style="color: #000000;">);
+</span><span style="color: #008080;"> 6</span> 
+<span style="color: #008080;"> 7</span> <span style="color: #000000;">            routes.MapRoute(
+</span><span style="color: #008080;"> 8</span>                 name: <span style="color: #800000;">"</span><span style="color: #800000;">Default</span><span style="color: #800000;">"</span><span style="color: #000000;">,
+</span><span style="color: #008080;"> 9</span>                 url: <span style="color: #800000;">"</span><span style="color: #800000;">{controller}/{action}/{id}</span><span style="color: #800000;">"</span><span style="color: #000000;">,
+</span><span style="color: #008080;">10</span>                 defaults: <span style="color: #0000ff;">new</span> { controller = <span style="color: #800000;">"</span><span style="color: #800000;">Home</span><span style="color: #800000;">"</span>, action = <span style="color: #800000;">"</span><span style="color: #800000;">Index</span><span style="color: #800000;">"</span><span style="color: #000000;"> },
+</span><span style="color: #008080;">11</span>                 constraints: <span style="color: #0000ff;">new</span> { <span style="color: #ff0000;">id = new</span><span style="color: #000000;"><span style="color: #ff0000;"> MyRouteConstraint()</span> }
+</span><span style="color: #008080;">12</span> <span style="color: #000000;">            );
+</span><span style="color: #008080;">13</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">14</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">15</span> 
+<span style="color: #008080;">16</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> MyRouteConstraint : IRouteConstraint
+</span><span style="color: #008080;">17</span> <span style="color: #000000;">    {
+</span><span style="color: #008080;">18</span>         <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">bool</span> Match(HttpContextBase httpContext, Route route, <span style="color: #0000ff;">string</span><span style="color: #000000;"> parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+</span><span style="color: #008080;">19</span> <span style="color: #000000;">        {
+</span><span style="color: #008080;">20</span>             <span style="color: #008000;">//</span><span style="color: #008000;">获取id的值</span>
+<span style="color: #008080;">21</span>             <span style="color: #0000ff;">var</span> id =<span style="color: #000000;"> values[parameterName];
+</span><span style="color: #008080;">22</span> 
+<span style="color: #008080;">23</span>             <span style="color: #008000;">//</span><span style="color: #008000;">logic。。。</span>
+<span style="color: #008080;">24</span> 
+<span style="color: #008080;">25</span>             <span style="color: #0000ff;">return</span> <span style="color: #0000ff;">true</span><span style="color: #000000;">;
+</span><span style="color: #008080;">26</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">27</span>     }</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./自定义路由验证规则_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>要看清楚哦。。。在我实现的MyRouteConstraint类中的Match方法，我通过values[parameterName]可以成功获取id的值，不行我可以调试给亲看。。。</p>
+<p><img src="./自定义路由验证规则_files/214741-20160531143319039-310217443.png" alt=""></p>
+<p>拿到这个值之后，你就可以肆意的去玩耍了。。。</p>
+<p>&nbsp;</p>
+<p><span style="font-size: 18pt;">三：源码分析</span></p>
+<p>到现在为止，你是不是很好奇这吊毛玩意是怎么实现的。。。。其实很简单的哦，还记得各种mvc入门书籍中说，路由路由的概念。。。其实呢，也就是一个</p>
+<p>Route类而已嘛。。。就像下面这样。</p>
+<p><img src="./自定义路由验证规则_files/214741-20160531143654727-2009828306.png" alt=""></p>
+<p>&nbsp;</p>
+<p>而Route类中，最最重要的莫过于GetRouteData方法，它就是用来决定是否可以看心情把你这个http请求送到Controller中去。。。然后我们再来看看</p>
+<p>这个方法的源代码。。。</p>
+<p><img src="./自定义路由验证规则_files/214741-20160531144113961-1390415059.png" alt=""></p>
+<p><img src="./自定义路由验证规则_files/214741-20160531144036539-1871708463.png" alt=""></p>
+<p>&nbsp;</p>
+<p>最终，功夫不负有心人，两串最核心的代码展现在你的面前。</p>
+<p>1.&nbsp;constraint as IRouteConstraint &nbsp; 如果当前是IRouteConstraint类型，走我实现的Match方法。</p>
+<p>2.&nbsp;constraint as string &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;走我的正则匹配，如：Regex.IsMatch。。。。</p>
+<p>&nbsp;</p>
+<p>好了，本篇就讲到这里，希望对你有帮助。</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/huangxincheng/category/666022.html" target="_blank">asp.net mvc</a></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5545841,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;40a06552-abf8-df11-ac81-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./自定义路由验证规则_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./自定义路由验证规则_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/huangxincheng/" target="_blank"><img src="./自定义路由验证规则_files/20141222171845.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/huangxincheng/">一线码农</a><br>
+            <a href="http://home.cnblogs.com/u/huangxincheng/followees">关注 - 57</a><br>
+            <a href="http://home.cnblogs.com/u/huangxincheng/followers">粉丝 - 8246</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;40a06552-abf8-df11-ac81-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(5545841,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">9</span>
+    </div>
+    <div class="buryit" onclick="votePost(5545841,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">1</span>
+    </div>
+    <div class="clear"></div>
+    
+<a id="green_channel_follow" onclick="follow(&#39;40a06552-abf8-df11-ac81-842b2b196315&#39;);" href="javascript:void(0);">关注我</a></div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/huangxincheng/p/5471211.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/huangxincheng/p/5471211.html" title="发布于2016-05-08 19:03">使用memadmin可视化监视我们的memcache</a><br><a href="http://www.cnblogs.com/huangxincheng/p/5571185.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/huangxincheng/p/5571185.html" title="发布于2016-06-08 18:55">使用强大的可视化工具redislive来监控我们的redis，别让自己死的太惨~~~</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2016-05-31 14:50</span> <a href="http://www.cnblogs.com/huangxincheng/">一线码农</a> 阅读(<span id="post_view_count">2890</span>) 评论(<span id="post_comment_count">3</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5545841" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#" onclick="AddToWz(5545841);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=85195,cb_entryId=5545841,cb_blogApp=currentBlogApp,cb_blogUserGuid='40a06552-abf8-df11-ac81-842b2b196315',cb_entryCreatedDate='2016/5/31 14:50:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#3443112" class="layer">#1楼</a><a name="3443112" id="comment_anchor_3443112"></a>  <span class="comment_date">2016-05-31 20:59</span> <a id="a_comment_author_3443112" href="http://www.cnblogs.com/h-change/" target="_blank">某C</a> <a href="http://msg.cnblogs.com/send/%E6%9F%90C" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3443112" class="blog_comment_body">前排支持博主~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3443112,&#39;Digg&#39;,this)">支持(2)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3443112,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3443112_avatar" style="display:none;">http://pic.cnblogs.com/face/465215/20170324115207.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#3445237" class="layer">#2楼</a><a name="3445237" id="comment_anchor_3445237"></a>  <span class="comment_date">2016-06-03 13:57</span> <a id="a_comment_author_3445237" href="http://www.cnblogs.com/realshow/" target="_blank">realshow</a> <a href="http://msg.cnblogs.com/send/realshow" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3445237" class="blog_comment_body">博主编辑器的背景是哪位美女啊？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3445237,&#39;Digg&#39;,this)">支持(2)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3445237,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3445237_avatar" style="display:none;">http://pic.cnblogs.com/face/919655/20160322230548.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#3544016" class="layer">#3楼</a><a name="3544016" id="comment_anchor_3544016"></a><span id="comment-maxId" style="display:none;">3544016</span><span id="comment-maxDate" style="display:none;">2016/10/30 1:04:40</span>  <span class="comment_date">2016-10-30 01:04</span> <a id="a_comment_author_3544016" href="http://www.cnblogs.com/zhang-lili/" target="_blank">痴心不悔</a> <a href="http://msg.cnblogs.com/send/%E7%97%B4%E5%BF%83%E4%B8%8D%E6%82%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3544016" class="blog_comment_body">楼主，我有这样一个需求：<br><br>文章详情页：<br>127.0.0.1/Article/12/<br>127.0.0.1/Article/13/<br>127.0.0.1/Article/14/<br><br>但是，<br>127.0.0.1/Article/13/ 是很特殊的一篇文章，<br>我希望 <br>127.0.0.1/SpecialWord/  这个 URL 返回的是 127.0.0.1/Article/13/ 的页面<br><br>换言之：<br>我这里 可能有很多 自定义的URL（不与任何 路由规则匹配）<br>—— 如何让 这些 自定义的URL 指向到 指定URL 的路由 呢？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3544016,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3544016,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/huangxincheng/p/5545841.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://group.cnblogs.com/topic/77995.html" target="_blank">【活动】阿里云双11活动开始预热 云服务器限时2折起</a><br><a href="http://click.aliyun.com/m/33696/" target="_blank">【调查】有奖调研即刻参与，你竟然是酱紫程序猿！</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="http://www.gcpowertools.com.cn/products/activereports_overview.htm?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=AR&amp;utm_campaign=community" target="_blank"><img width="300" height="250" src="./自定义路由验证规则_files/24442-20171031213643701-1551350337.jpg" alt="葡萄城"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/581541/" target="_blank">你的朋友圈被京东家电红砸晕了吗？</a><br> ·  <a href="http://news.cnblogs.com/n/581539/" target="_blank">英特尔宣布为2018年韩国冬奥会提供5G网络支持</a><br> ·  <a href="http://news.cnblogs.com/n/581537/" target="_blank">优信集团上线“优信新车一成购”，打通汽车全生命周期产业链</a><br> ·  <a href="http://news.cnblogs.com/n/581536/" target="_blank">“抖音”内测直播功能，短视频VS直播，一场和谐的抢地盘游戏</a><br> ·  <a href="http://news.cnblogs.com/n/581533/" target="_blank">战斗民族如何战胜谷歌，在人工智能领域取得一席之地？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/32986/" target="_blank"><img width="468" height="60" src="./自定义路由验证规则_files/24442-20171027070203758-1397753435.jpg" alt="阿里云双11"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/578502/" target="_blank">为什么你参加了那么多培训，却依然表现平平？</a><br> ·  <a href="http://kb.cnblogs.com/page/579832/" target="_blank">写给初学前端工程师的一封信</a><br> ·  <a href="http://kb.cnblogs.com/page/579480/" target="_blank">实用VPC虚拟私有云设计原则</a><br> ·  <a href="http://kb.cnblogs.com/page/576251/" target="_blank">如何阅读计算机科学类的书</a><br> ·  <a href="http://kb.cnblogs.com/page/578103/" target="_blank">Google 及其云智慧</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+
+	<div id="blog-news" style="width: 220px; margin-left: -13px; margin-top: -13px;"><iframe width="100%" height="550" class="share_self" frameborder="0" scrolling="no" src="./自定义路由验证规则_files/index.html"></iframe>
+<a href="http://www.cnzz.com/stat/website.php?web_id=2686777" target="_blank" title="站长统计"><img border="0" hspace="0" vspace="0" src="./自定义路由验证规则_files/pic1.gif"></a>
+
+<!-- 代码部分begin -->
+<div id="rightArrow"><a href="javascript:;" title="视频教程一览"></a></div>
+<div id="floatDivBoxs">
+  <div class="floatDtt">视频教程一览</div>
+  <div class="floatShadow">
+    <ul class="floatDqq">
+<li><a target="_blank" href="https://item.taobao.com/item.htm?id=549569218065" title="C#多线程视频教程">C#多线程视频教程</a></li>
+<li><a target="_blank" href="https://item.taobao.com/item.htm?id=547672364111" title="redis 3.2.6视频教程">redis 3.2.6视频教程</a></li>
+     <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547752874600" title="rabbitmq 3.6.5视频教程">rabbitmq 3.6.5视频教程</a></li>
+      <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547780863627" title="mongodb 3.2.8从入门到精通">mongodb3.2.8从入门到精通</a></li>
+      <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547749442688" title="asp.net mvc5视频教程">asp.net mvc5视频教程</a></li>
+      <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547780007703" title="ef6.0从入门到精通">ef6.0从入门到精通</a></li>
+      <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547832047562" title="asp.net SignalR视频教程">asp.net SignalR视频教程</a></li>
+ <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547821627450" title="wcf从入门到精通">wcf从入门到精通</a></li>
+  <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547812382309" title="knockout3.4.0从入门到精通">knockout3.4.0从入门到精通</a></li>
+      <li><a target="_blank" href="https://item.taobao.com/item.htm?id=547783597208" title="linq从入门到精通">linq从入门到精通</a></li>
+  <li><a target="_blank" href="https://huangxincheng.taobao.com/" title="更多">更多...</a></li>
+    </ul>
+    <!--<div class="floatImg"><img src="images/erweima.jpg" width="100%">微信公众账号</div>  -->
+  </div>
+ <!-- <div class="floatDbg"></div> -->
+</div>
+
+    <div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/huangxincheng/">一线码农</a><br>园龄：<a href="http://home.cnblogs.com/u/huangxincheng/" title="入园时间：2010-11-25">6年11个月</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/huangxincheng/followers/">8246</a><br>关注：<a href="http://home.cnblogs.com/u/huangxincheng/followees/">57</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;40a06552-abf8-df11-ac81-842b2b196315&#39;)">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/10/01&#39;);return false;">&lt;</a></td><td align="center">2017年11月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2017/12/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td class="CalTodayDay" align="center">1</td><td align="center">2</td><td align="center">3</td><td class="CalWeekendDay" align="center">4</td></tr><tr><td class="CalWeekendDay" align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td class="CalWeekendDay" align="center">11</td></tr><tr><td class="CalWeekendDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td class="CalWeekendDay" align="center">18</td></tr><tr><td class="CalWeekendDay" align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td class="CalWeekendDay" align="center">25</td></tr><tr><td class="CalWeekendDay" align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td></tr><tr><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/huangxincheng/p/7707830.html">1. 使用nginx搭建高可用，高并发的wcf集群</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7469328.html">2. 如何大幅提升web前端性能之看tengine在大公司架构实践</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7456397.html">3. 缓存一致性和跨服务器查询的数据异构解决方案canal</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7449722.html">4. 高CPU业务场景下的任务分发方案Gearman搭建一览</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7441221.html">5. 改造继续之eclipse集成tomcat开发spring mvc项目配置一览</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7434672.html">6. .net项目架构改造之搭建基于java环境配置一览【上】</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7335312.html">7. 用java调用.net的wcf其实还是很简单的</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/7078895.html">8. 使用mongodb作为Quartz.Net下的JobStore实现底层的持久化机制</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/6916246.html">9. 使用sqlserver搭建高可用双机热备的Quartz集群部署【附源码】</a></li><li><a href="http://www.cnblogs.com/huangxincheng/p/6859725.html">10. 采用config方式灵活配置我们的Quarz.net中的Job,Trigger</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block"></div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(254)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/huangxincheng/category/666022.html">asp.net mvc(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/huangxincheng/category/800109.html">asp.net signalR(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/huangxincheng/category/560847.html">AS系列(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/huangxincheng/category/347053.html">C#网络编程(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/huangxincheng/category/563179.html">C#遗忘系列(30)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/huangxincheng/category/685772.html">CSS之旅(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/huangxincheng/category/876029.html">dapper学习(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/huangxincheng/category/1066638.html">java(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/huangxincheng/category/633317.html">javascript之旅(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/huangxincheng/category/789529.html">Linq专题(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/huangxincheng/category/379940.html">Lucene(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/huangxincheng/category/826108.html">memcache(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/huangxincheng/category/355399.html">MongoDB(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/huangxincheng/category/1002682.html">quartz.net(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/huangxincheng/category/901117.html">rabbitmq(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/huangxincheng/category/755864.html">redis(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/huangxincheng/category/555253.html">sql server(16)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/huangxincheng/category/415739.html">UML系列(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/huangxincheng/category/552575.html">VS不得不会的技巧(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/huangxincheng/category/698705.html">wcf精通系列(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/huangxincheng/category/693668.html">wcf泥巴路(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/huangxincheng/category/340145.html">wcf系列(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/huangxincheng/category/388852.html">wpf系列(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/huangxincheng/category/850636.html">zookeeper(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/huangxincheng/category/368987.html">并行开发(8)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/huangxincheng/category/557960.html">扯淡系列(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_26" href="http://www.cnblogs.com/huangxincheng/category/572720.html">大型网站架构(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_27" href="http://www.cnblogs.com/huangxincheng/category/362940.html">多线程系列(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_28" href="http://www.cnblogs.com/huangxincheng/category/401959.html">经典算法专题(25)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_29" href="http://www.cnblogs.com/huangxincheng/category/340151.html">开发利器系列(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_30" href="http://www.cnblogs.com/huangxincheng/category/623995.html">面试中的那些必知必会(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_31" href="http://www.cnblogs.com/huangxincheng/category/469265.html">那点所谓的分布式(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_32" href="http://www.cnblogs.com/huangxincheng/category/941330.html">设计模式(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_33" href="http://www.cnblogs.com/huangxincheng/category/598757.html">视频列表</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_34" href="http://www.cnblogs.com/huangxincheng/category/397768.html">树结构专题(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_35" href="http://www.cnblogs.com/huangxincheng/category/340146.html">算法速成系列(15)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_36" href="http://www.cnblogs.com/huangxincheng/category/340148.html">算法洗脑系列(9)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_37" href="http://www.cnblogs.com/huangxincheng/category/411614.html">天籁数学(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_38" href="http://www.cnblogs.com/huangxincheng/category/443022.html">图形图像(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_39" href="http://www.cnblogs.com/huangxincheng/category/425215.html">小爬虫系列(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_40" href="http://www.cnblogs.com/huangxincheng/category/340305.html">做一名合格的前端开发工程师（12篇）(1)</a> </li>
+
+</ul>
+
+</div>
+
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(253)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/huangxincheng/archive/2017/10.html">2017年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/huangxincheng/archive/2017/09.html">2017年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/huangxincheng/archive/2017/08.html">2017年8月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/huangxincheng/archive/2017/06.html">2017年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/huangxincheng/archive/2017/05.html">2017年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/huangxincheng/archive/2017/04.html">2017年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/huangxincheng/archive/2017/03.html">2017年3月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/huangxincheng/archive/2017/02.html">2017年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/huangxincheng/archive/2017/01.html">2017年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/huangxincheng/archive/2016/12.html">2016年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/huangxincheng/archive/2016/11.html">2016年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/huangxincheng/archive/2016/10.html">2016年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/huangxincheng/archive/2016/09.html">2016年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/huangxincheng/archive/2016/08.html">2016年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/huangxincheng/archive/2016/07.html">2016年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/huangxincheng/archive/2016/06.html">2016年6月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/huangxincheng/archive/2016/05.html">2016年5月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/huangxincheng/archive/2016/03.html">2016年3月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/huangxincheng/archive/2016/02.html">2016年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/huangxincheng/archive/2015/12.html">2015年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/huangxincheng/archive/2015/11.html">2015年11月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/huangxincheng/archive/2015/10.html">2015年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="http://www.cnblogs.com/huangxincheng/archive/2015/08.html">2015年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="http://www.cnblogs.com/huangxincheng/archive/2015/07.html">2015年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="http://www.cnblogs.com/huangxincheng/archive/2015/06.html">2015年6月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="http://www.cnblogs.com/huangxincheng/archive/2015/05.html">2015年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="http://www.cnblogs.com/huangxincheng/archive/2015/04.html">2015年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="http://www.cnblogs.com/huangxincheng/archive/2015/03.html">2015年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="http://www.cnblogs.com/huangxincheng/archive/2015/02.html">2015年2月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="http://www.cnblogs.com/huangxincheng/archive/2015/01.html">2015年1月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="http://www.cnblogs.com/huangxincheng/archive/2014/12.html">2014年12月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="http://www.cnblogs.com/huangxincheng/archive/2014/11.html">2014年11月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="http://www.cnblogs.com/huangxincheng/archive/2014/10.html">2014年10月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="http://www.cnblogs.com/huangxincheng/archive/2014/09.html">2014年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="http://www.cnblogs.com/huangxincheng/archive/2014/08.html">2014年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_35" href="http://www.cnblogs.com/huangxincheng/archive/2014/07.html">2014年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_36" href="http://www.cnblogs.com/huangxincheng/archive/2014/06.html">2014年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_37" href="http://www.cnblogs.com/huangxincheng/archive/2014/05.html">2014年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_38" href="http://www.cnblogs.com/huangxincheng/archive/2014/04.html">2014年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_39" href="http://www.cnblogs.com/huangxincheng/archive/2014/03.html">2014年3月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_40" href="http://www.cnblogs.com/huangxincheng/archive/2014/02.html">2014年2月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_41" href="http://www.cnblogs.com/huangxincheng/archive/2013/12.html">2013年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_42" href="http://www.cnblogs.com/huangxincheng/archive/2013/04.html">2013年4月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_43" href="http://www.cnblogs.com/huangxincheng/archive/2013/03.html">2013年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_44" href="http://www.cnblogs.com/huangxincheng/archive/2013/01.html">2013年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_45" href="http://www.cnblogs.com/huangxincheng/archive/2012/12.html">2012年12月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_46" href="http://www.cnblogs.com/huangxincheng/archive/2012/11.html">2012年11月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_47" href="http://www.cnblogs.com/huangxincheng/archive/2012/10.html">2012年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_48" href="http://www.cnblogs.com/huangxincheng/archive/2012/09.html">2012年9月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_49" href="http://www.cnblogs.com/huangxincheng/archive/2012/08.html">2012年8月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_50" href="http://www.cnblogs.com/huangxincheng/archive/2012/07.html">2012年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_51" href="http://www.cnblogs.com/huangxincheng/archive/2012/06.html">2012年6月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_52" href="http://www.cnblogs.com/huangxincheng/archive/2012/05.html">2012年5月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_53" href="http://www.cnblogs.com/huangxincheng/archive/2012/04.html">2012年4月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_54" href="http://www.cnblogs.com/huangxincheng/archive/2012/03.html">2012年3月 (9)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_55" href="http://www.cnblogs.com/huangxincheng/archive/2012/02.html">2012年2月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_56" href="http://www.cnblogs.com/huangxincheng/archive/2012/01.html">2012年1月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_57" href="http://www.cnblogs.com/huangxincheng/archive/2011/12.html">2011年12月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_58" href="http://www.cnblogs.com/huangxincheng/archive/2011/11.html">2011年11月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_59" href="http://www.cnblogs.com/huangxincheng/archive/2011/10.html">2011年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_60" href="http://www.cnblogs.com/huangxincheng/archive/2011/05.html">2011年5月 (1)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	780957
+	</li>
+	<li class="liRank">
+		排名 -	110
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/huangxincheng/archive/2012/03/18/2405039.html#3826562">1. Re:5天不再惧怕多线程——第五天 线程池</a></li>
+        <li class="recent_comment_body"><b>我们要知道一个线程默认占用1M的堆栈空间，如果10230个线程将会占用差不多10G的内存空间 <br>是10G吗</b></li>
+        <li class="recent_comment_author">--寒江雪雁</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/huangxincheng/p/7707830.html#3826101">2. Re:使用nginx搭建高可用，高并发的wcf集群</a></li>
+        <li class="recent_comment_body">顶！投奔你去！</li>
+        <li class="recent_comment_author">--扑向那只羊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/huangxincheng/p/5002794.html#3825878">3. Re:15天玩转redis —— 第九篇 发布/订阅模式</a></li>
+        <li class="recent_comment_body">redis 的pub/sub 这种消息通信模式主要用在什么地方呢？</li>
+        <li class="recent_comment_author">--牛顿的小脑</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/huangxincheng/p/7707830.html#3824361">4. Re:使用nginx搭建高可用，高并发的wcf集群</a></li>
+        <li class="recent_comment_body">@魔沦殇引用这样只能对http/https绑定有效吧？对于tcp绑定的就没办法按照服务划分来负载了吧个人觉得TCP绑定大多时候都是针对内网互相通讯的，负载均衡的必要性不大就是了。...</li>
+        <li class="recent_comment_author">--vbfool</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/huangxincheng/p/4621971.html#3823491">5. Re:十五天精通WCF——第九天 高级玩法之自定义Behavior</a></li>
+        <li class="recent_comment_body">求背景图，还有怎么弄背景图</li>
+        <li class="recent_comment_author">--梨花大将</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/18/2356595.html">1. 8天学通MongoDB——第一天  基础入门(413616)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/19/2357846.html">2. 8天学通MongoDB——第二天  细说增删查改(138432)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/21/2361205.html">3. 8天学通MongoDB——第三天  细说高级操作(95856)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/29/2372699.html">4. 8天学通MongoDB——第四天  索引操作(83104)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/03/07/2383284.html">5. 8天学通MongoDB——第六天 分片技术(76174)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/huangxincheng/archive/2011/12/04/2275988.html">1. 做一名合格的前端开发工程师（12篇）——第一篇 Javascript加载执行问题探索(110)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2011/11/14/2249046.html">2. 算法系列15天速成——第一天 七大经典排序【上】(103)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/18/2356595.html">3. 8天学通MongoDB——第一天  基础入门(99)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/03/09/2386054.html">4. 8天学通MongoDB——第八天 驱动实践(76)</a></li><li><a href="http://www.cnblogs.com/huangxincheng/archive/2012/02/19/2357846.html">5. 8天学通MongoDB——第二天  细说增删查改(61)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2017 一线码农
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+</body></html>

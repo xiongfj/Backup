@@ -18,7 +18,7 @@ namespace AspNetIdentity2Permission.Mvc.Areas.SuperAdmin
                 "SuperAdmin_default",
                 "SuperAdmin/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }, 
-                new string[] {"AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers"}
+                new string[] {"AspNetIdentity2Permission.Mvc.Areas.SuperAdmin.Controllers"}	// 优先在这命名空间内查找
             );
         }
     }

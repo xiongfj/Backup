@@ -49,16 +49,17 @@ namespace IdentityDB
 
 
 	/* 该类实例会传递到 UserManager 内部回调 */
-	public class UserStore<TUser, TRole, TKey, TUserLogin, TUserRole, TUserClaim> : IUserLoginStore<TUser, TKey>,
+	public class UserStore<TUser, TRole, TKey, TUserLogin, TUserRole, TUserClaim> : 
+		IUserLoginStore<TUser, TKey>,		// 外部身份验证提供程序
 		IUserClaimStore<TUser, TKey>,
 		IUserRoleStore<TUser, TKey>,
-		IUserPasswordStore<TUser, TKey>,
-		IUserSecurityStampStore<TUser, TKey>,
-		IQueryableUserStore<TUser, TKey>,
+		IUserPasswordStore<TUser, TKey>,	// 如果使用了哈希密码,必须实现这个
+		IUserSecurityStampStore<TUser, TKey>,   // 如果你的用户存储中使用了安全戳来判断用户账号信息是否改变，你就必须实现这个接口定义的方法
+		IQueryableUserStore<TUser, TKey>,       // 提供一个可查询的用户存储必须实现这个接口定义的方法
 		IUserEmailStore<TUser, TKey>,
 		IUserPhoneNumberStore<TUser, TKey>,
-		IUserTwoFactorStore<TUser, TKey>,
-		IUserLockoutStore<TUser, TKey>,
+		IUserTwoFactorStore<TUser, TKey>,       // 双因素认证必须实现这个接口定义的方法
+		IUserLockoutStore<TUser, TKey>,     // 存储账号锁定信息必须实现这个接口定义的方法
 		IUserStore<TUser, TKey>,
 		IDisposable
 		where TUser : IdentityUser<TKey, TUserLogin, TUserRole, TUserClaim>
@@ -119,6 +120,9 @@ namespace IdentityDB
 		//   claim:
 		public virtual Task AddClaimAsync(TUser user, Claim claim)
 		{
+			// 将数据插入 AspNetUserClaims 表中
+			//_userClaims.Add(new TUserClaim { UserId = user.Id, ClaimType = claim.Type, ClaimValue = claim.Value });
+
 			return Task.FromResult<object>(null);
 		}
 		//
@@ -131,6 +135,14 @@ namespace IdentityDB
 		//   login:
 		public virtual Task AddLoginAsync(TUser user, UserLoginInfo login)
 		{
+			/* 将下面数据插入表 AspNetUserLogins
+			 _logins.Add(new TUserLogin
+            {
+                UserId = user.Id,
+                ProviderKey = login.ProviderKey,
+                LoginProvider = login.LoginProvider
+            });
+			*/
 			return Task.FromResult<object>(null);
 		}
 		//
@@ -145,6 +157,10 @@ namespace IdentityDB
 		[DebuggerStepThrough]
 		public virtual Task AddToRoleAsync(TUser user, string roleName)
 		{
+			/*
+            var ur = new TUserRole { UserId = user.Id, RoleId = AspNetRoles 表中 roleName对应的id };
+            _userRoles.Add(ur);
+			*/
 			return Task.FromResult<object>(null);
 		}
 		//
@@ -184,24 +200,24 @@ namespace IdentityDB
 		[DebuggerStepThrough]
 		public virtual Task<TUser> FindAsync(UserLoginInfo login)
 		{
+			/* 根据表 AspNetUserLogins 表的LoginProvider,ProviderKey 查找 UserId
+			 * 再根据 UserId 查找 AspNetUsers 表里面的 TUser
+			 var provider = login.LoginProvider;
+            var key = login.ProviderKey;
+            var userLogin =
+            await _logins.FirstOrDefaultAsync(l => l.LoginProvider == provider && l.ProviderKey == key).WithCurrentCulture();
+			*/
+
 			return Task.FromResult<TUser>(null);
 		}
-		//
-		// Summary:
-		//     Find a user by email
-		//
-		// Parameters:
-		//   email:
+
+		// 根据邮件地址查找 TUser
 		public virtual Task<TUser> FindByEmailAsync(string email)
 		{
 			return Task.FromResult<TUser>(null);
 		}
+
 		//
-		// Summary:
-		//     Find a user by id
-		//
-		// Parameters:
-		//   userId:
 		public virtual Task<TUser> FindByIdAsync(TKey userId)
 		{
 			return Task.FromResult<TUser>(null);
@@ -225,7 +241,7 @@ namespace IdentityDB
 		//   user:
 		public virtual Task<int> GetAccessFailedCountAsync(TUser user)
 		{
-			return Task.FromResult<int>(0);
+			return Task.FromResult(user.AccessFailedCount);// 已修改
 		}
 		//
 		// Summary:
@@ -237,6 +253,8 @@ namespace IdentityDB
 		[DebuggerStepThrough]
 		public virtual Task<IList<Claim>> GetClaimsAsync(TUser user)
 		{
+			// 前提要确保 user 内的 Claims 已经存入数据
+			//return user.Claims.Select(c => new Claim(c.ClaimType, c.ClaimValue)).ToList();
 			return Task.FromResult<IList<Claim>>(null);
 		}
 		//
@@ -267,7 +285,7 @@ namespace IdentityDB
 		//   user:
 		public virtual Task<bool> GetLockoutEnabledAsync(TUser user)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(user.LockoutEnabled);//正确
 		}
 		//
 		// Summary:
@@ -278,7 +296,10 @@ namespace IdentityDB
 		//   user:
 		public virtual Task<DateTimeOffset> GetLockoutEndDateAsync(TUser user)
 		{
-			return Task.FromResult<DateTimeOffset>(DateTimeOffset.MinValue);
+			return
+				Task.FromResult(user.LockoutEndDateUtc.HasValue
+					? new DateTimeOffset(DateTime.SpecifyKind(user.LockoutEndDateUtc.Value, DateTimeKind.Utc))
+					: new DateTimeOffset());
 		}
 		//
 		// Summary:
@@ -288,9 +309,10 @@ namespace IdentityDB
 		//   user:
 		///[AsyncStateMachine(typeof(UserStore<,,,,,>.< GetLoginsAsync > d__35))]
 		[DebuggerStepThrough]
-		public virtual Task<IList<UserLoginInfo>> GetLoginsAsync(TUser user)
+		public virtual async Task<IList<UserLoginInfo>> GetLoginsAsync(TUser user)
 		{
-			return Task.FromResult<IList<UserLoginInfo>>(null);
+			// await EnsureLoginsLoaded(user).WithCurrentCulture(); 前提要确保有数据
+			return user.Logins.Select(l => new UserLoginInfo(l.LoginProvider, l.ProviderKey)).ToList();
 		}
 		//
 		// Summary:
@@ -362,7 +384,7 @@ namespace IdentityDB
 		//   user:
 		public virtual Task<bool> HasPasswordAsync(TUser user)
 		{
-			return Task.FromResult<bool>(false);
+			return Task.FromResult(user.PasswordHash != null);//正确
 		}
 		//
 		// Summary:
@@ -372,7 +394,8 @@ namespace IdentityDB
 		//   user:
 		public virtual Task<int> IncrementAccessFailedCountAsync(TUser user)
 		{
-			return Task.FromResult<int>(0);
+			user.AccessFailedCount++;
+			return Task.FromResult(user.AccessFailedCount);
 		}
 		//
 		// Summary:

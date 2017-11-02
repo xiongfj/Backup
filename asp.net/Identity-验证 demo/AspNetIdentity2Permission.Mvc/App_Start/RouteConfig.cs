@@ -13,7 +13,7 @@ namespace AspNetIdentity2Permission.Mvc
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },                
-                namespaces: new string[] { "AspNetIdentity2Permission.Mvc.Controllers" }
+                namespaces: new string[] { "AspNetIdentity2Permission.Mvc.Controllers" }	// 定义命名空间,与 Area 里面的区分
             );
         }
     }

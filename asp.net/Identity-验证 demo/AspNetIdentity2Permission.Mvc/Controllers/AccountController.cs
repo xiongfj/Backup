@@ -207,8 +207,8 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.Username,
-                    Password = model.Password,
-                    Email = model.Email
+                    Password = model.Password,  // 密码不能为空! 这里必须写上
+					Email = model.Email
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

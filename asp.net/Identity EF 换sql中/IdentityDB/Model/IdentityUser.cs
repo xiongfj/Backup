@@ -28,10 +28,6 @@ namespace IdentityDB.Model
 
 
 
-
-
-
-
 	public class IdentityUser<TKey, TLogin, TRole, TClaim> : IUser<TKey>
 		where TLogin : IdentityUserLogin<TKey>
 		where TRole : IdentityUserRole<TKey>

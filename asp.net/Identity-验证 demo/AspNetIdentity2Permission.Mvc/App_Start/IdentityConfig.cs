@@ -78,13 +78,14 @@ namespace AspNetIdentity2Permission.Mvc
 
     }
 
-    /*数据库模型改变的时候更新数据库结构
+	/*数据库模型改变的时候更新数据库结构
      一：数据库不存在时重新创建数据库   Database.SetInitializer<testContext>(new CreateDatabaseIfNotExists<testContext>());
     二：每次启动应用程序时创建数据库    Database.SetInitializer<testContext>(new DropCreateDatabaseAlways<testContext>());
     三：模型更改时重新创建数据库  Database.SetInitializer<testContext>(new DropCreateDatabaseIfModelChanges<testContext>());
     四：从不创建数据库   Database.SetInitializer<testContext>(null);
+	* 在IdentityModels 内的 ApplicationDbContext :  IdentityDbContext<ApplicationUser> 设置
     */
-    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
+	public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -125,7 +126,7 @@ namespace AspNetIdentity2Permission.Mvc
             }
 
             var role2 = roleManager.FindByName(roleName2);
-            role2.Users.Select(x => x.UserId);
+            //role2.Users.Select(x => x.UserId);
             if (role2 == null)
             {
                 role2 = new ApplicationRole() { Name = roleName2, Description = roleName2 };
