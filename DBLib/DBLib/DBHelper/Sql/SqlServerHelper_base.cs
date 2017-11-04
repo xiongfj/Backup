@@ -1,14 +1,11 @@
-﻿using DBLib.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Common;
+using DBLib.Model;
 
-namespace DBLib.DBHelper.Sql
+namespace IdentityDB.DBHelper.Sql
 {
 	public class SqlServerHelper : IHelper
 	{
@@ -46,6 +43,7 @@ namespace DBLib.DBHelper.Sql
 				DataTable table = new DataTable();
 				DbDataAdapter adapter = this.CreateDataAdapter();
 
+				cmd.Parameters.Clear();
 				cmd.CommandText = sql;
 				adapter.SelectCommand = cmd;
 
@@ -60,6 +58,17 @@ namespace DBLib.DBHelper.Sql
 
 				return table;
 			}
+		}
+
+		/// <summary>
+		/// 自动根据 model 内的非null字段,生成 where param=@param .. 的查询条件查询
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		public override DataTable ExecuteTable(IModel model)
+		{
+			string keyWhere = SqlStringHelper.MakeQueryParameters(model);
+			return ExecuteTableWhere(model, keyWhere);
 		}
 
 		/// <summary>
@@ -104,11 +113,11 @@ namespace DBLib.DBHelper.Sql
 		/// <returns></returns>
 		public override bool FindPrimaryKey(IModel model)
 		{
-			lock (m_lock)
-			{
+			//lock (m_lock)
+			//{
 				string keyWhere = SqlStringHelper.MakePrimaryKeyWhere(model);
 				return FindWhere(model, keyWhere);
-			}
+			//}
 		}
 		/// <summary>
 		/// 
@@ -118,6 +127,11 @@ namespace DBLib.DBHelper.Sql
 		/// <param name="paramList"></param>
 		/// <returns></returns>
 		public override bool FindWhere(IModel model, string where)
+		{
+			return (ExecuteScalarWhere(model, where) != null);
+		}
+
+		public override object ExecuteScalarWhere(IModel model, string where)
 		{
 			lock (m_lock)
 			{
@@ -143,11 +157,38 @@ namespace DBLib.DBHelper.Sql
 				{
 					CloseConnection();
 				}
+				return result;
+			}
+		}
 
-				if (result != null)
-					return true;
+		/// <summary>
+		/// 查询单个字段数据
+		/// </summary>
+		/// <param name="sql"></param>
+		/// <returns></returns>
+		public override object ExecuteScalarSql(string sql)
+		{
+			lock (m_lock)
+			{
+				object result = null;
 
-				return false;
+				cmd.Parameters.Clear();
+				cmd.CommandText = sql;
+
+				try
+				{
+					OpenConnection();
+					result = cmd.ExecuteScalar();
+				}
+				catch (SqlException e)
+				{
+					throw e;
+				}
+				finally
+				{
+					CloseConnection();
+				}
+				return result;
 			}
 		}
 		#endregion

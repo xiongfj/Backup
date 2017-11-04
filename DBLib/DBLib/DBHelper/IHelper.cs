@@ -1,13 +1,9 @@
 ﻿using DBLib.Model;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DBLib.DBHelper
+namespace IdentityDB.DBHelper
 {
     public abstract class IHelper
 	{
@@ -23,9 +19,12 @@ namespace DBLib.DBHelper
 
 		#region 查找
 		public abstract DataTable ExecuteTable(string sql);
+		public abstract DataTable ExecuteTable(IModel model);
 		public abstract DataTable ExecuteTableWhere(IModel model, string where);
 		public abstract bool FindPrimaryKey(IModel model);
 		public abstract bool FindWhere(IModel model, string where);
+		public abstract object ExecuteScalarWhere(IModel model, string where);
+		public abstract object ExecuteScalarSql(string sql);
 		#endregion
 
 		#region 插入

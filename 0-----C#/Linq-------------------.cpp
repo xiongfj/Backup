@@ -88,8 +88,9 @@ where c == "Ferrari" || c == "Lotus"
 /**
  int arry1 = {2,4,5,7,8,12,73,};
  int arry2 = {5,3,7,2,34,21,23};
+ 
  var query = from val_1 in arry1
-	join val_2 in arry2 on val_1%6 equals val_2%9
+	join val_2 in arry2 on val_1%6 equals val_2%9		/// val_2 是 arry2 中的一个数字
 	select new {VAL1 = val_1, VAL2 = val_2 };
 */
 

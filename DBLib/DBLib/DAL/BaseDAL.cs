@@ -1,10 +1,11 @@
-﻿using DBLib.Model;
-using DBLib.DBHelper;
+﻿using DBLib.DBHelper;
+using DBLib.DBHelper.Sql;
+using DBLib.Model;
+using IdentityDB.DBHelper;
 using System.Collections.Generic;
 using System.Data;
-using DBLib.DBHelper.Sql;
 
-namespace DBLib.DAL
+namespace IdentityDB.DAL
 {
 	public class BaseDAL
 	{
@@ -21,6 +22,16 @@ namespace DBLib.DAL
 		public DataTable ExecuteTable(string sql)
 		{
 			return mDBHelper.ExecuteTable(sql);
+		}
+
+		/// <summary>
+		/// model 所有非null 字段都加入到 where param=@param ... 查询数据
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		public DataTable ExecuteTable(IModel model)
+		{
+			return mDBHelper.ExecuteTable(model);
 		}
 
 		public DataTable ExecuteTableWhere(IModel model, string where)
@@ -46,6 +57,16 @@ namespace DBLib.DAL
 		public bool FindWhere(IModel model, string where)
 		{
 			return mDBHelper.FindWhere(model, where);
+		}
+
+		public object ExecuteScalarWhere(IModel model, string where)
+		{
+			return mDBHelper.ExecuteScalarWhere(model, where);
+		}
+
+		public object ExecuteScalarSql(string sql)
+		{
+			return mDBHelper.ExecuteScalarSql(sql);
 		}
 		#endregion
 

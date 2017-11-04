@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DBLib.DBHelper.Sql
+namespace IdentityDB.DBHelper.Sql
 {
 	public class SqlStringHelper
 	{
 		/// <summary>
-		/// 用主键生成 where 条件
+		/// 只生成主键的 Id=@Id
 		/// </summary>
 		/// <returns></returns>
 		public static string MakePrimaryKeyWhere(IModel model)
@@ -30,8 +30,26 @@ namespace DBLib.DBHelper.Sql
 
 			return keyWhere.Remove(keyWhere.Length - 5, 5);
 		}
+
 		/// <summary>
-		/// 根据 where 内的 @xxx 添加对应的字段到 @param
+		/// 根据 model 内所有非 null 的字段, 生成 param=@param 的查询参数
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
+		public static string MakeQueryParameters(IModel model)
+		{
+			Dictionary<string, FieldInfo> modelInfo = model.getModelInfo();
+			string Where = "";
+			foreach (string name in modelInfo.Keys)
+			{
+				Where += (name + "=@" + name + " and ");
+			}
+
+			return Where.Remove(Where.Length - 5, 5);
+		}
+
+		/// <summary>
+		/// 根据给出的 param=@param 添加对应的 SqlParameter
 		/// </summary>
 		/// <param name="model"></param>
 		/// <param name="paramList">里面的属性将被添加进 parameter, 其余属性不添加</param>
@@ -79,7 +97,7 @@ namespace DBLib.DBHelper.Sql
 		}
 
 		/// <summary>
-		/// model 所有字段添加进 @param
+		/// model 所有非 null 字段添加进 @param
 		/// </summary>
 		/// <param name="model"></param>
 		/// <param name="where"></param>
