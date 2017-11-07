@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<input id="txt" />
+<button id="btn">提交(局部实现刷新)</button>
+<input id="txt1" />
+<button id="btn1">提交(局部实现刷新)</button>
+<div id="data">
+    @{Html.RenderAction("GetData");}
+</div>
+
+
+<script>
+    $(function () {
+        $('#btn').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/home/getdata",       // url 貌似不能跨域!! 即使是 MVC 的 Areas 也不能
+                data: { str:"uiuy"},
+                beforeSend: function (data) { //取回数据前
+                    //$("#itemTree").html('<span style="padding:5">数据加载中...</span>');
+                },
+                error: function (data) { //发生错误时
+                    //                debugger;
+                    alert('assda22222' + data);
+                },
+                success: function (data) { //成功返回时
+                    $("#data").html(data);          // 更新局部 data 内的数据
+                }
+            });
+        });
+
+        // 另一种更新写法
+        $("#btn1").click(function () {
+            $("#data").load("/home/getdata", { "str": $("#txt1").val() }, function () {
+                alert("提交成功");
+            });
+        });
+    })
+</script>
