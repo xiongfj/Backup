@@ -1,0 +1,41 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "用户列表";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model PagedList<MainTain.Models.EditUserRoleViewModel>
+<h2>用户列表</h2>
+
+@Html.ActionLink("新建用户", "Create")
+<fieldset>
+    <legend>查询</legend>
+    @using (Ajax.BeginForm("AjaxSearchPost",
+            new RouteValueDictionary {
+                { "id", "" }
+            },
+            new AjaxOptions
+            {
+                UpdateTargetId = "views",
+                InsertionMode = InsertionMode.Replace,
+            },
+            new RouteValueDictionary {
+                { "id", "searchForm" },
+                { "class", "form-inline well well-sm" }
+            }))
+    {
+        <span>用户名: </span>
+        <input type="text" name="Name" placeholder="如：吴起" data-toggle="tooltip" id="Name" style="width: 100px" class="form-control" />
+        <span>邮箱: </span>
+        <input type="text" name="Email" id="Email" data-toggle="tooltip" placeholder="如：吴起热线" style="width: 120px" class="form-control" />
+        <input type="submit" value="搜索(S)" accesskey="S" class="btn btn-default" />
+    }
+</fieldset>
+<div id="views">
+    @Html.Partial("_AjaxSearchPost", Model)
+</div>
+@section Scripts
+{
+    @{Html.RegisterMvcPagerScriptResource();}
+}
+
+

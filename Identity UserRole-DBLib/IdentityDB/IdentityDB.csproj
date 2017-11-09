@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0A4C326-A4C1-4C44-8520-D4AE4BB1C352}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IdentityDB</RootNamespace>
+    <AssemblyName>IdentityDB</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\AspNetRole.cs" />
+    <Compile Include="BLL\AspNetUser.cs" />
+    <Compile Include="BLL\AspNetUserClaim.cs" />
+    <Compile Include="BLL\AspNetUserRole.cs" />
+    <Compile Include="BLL\Base.cs" />
+    <Compile Include="BLL\GoUrl.cs" />
+    <Compile Include="DAL\AspNetRole.cs" />
+    <Compile Include="DAL\AspNetUserClaim.cs" />
+    <Compile Include="DAL\AspNetUser.cs" />
+    <Compile Include="DAL\AspNetUserRole.cs" />
+    <Compile Include="DAL\Base.cs" />
+    <Compile Include="DAL\GoUrl.cs" />
+    <Compile Include="DBContext.cs" />
+    <Compile Include="DBHelper\DBFactory.cs" />
+    <Compile Include="DBHelper\IHelper.cs" />
+    <Compile Include="DBHelper\Sql\SqlHelper.cs" />
+    <Compile Include="DBHelper\Sql\SqlServerHelper_base.cs" />
+    <Compile Include="DBHelper\Sql\SqlStringHelper.cs" />
+    <Compile Include="Model\CustomModel\ApplicationRole.cs" />
+    <Compile Include="Model\CustomModel\ApplicationUser.cs" />
+    <Compile Include="Model\CustomModel\AppUserClaim.cs" />
+    <Compile Include="Model\CustomModel\AppUserLogin.cs" />
+    <Compile Include="Model\CustomModel\AppUserRole.cs" />
+    <Compile Include="Model\CustomModel\IdentityModels.cs" />
+    <Compile Include="Model\CustomModel\Url.cs" />
+    <Compile Include="Model\IdentityRole.cs" />
+    <Compile Include="Model\IdentityUser.cs" />
+    <Compile Include="Model\IdentityUserClaim.cs" />
+    <Compile Include="Model\IdentityUserLogin.cs" />
+    <Compile Include="Model\IdentityUserRole.cs" />
+    <Compile Include="Model\CustomModel\IModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleStore.cs" />
+    <Compile Include="UserStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DBHelper\Oracle\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
