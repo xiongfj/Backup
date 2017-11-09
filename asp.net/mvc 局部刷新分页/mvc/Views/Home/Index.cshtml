@@ -1,0 +1,32 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "Home Page";
+}
+@model PagedList<mvc.Models.AspUser>
+<fieldset>
+    <legend>查询</legend>
+    @using (Ajax.BeginForm("AjaxSearchPost",
+        new RouteValueDictionary {
+            { "index", "" }
+        },
+        new AjaxOptions {
+            UpdateTargetId = "view",
+            InsertionMode = InsertionMode.Replace
+        },
+        new RouteValueDictionary {
+            { "id", "searchForm" }
+        }))
+    {
+        <span>Name：</span><input type="text" name="Name" id="Name" style="width:120px" />
+        <span>Addr：</span><input type="text" name="Addr" id="Addr" style="width:120px" /><span>（如：Webdiyer）</span>
+        <span>Email：</span><input type="text" name="Email" id="Email" style="width:120px" /><span>（如：吴起热线）</span>
+        <input type="submit" value="搜索(S)" accesskey="S" />
+    }
+</fieldset>
+<div id="view">
+    @Html.Partial("_AjaxSearchPost", Model)
+</div>
+@section Scripts
+{
+    @{Html.RegisterMvcPagerScriptResource();}
+}

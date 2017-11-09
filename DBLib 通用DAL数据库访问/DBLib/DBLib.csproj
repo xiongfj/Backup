@@ -41,17 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\BaseBLL.cs" />
-    <Compile Include="BLL\UserBLL.cs" />
-    <Compile Include="DAL\BaseDAL.cs" />
-    <Compile Include="DAL\UserDAL.cs" />
+    <Compile Include="BLL\Base.cs" />
+    <Compile Include="BLL\GoUrl.cs" />
+    <Compile Include="DAL\Base.cs" />
+    <Compile Include="DAL\GoUrl.cs" />
     <Compile Include="DBHelper\DBFactory.cs" />
     <Compile Include="DBHelper\IHelper.cs" />
     <Compile Include="DBHelper\Sql\SqlHelper.cs" />
     <Compile Include="DBHelper\Sql\SqlServerHelper_base.cs" />
     <Compile Include="DBHelper\Sql\SqlStringHelper.cs" />
     <Compile Include="Model\IModel.cs" />
-    <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Model\Url.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,36 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "AjaxForm搜索（Post）";
+}
+@model PagedList<mvc.Models.AspUser>
+<fieldset>
+    <legend>查询</legend>
+    @using (Ajax.BeginForm("AjaxSearchPost",
+        new RouteValueDictionary {
+            { "index", "" }
+        },
+        new AjaxOptions {
+            UpdateTargetId = "articles",
+            InsertionMode = InsertionMode.Replace,
+        },
+        new RouteValueDictionary {
+            { "id", "searchForm" },
+            { "class", "form-inline well well-sm" }
+        }))
+    {
+        <span>标题：</span>
+        <input type="text" name="Name" placeholder="如：吴起" data-toggle="tooltip" title="如：吴起" id="Name" style="width: 100px" class="form-control" />
+        <span>作者：</span>
+        <input type="text" name="Addr" placeholder="如：Webdiyer" data-toggle="tooltip" title="如：Webdiyer" id="Addr" style="width: 120px" class="form-control" />
+        <span>来源：</span>
+        <input type="text" name="Email" id="Email" data-toggle="tooltip" title="如：吴起热线" placeholder="如：吴起热线" style="width: 120px" class="form-control" />
+        <input type="submit" value="搜索(S)" accesskey="S" class="btn btn-default" />
+    }
+</fieldset>
+<div id="view">
+    @Html.Partial("_AjaxSearchPost", Model)
+</div>
+@section Scripts
+{
+    @{Html.RegisterMvcPagerScriptResource();}
+    }
