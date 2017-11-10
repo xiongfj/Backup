@@ -25,44 +25,47 @@ namespace IdentityDB.BLL
 		public Task<IQueryable<TRole>> QueryRoles()
 		{
 			var l = mDAL.QueryRoles();
-			return Task.FromResult((IQueryable<TRole>)l.Result);
+			return (Task<IQueryable<TRole>>)l;
 		}
 
-		public async Task<TRole> FindByIdAsync(TKey id)
+		public Task<TRole> FindByIdAsync(TKey id)
 		{
-			var u = await mDAL.FindByIdAsync(id);
-			return (TRole)u;
+			var u = mDAL.FindByIdAsync(id);
+			return (Task<TRole>)u;
 		}
 
-		public async Task<TRole> FindByNameAsync(string roleName)
+		public Task<TRole> FindByNameAsync(string roleName)
 		{
-			var u = await mDAL.FindByNameAsync(roleName);
-			return (TRole)u;
+			var u = mDAL.FindByNameAsync(roleName);
+			return (Task<TRole>)u;
 		}
 
 
 
-		public async Task InsertAsync(TRole role)
-		{
-			ApplicationRole u = role as ApplicationRole;
-			if (u != null)
-				await mDAL.InsertAsync(u);
-		}
-
-
-		public async Task UpdateAsync(TRole role)
+		public Task InsertAsync(TRole role)
 		{
 			ApplicationRole u = role as ApplicationRole;
 			if (u != null)
-				await mDAL.UpdateAsync(u);
+				mDAL.InsertAsync(u);
+			return null;
 		}
 
 
-		public async Task DeleteAsync(TRole role)
+		public Task UpdateAsync(TRole role)
 		{
 			ApplicationRole u = role as ApplicationRole;
 			if (u != null)
-				await mDAL.DeleteAsync(u);
+				mDAL.UpdateAsync(u);
+			return null;
+		}
+
+
+		public Task DeleteAsync(TRole role)
+		{
+			ApplicationRole u = role as ApplicationRole;
+			if (u != null)
+				mDAL.DeleteAsync(u);
+			return null;
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityDB.Model.CustomModel;
 using MainTain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -13,21 +14,9 @@ using System.Web.Mvc;
 
 namespace MainTain.Controllers
 {
-	[AllowAnonymous]
-	public class HomeController : Controller
+	[Authorize]
+	public class HomeController : BaseController
 	{
-		//private ApplicationDbContext db = null;
-		//private ApplicationDbContext _db
-		//{
-		//	get
-		//	{
-		//		return db ?? HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-		//	}
-		//	set
-		//	{
-		//		db = value;
-		//	}
-		//}
 		public ActionResult Index(string id = "")
 		{
 			return View();
@@ -43,23 +32,84 @@ namespace MainTain.Controllers
 			//}
 		}
 
-		public ActionResult Search(string searchString)
+		#region Url 设置部分
+		public ActionResult UrlIndex()
 		{
-			var users = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.Where(u => u.UserName.Contains(searchString)).ToListAsync().Result;
-			List<EditUserRoleViewModel> views = new List<EditUserRoleViewModel>();
+			string userid = User.Identity.GetUserId();
+			return View(_mDB.Urls.ToList());
+		}
+		//
+		// GET: /Admin/Create
+		public ActionResult UrlCreate()
+		{
+			return View();
+		}
 
-			foreach (var u in users)
+		//
+		// POST: /Admin/Create
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult UrlCreate(UrlEditViewModel u)
+		{
+			if (ModelState.IsValid)
 			{
-				var view = new EditUserRoleViewModel
-				{
-					Id = u.Id,
-					UserName = u.UserName,
-					Email = u.Email
-				};
-				views.Add(view);
+				var model = Mapper.Map<Url>(u);
+				_mDB.Insert(model);
+				return RedirectToAction("UrlIndex");
 			}
 
-			return PartialView(views);
+			return View(u);
 		}
+
+		//
+		// GET: /Admin/Edit/5
+		public ActionResult UrlEdit(string key = "")
+		{
+			if (key.Length > 0)
+			{
+				Url u = _mDB.Urls.Find(m => m.UrlKey == key);
+				var model = Mapper.Map<UrlEditViewModel>(u);
+				if (model != null)
+					return View(model);
+			}
+
+			return HttpNotFound();
+		}
+
+		//
+		// POST: /Admin/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult UrlEdit(UrlEditViewModel u)
+		{
+			if (ModelState.IsValid)
+			{
+				var model = Mapper.Map<Url>(u);
+				_mDB.Update(model);
+				return RedirectToAction("UrlIndex");
+			}
+
+			return View(u);
+		}
+
+		//
+		// GET: /Admin/Delete/5
+
+		public ActionResult UrlDelete(string key = "")
+		{
+			if (key.Length > 0)
+			{
+				Url u = _mDB.Urls.Find(m => m.UrlKey == key);
+				if (u != null)
+				{
+					_mDB.Delete(u);
+					return RedirectToAction("UrlIndex");
+				}
+			}
+
+			return HttpNotFound();
+		}
+		#endregion
 	}
 }

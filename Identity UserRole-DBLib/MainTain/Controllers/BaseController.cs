@@ -48,19 +48,6 @@ namespace MainTain.Controllers
 			}
 		}
 
-		//private ApplicationDbContext db;
-		//protected ApplicationDbContext _db
-		//{
-		//	get
-		//	{
-		//		return db ?? HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-		//	}
-		//	private set
-		//	{
-		//		db = value;
-		//	}
-		//}
-
 		private AppDBContext mDB;
 		protected AppDBContext _mDB
 		{

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<IdentityDB.Model.CustomModel.Url>
+
+@{
+    ViewBag.Title = "UrlIndex";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>forward manage</h2>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlKey)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlValue)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UrlKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UrlValue)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UrlEdit", new { key = item.UrlKey}) |
+                @Html.ActionLink("Delete", "UrlDelete", new { key = item.UrlKey }, new { onclick = "return confirm('Are you sure?');" })
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>@Html.ActionLink("Create New", "UrlCreate"/*, new { userid = Model.FirstOrDefault(m => true).UserID}*/)</td>
+    </tr>
+
+</table>

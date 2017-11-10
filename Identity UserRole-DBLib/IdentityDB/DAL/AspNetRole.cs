@@ -13,52 +13,46 @@ namespace IdentityDB.DAL
 {
 	public class AspNetRole : Base
 	{
-		public Task<IQueryable<object>> QueryRoles()
+		public IQueryable<object> QueryRoles()
 		{
-			return Task.Run<IQueryable<object>>(()=> {
-				List<ApplicationRole> list = new List<ApplicationRole>();
-				string sql = "select * from AspNetRoles";
-				DataTable table = ExecuteTable(sql);
+			List<ApplicationRole> list = new List<ApplicationRole>();
+			string sql = "select * from AspNetRoles";
+			DataTable table = ExecuteTable(sql);
 
-				foreach (DataRow row in table.Rows)
-				{
-					list.Add(TransToRole(row));
-				}
-				return list.AsQueryable();
-			});
+			foreach (DataRow row in table.Rows)
+			{
+				list.Add(TransToRole(row));
+			}
+			return list.AsQueryable();
 		}
 
-		public Task<object> FindByIdAsync(object id)
+		public object FindByIdAsync(object id)
 		{
 			ApplicationRole u = new ApplicationRole
 			{
 				Id = id.ToString()
 			};
 
-			return Task.Run<object>(() => {
-				DataTable table = ExecuteTableWhere(u, "Id=@Id");
-				foreach (DataRow row in table.Rows)
-				{
-					return TransToRole(row);
-				}
-				return null;
-			});
+			DataTable table = ExecuteTableWhere(u, "Id=@Id");
+			foreach (DataRow row in table.Rows)
+			{
+				return TransToRole(row);
+			}
+			return null;
 		}
-		public Task<object> FindByNameAsync(string roleName)
+		public object FindByNameAsync(string roleName)
 		{
-			return Task.Run<object>(() => {
-				ApplicationRole u = new ApplicationRole
-				{
-					Name = roleName
-				};
+			ApplicationRole u = new ApplicationRole
+			{
+				Name = roleName
+			};
 
-				DataTable table = ExecuteTableWhere(u, "Name=@Name");
-				foreach (DataRow row in table.Rows)
-				{
-					return TransToRole(row);
-				}
-				return null;
-			});
+			DataTable table = ExecuteTableWhere(u, "Name=@Name");
+			foreach (DataRow row in table.Rows)
+			{
+				return TransToRole(row);
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -82,11 +76,9 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="u"></param>
 		/// <returns></returns>
-		public Task UpdateAsync(ApplicationRole role)
+		public void UpdateAsync(ApplicationRole role)
 		{
-			return Task.Run(() => {
-				Update(role);
-			});
+			Update(role);
 		}
 		#endregion
 
@@ -96,20 +88,16 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public Task InsertAsync(ApplicationRole role)
+		public void InsertAsync(ApplicationRole role)
 		{
-			return Task.Run(() => {
-				Insert(role);
-			});
+			Insert(role);
 		}
 		#endregion
 
 		#region 删除操作
-		public Task DeleteAsync(ApplicationRole role)
+		public void DeleteAsync(ApplicationRole role)
 		{
-			return Task.Run(() => {
-				Delete(role);
-			});
+			Delete(role);
 		}
 		#endregion
 

@@ -23,7 +23,7 @@ namespace IdentityDB.BLL
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public async Task<IList<string>> GetRolesAsync(TUser user)
+		public Task<IList<string>> GetRolesAsync(TUser user)
 		{
 			if (user == null)
 			{
@@ -32,9 +32,12 @@ namespace IdentityDB.BLL
 
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				return await mDAL.GetRolesAsync(u);
+				return Task.FromResult(mDAL.GetRolesAsync(u));
 			else
-				return new List<string>();
+			{
+				IList<string> ls = new List<string>();
+				return Task.FromResult(ls);
+			}
 		}
 
 		/// <summary>
@@ -43,7 +46,7 @@ namespace IdentityDB.BLL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public async Task AddToRoleAsync(TUser user, string roleName)
+		public Task AddToRoleAsync(TUser user, string roleName)
 		{
 			if (user == null)
 			{
@@ -56,9 +59,8 @@ namespace IdentityDB.BLL
 
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-			{
-				await mDAL.AddToRoleAsync(u, roleName);
-			}
+				mDAL.AddToRoleAsync(u, roleName);
+			return null;
 		}
 		
 		/// <summary>
@@ -67,7 +69,7 @@ namespace IdentityDB.BLL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public async Task<bool> IsInRoleAsync(TUser user, string roleName)
+		public Task<bool> IsInRoleAsync(TUser user, string roleName)
 		{
 			if (user == null)
 			{
@@ -82,9 +84,9 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 			{
-				result = await mDAL.IsInRoleAsync(u, roleName);
+				result = mDAL.IsInRoleAsync(u, roleName);
 			}
-			return result;
+			return Task.FromResult(result);
 		}
 
 		/// <summary>
@@ -93,7 +95,7 @@ namespace IdentityDB.BLL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public async Task RemoveFromRoleAsync(TUser user, string roleName)
+		public Task RemoveFromRoleAsync(TUser user, string roleName)
 		{
 			if (user == null)
 			{
@@ -107,8 +109,9 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 			{
-				await mDAL.RemoveFromRoleAsync(u, roleName);
+				mDAL.RemoveFromRoleAsync(u, roleName);
 			}
+			return null;
 		}
 	}
 }

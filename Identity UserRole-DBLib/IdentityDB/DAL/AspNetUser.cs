@@ -25,20 +25,17 @@ namespace IdentityDB.DAL
 		//	}
 		//	return Task.FromResult((IQueryable<object>)list.AsQueryable());
 		//}
-		public Task<IQueryable<object>> QueryUsers()
+		public IQueryable<object> QueryUsers()
 		{
-			return Task.Run<IQueryable<object>>(() =>
-			{
-				List<ApplicationUser> list = new List<ApplicationUser>();
-				string sql = "select * from AspNetUsers";
-				DataTable table = ExecuteTable(sql);
+			List<ApplicationUser> list = new List<ApplicationUser>();
+			string sql = "select * from AspNetUsers";
+			DataTable table = ExecuteTable(sql);
 
-				foreach (DataRow row in table.Rows)
-				{
-					list.Add(TransToUser(row));
-				}
-				return list.AsQueryable();
-			});
+			foreach (DataRow row in table.Rows)
+			{
+				list.Add(TransToUser(row));
+			}
+			return list.AsQueryable();
 		}
 
 		/// <summary>
@@ -46,21 +43,19 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public Task<object> FindByIdAsync(object id)
+		public object FindByIdAsync(object id)
 		{
 			ApplicationUser u = new ApplicationUser
 			{
 				Id = id.ToString()
 			};
 
-			return Task.Run<object>(() => {
-				DataTable table = ExecuteTableWhere(u, "Id=@Id");
-				foreach (DataRow row in table.Rows)
-				{
-					return TransToUser(row);
-				}
-				return null;
-			});
+			DataTable table = ExecuteTableWhere(u, "Id=@Id");
+			foreach (DataRow row in table.Rows)
+			{
+				return TransToUser(row);
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -68,20 +63,18 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="username"></param>
 		/// <returns></returns>
-		public Task<object> FindByNameAsync(string username)
+		public object FindByNameAsync(string username)
 		{
-			return Task.Run<object>(() => {
-				ApplicationUser u = new ApplicationUser {
-					UserName = username
-				};
+			ApplicationUser u = new ApplicationUser {
+				UserName = username
+			};
 
-				DataTable table = ExecuteTableWhere(u, "UserName=@UserName");
-				foreach(DataRow row in table.Rows)
-				{
-					return TransToUser(row);
-				}
-				return null;
-			});
+			DataTable table = ExecuteTableWhere(u, "UserName=@UserName");
+			foreach(DataRow row in table.Rows)
+			{
+				return TransToUser(row);
+			}
+			return null;
 		}
 
 		/// <summary>
@@ -89,20 +82,18 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="email"></param>
 		/// <returns></returns>
-		public Task<object> FindByEmailAsync(string email)
+		public object FindByEmailAsync(string email)
 		{
 			ApplicationUser u = new ApplicationUser
 			{
 				Email = email
 			};
-			return Task.Run<object>(() => {
-				DataTable table = ExecuteTableWhere(u, "Email=@Email");
-				foreach (DataRow row in table.Rows)
-				{
-					return TransToUser(row);
-				}
-				return null;
-			});
+			DataTable table = ExecuteTableWhere(u, "Email=@Email");
+			foreach (DataRow row in table.Rows)
+			{
+				return TransToUser(row);
+			}
+			return null;
 		}
 		#endregion
 
@@ -112,11 +103,9 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="u"></param>
 		/// <returns></returns>
-		public Task UpdateAsync(ApplicationUser user)
+		public void UpdateAsync(ApplicationUser user)
 		{
-			return Task.Run(() => {
-				Update(user);
-			});
+			Update(user);
 		}
 		#endregion
 
@@ -126,20 +115,16 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public Task InsertAsync(ApplicationUser user)
+		public void InsertAsync(ApplicationUser user)
 		{
-			return Task.Run(() => {
-				Insert(user);
-			});
+			Insert(user);
 		}
 		#endregion
 
 		#region 删除操作
-		public Task DeleteAsync(ApplicationUser user)
+		public void DeleteAsync(ApplicationUser user)
 		{
-			return Task.Run(() => {
-				Delete(user);
-			});
+			Delete(user);
 		}
 		#endregion
 

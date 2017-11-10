@@ -26,9 +26,10 @@ namespace MainTain.App_Start
 			//				});
 
 			//CreateMap<ApplicationUser, EditUserRoleViewModel>();
-			CreateMap<ApplicationUser, EditUserRoleViewModel>();	// 左转右
-			//CreateMap<ApplicationUser, EditUserDepartmentViewModel>();
+			CreateMap<ApplicationUser, EditUserRoleViewModel>();    // 左转右
 			CreateMap<RegisterViewModel, ApplicationUser>();
+			CreateMap<UrlEditViewModel, Url>();
+			CreateMap<Url, UrlEditViewModel>();
 			//CreateMap<Department, DepartmentViewModel>();
 			//CreateMap<DepartmentViewModel, Department>();
 		}

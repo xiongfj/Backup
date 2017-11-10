@@ -1,61 +1,16 @@
-﻿<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_Layout</title>
-    @Styles.Render("~/Content/css")
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("Styles", required: false)
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("前台首页", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.Label("管理后台", new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <!-- 加载主 Views 的 /Shared/_LoginPartial.cshtml 到当前位置显示 -->
-                @Html.Partial("_LoginPartial")
-            </div>
+﻿@{
+    ViewBag.Title = "_HomeLayout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="row">
+        <div class="col-xs-5 col-sm-3 col-md-3 col-lg-3" style="padding-top:20px">
+            <ul class="nav nav-list">
+                <li>@Html.ActionLink("设置", "Index", "Admin")</li>
+            </ul>
+        </div><!--/span-->
+        <div class="col-xs-7 col-sm-9 col-md-9 col-lg-9">
+            @RenderBody()
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-5 col-sm-3 col-md-3 col-lg-3" style="padding-top:20px">
-                <ul class="nav nav-list">
-                    @if (Request.IsAuthenticated && User.IsInRole("管理员"))
-                    {
-                        <li class="nav-header">用户管理</li>
-                        <li>@Html.ActionLink("用户-角色管理", "Index", "UserRole")</li>
-                        <li class="nav-header">权限管理</li>
-                        <li>@Html.ActionLink("角色管理", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("权限管理", "Index", "PermissionsAdmin")</li>}
-                    else
-                    {
-                        <li>你没有授权</li>}
-                </ul>
-            </div><!--/span-->
-            <div class="col-xs-7 col-sm-9 col-md-9 col-lg-9">
-                @RenderBody()
-            </div>
-        </div>
-        <hr />
-        <footer>
-            copyRight ..
-        </footer>
-    </div>
-
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+@RenderSection("scripts", required: false)

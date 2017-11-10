@@ -16,26 +16,30 @@ namespace IdentityDB.BLL
 	{
 		DAL.AspNetUserClaim mDAL = new DAL.AspNetUserClaim();
 
-		public async Task AddClaimAsync(TUser user, Claim claim)
+		public Task AddClaimAsync(TUser user, Claim claim)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				await mDAL.AddClaimAsync(u, claim);
+				mDAL.AddClaimAsync(u, claim);
+			return null;
 		}
 
-		public async Task<IList<Claim>> GetClaimsAsync(TUser user)
+		public Task<IList<Claim>> GetClaimsAsync(TUser user)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				return await mDAL.GetClaimsAsync(u);
-			return new List<Claim>();
+				return (Task<IList<Claim>>)mDAL.GetClaimsAsync(u);
+
+			IList<Claim> lm = new List<Claim>();
+			return Task.FromResult(lm);
 		}
 
-		public async Task RemoveClaimAsync(TUser user, Claim claim)
+		public Task RemoveClaimAsync(TUser user, Claim claim)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				await mDAL.RemoveClaimAsync(u, claim);
+				mDAL.RemoveClaimAsync(u, claim);
+			return null;
 		}
 	}
 }

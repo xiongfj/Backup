@@ -21,18 +21,16 @@ namespace IdentityDB.DAL
 		/// </summary>
 		/// <param name="user"></param>
 		/// <returns></returns>
-		public Task<IList<string>> GetRolesAsync(ApplicationUser user)
+		public IList<string> GetRolesAsync(ApplicationUser user)
 		{
-			return Task.Run<IList<string>>(() => {
-				IQueryable<ApplicationRole> roles = mRole.QueryRoles().Result as IQueryable<ApplicationRole>;
-				IQueryable<AppUserRole> userRoles = QueryUserRoles();
+			IQueryable<ApplicationRole> roles = mRole.QueryRoles() as IQueryable<ApplicationRole>;
+			IQueryable<AppUserRole> userRoles = QueryUserRoles();
 
-				var query = from ur in userRoles
-							where ur.UserId.Equals(user.Id)
-							join role in roles on ur.RoleId equals role.Id
-							select role.Name;
-				return query.ToList();
-			});
+			var query = from ur in userRoles
+						where ur.UserId.Equals(user.Id)
+						join role in roles on ur.RoleId equals role.Id
+						select role.Name;
+			return query.ToList();
 		}
 
 		/// <summary>
@@ -41,15 +39,13 @@ namespace IdentityDB.DAL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public Task AddToRoleAsync(ApplicationUser user, string roleName)
+		public void AddToRoleAsync(ApplicationUser user, string roleName)
 		{
-			return Task.Run(() => {
-				AppUserRole ur = new AppUserRole {
-					UserId = user.Id,
-					RoleId = mRole.FindIdByRoleName(roleName)
-				};
-				Insert(ur);
-			});
+			AppUserRole ur = new AppUserRole {
+				UserId = user.Id,
+				RoleId = mRole.FindIdByRoleName(roleName)
+			};
+			Insert(ur);
 		}
 
 		/// <summary>
@@ -58,16 +54,14 @@ namespace IdentityDB.DAL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public Task<bool> IsInRoleAsync(ApplicationUser user, string roleName)
+		public bool IsInRoleAsync(ApplicationUser user, string roleName)
 		{
-			return Task.Run<bool>(() => {
-				AppUserRole ur = new AppUserRole
-				{
-					UserId = user.Id,
-					RoleId = mRole.FindIdByRoleName(roleName)
-				};
-				return FindPrimaryKey(ur);
-			});
+			AppUserRole ur = new AppUserRole
+			{
+				UserId = user.Id,
+				RoleId = mRole.FindIdByRoleName(roleName)
+			};
+			return FindPrimaryKey(ur);
 		}
 
 		/// <summary>
@@ -76,16 +70,14 @@ namespace IdentityDB.DAL
 		/// <param name="user"></param>
 		/// <param name="roleName"></param>
 		/// <returns></returns>
-		public Task RemoveFromRoleAsync(ApplicationUser user, string roleName)
+		public void RemoveFromRoleAsync(ApplicationUser user, string roleName)
 		{
-			return Task.Run(()=> {
-				AppUserRole ur = new AppUserRole
-				{
-					UserId = user.Id,
-					RoleId = mRole.FindIdByRoleName(roleName)
-				};
-				Delete(ur);
-			});
+			AppUserRole ur = new AppUserRole
+			{
+				UserId = user.Id,
+				RoleId = mRole.FindIdByRoleName(roleName)
+			};
+			Delete(ur);
 		}
 
 

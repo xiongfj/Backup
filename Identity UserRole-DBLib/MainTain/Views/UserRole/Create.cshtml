@@ -1,7 +1,7 @@
 ﻿@model MainTain.Models.RegisterViewModel
 @{
     ViewBag.Title = "创建用户";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 <h2>创建用户</h2>
 @using (Html.BeginForm("Create", "UserRole", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

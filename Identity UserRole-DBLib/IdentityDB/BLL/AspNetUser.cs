@@ -25,48 +25,51 @@ namespace IdentityDB.BLL
 		public Task<IQueryable<TUser>> QueryTable()
 		{
 			var result = mDAL.QueryUsers();
-			return Task.FromResult((IQueryable<TUser>)result.Result);
+			return (Task<IQueryable<TUser>>)result;
 		}
 
-		public async Task<TUser> FindByIdAsync(TKey id)
+		public Task<TUser> FindByIdAsync(TKey id)
 		{
-			var u = await mDAL.FindByIdAsync(id);
-			return (TUser)u;
+			var u = mDAL.FindByIdAsync(id);
+			return (Task<TUser>)u;
 		}
 
-		public async Task<TUser> FindByNameAsync(string username)
+		public Task<TUser> FindByNameAsync(string username)
 		{
-			var u = await mDAL.FindByNameAsync(username);
-			return (TUser)u;
+			var u = mDAL.FindByNameAsync(username);
+			return (Task<TUser>)u;
 		}
 
-		public async Task<TUser> FindByEmailAsync(string email)
+		public Task<TUser> FindByEmailAsync(string email)
 		{
-			return (TUser)await mDAL.FindByEmailAsync(email);
+			return (Task<TUser>)mDAL.FindByEmailAsync(email);
 		}
 
 
-		public async Task UpdateAsync(TUser user)
+		public Task UpdateAsync(TUser user)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null )
-				await mDAL.UpdateAsync(u);
+				mDAL.UpdateAsync(u);
+			return null;
 		}
 
 
-		public async Task InsertAsync(TUser user)
+		public Task InsertAsync(TUser user)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				await mDAL.InsertAsync(u);
+				mDAL.InsertAsync(u);
+			return null;
 		}
 
 		
-		public async Task DeleteAsync(TUser user)
+		public Task DeleteAsync(TUser user)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				await mDAL.DeleteAsync(u);
+				mDAL.DeleteAsync(u);
+			return null;
 		}
 	}
 }
