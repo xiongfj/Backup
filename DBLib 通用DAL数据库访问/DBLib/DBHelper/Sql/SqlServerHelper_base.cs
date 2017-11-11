@@ -166,13 +166,17 @@ namespace IdentityDB.DBHelper.Sql
 		/// </summary>
 		/// <param name="sql"></param>
 		/// <returns></returns>
-		public override object ExecuteScalarSql(string sql)
+		public override object ExecuteScalarSql(IModel model, string select, string where)
 		{
 			lock (m_lock)
 			{
 				object result = null;
+				string sql = select + " from " + model.mTableName + " where " + where;
 
+				SqlParameter[] list = SqlStringHelper.MakeQueryParameters(model, where);
 				cmd.Parameters.Clear();
+				foreach (SqlParameter item in list)
+					cmd.Parameters.Add(item);
 				cmd.CommandText = sql;
 
 				try

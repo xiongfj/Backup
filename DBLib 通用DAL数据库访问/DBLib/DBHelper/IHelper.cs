@@ -24,7 +24,7 @@ namespace IdentityDB.DBHelper
 		public abstract bool FindPrimaryKey(IModel model);
 		public abstract bool FindWhere(IModel model, string where);
 		public abstract object ExecuteScalarWhere(IModel model, string where);
-		public abstract object ExecuteScalarSql(string sql);
+		public abstract object ExecuteScalarSql(IModel model, string select, string where);
 		#endregion
 
 		#region 插入

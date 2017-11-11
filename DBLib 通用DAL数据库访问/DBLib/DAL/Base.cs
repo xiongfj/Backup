@@ -64,9 +64,17 @@ namespace DBLib.DAL
 			return mDBHelper.ExecuteScalarWhere(model, where);
 		}
 
-		public object ExecuteScalarSql(string sql)
+		/// <summary>
+		/// 根据条件查找单个的数据!
+		/// select = "select UserName"; where = "Age=@Age"
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="select"></param>
+		/// <param name="where"></param>
+		/// <returns></returns>
+		public object ExecuteScalarSql(IModel model, string select, string where)
 		{
-			return mDBHelper.ExecuteScalarSql(sql);
+			return mDBHelper.ExecuteScalarSql(model, select, where);
 		}
 		#endregion
 
