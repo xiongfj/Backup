@@ -25,19 +25,19 @@ namespace IdentityDB.BLL
 		public Task<IQueryable<TRole>> QueryRoles()
 		{
 			var l = mDAL.QueryRoles();
-			return (Task<IQueryable<TRole>>)l;
+			return Task.FromResult((IQueryable<TRole>)l);
 		}
 
 		public Task<TRole> FindByIdAsync(TKey id)
 		{
 			var u = mDAL.FindByIdAsync(id);
-			return (Task<TRole>)u;
+			return Task.FromResult((TRole)u);
 		}
 
 		public Task<TRole> FindByNameAsync(string roleName)
 		{
 			var u = mDAL.FindByNameAsync(roleName);
-			return (Task<TRole>)u;
+			return Task.FromResult((TRole)u);
 		}
 
 
@@ -47,7 +47,7 @@ namespace IdentityDB.BLL
 			ApplicationRole u = role as ApplicationRole;
 			if (u != null)
 				mDAL.InsertAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 
 
@@ -56,7 +56,7 @@ namespace IdentityDB.BLL
 			ApplicationRole u = role as ApplicationRole;
 			if (u != null)
 				mDAL.UpdateAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 
 
@@ -65,7 +65,7 @@ namespace IdentityDB.BLL
 			ApplicationRole u = role as ApplicationRole;
 			if (u != null)
 				mDAL.DeleteAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 	}
 }

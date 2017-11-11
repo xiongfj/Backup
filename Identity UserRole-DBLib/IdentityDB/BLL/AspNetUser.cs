@@ -25,24 +25,24 @@ namespace IdentityDB.BLL
 		public Task<IQueryable<TUser>> QueryTable()
 		{
 			var result = mDAL.QueryUsers();
-			return (Task<IQueryable<TUser>>)result;
+			return Task.FromResult((IQueryable<TUser>)result);
 		}
 
 		public Task<TUser> FindByIdAsync(TKey id)
 		{
 			var u = mDAL.FindByIdAsync(id);
-			return (Task<TUser>)u;
+			return Task.FromResult((TUser)u);
 		}
 
 		public Task<TUser> FindByNameAsync(string username)
 		{
 			var u = mDAL.FindByNameAsync(username);
-			return (Task<TUser>)u;
+			return Task.FromResult((TUser)u);
 		}
 
 		public Task<TUser> FindByEmailAsync(string email)
 		{
-			return (Task<TUser>)mDAL.FindByEmailAsync(email);
+			return Task.FromResult((TUser)mDAL.FindByEmailAsync(email));
 		}
 
 
@@ -51,7 +51,7 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null )
 				mDAL.UpdateAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 
 
@@ -60,7 +60,7 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				mDAL.InsertAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 
 		
@@ -69,7 +69,7 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				mDAL.DeleteAsync(u);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 	}
 }

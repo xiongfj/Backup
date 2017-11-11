@@ -33,11 +33,9 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				return Task.FromResult(mDAL.GetRolesAsync(u));
-			else
-			{
-				IList<string> ls = new List<string>();
-				return Task.FromResult(ls);
-			}
+
+			IList<string> ls = new List<string>();
+			return Task.FromResult(ls);
 		}
 
 		/// <summary>
@@ -60,7 +58,8 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				mDAL.AddToRoleAsync(u, roleName);
-			return null;
+
+			return Task.FromResult<object>(null);
 		}
 		
 		/// <summary>
@@ -108,10 +107,9 @@ namespace IdentityDB.BLL
 
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-			{
-				mDAL.RemoveFromRoleAsync(u, roleName);
-			}
-			return null;
+				 mDAL.RemoveFromRoleAsync(u, roleName);
+
+			return Task.FromResult<object>(null);
 		}
 	}
 }

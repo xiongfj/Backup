@@ -148,9 +148,11 @@ namespace MainTain
 			};
 
 			// Configure user lockout defaults
-			manager.UserLockoutEnabledByDefault = true;
-			manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-			manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+			manager.UserLockoutEnabledByDefault = true;	// 注册或添加的账号默认是可以被锁住的
+
+			// 锁定账号的时间间隔, 统一采用 Utc 时区保存\比较
+			manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromDays(1);
+			manager.MaxFailedAccessAttemptsBeforeLockout = 3;		// 第三次密码错误锁死账号
 
 			// Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
 			// You can write your own provider and plug it in here.

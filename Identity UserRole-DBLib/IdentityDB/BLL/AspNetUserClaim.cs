@@ -21,17 +21,17 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				mDAL.AddClaimAsync(u, claim);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 
 		public Task<IList<Claim>> GetClaimsAsync(TUser user)
 		{
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
-				return (Task<IList<Claim>>)mDAL.GetClaimsAsync(u);
+				return Task.FromResult(mDAL.GetClaimsAsync(u));
 
-			IList<Claim> lm = new List<Claim>();
-			return Task.FromResult(lm);
+			IList<Claim> ls = new List<Claim>();
+			return Task.FromResult(ls);
 		}
 
 		public Task RemoveClaimAsync(TUser user, Claim claim)
@@ -39,7 +39,7 @@ namespace IdentityDB.BLL
 			ApplicationUser u = user as ApplicationUser;
 			if (u != null)
 				mDAL.RemoveClaimAsync(u, claim);
-			return null;
+			return Task.FromResult<object>(null);
 		}
 	}
 }
