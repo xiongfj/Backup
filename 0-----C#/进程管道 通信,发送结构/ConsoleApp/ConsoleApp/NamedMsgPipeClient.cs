@@ -63,20 +63,20 @@ namespace ConsoleApp
 
 
 
-			//Decoder decoder = Encoding.UTF8.GetDecoder();
-			//Byte[] bytes = new Byte[10];
-			//Char[] chars = new Char[10];
+			Decoder decoder = Encoding.UTF8.GetDecoder();
+			Byte[] bytes = new Byte[10];
+			Char[] chars = new Char[10];
 
-			//string message = "";
-			//do
-			//{
-			//	int numBytes = _pipe.Read(bytes, 0, bytes.Length);
-			//	int numChars = decoder.GetChars(bytes, 0, numBytes, chars, 0);
-			//	message += new String(chars, 0, numChars);
+			string message = "";
+			do
+			{
+				int numBytes = _pipe.Read(bytes, 0, bytes.Length);
+				int numChars = decoder.GetChars(bytes, 0, numBytes, chars, 0);
+				message += new String(chars, 0, numChars);
 
-			//} while (!_pipe.IsMessageComplete);
-			//Console.WriteLine(message);
-			//decoder.Reset();
+			} while (!_pipe.IsMessageComplete);
+			Console.WriteLine(message);
+			decoder.Reset();
 		}
 
 		/// <summary>

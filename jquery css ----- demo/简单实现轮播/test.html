@@ -1,0 +1,88 @@
+﻿<html>
+<head>
+	<script src="jquery-3.2.1.js"></script>
+	<style>
+	*{
+		margin:0px;
+		padding:0px;
+	}
+	li{
+		list-style:none;
+	}
+
+	.wrap{width:860px;margin:0 auto;overflow:hidden;background-color: #fff;padding:10px;}
+	.wrap .banner{width:998px;height:426px;border:1px solid #d0d0d0;margin-bottom:20px;}
+	.wrap .banner .banl{width:857px;height:100%;float:left;position: relative;overflow: hidden;}
+	.wrap .banner .banl ul.banners{position: absolute;left:0px;top:0px;width:4285px;height:100%;z-index:1;}
+	.wrap .banner .banl ul.banners li{float:left;}
+	.wrap .banner .banl ul.ioi{position:absolute;right:12px;bottom:8px;z-index: 3;}
+	.wrap .banner .banl ul.ioi li{width:9px;height:9px;background: #999;float:left;border-radius: 3px;margin-right: 11px;}
+	.wrap .banner .banl p{position:absolute;left:12px;bottom:8px;color:#fff;z-index:3;font-size: 14px;}
+	.wrap .banner .banl .shadow{width:100%;height:30px;background: rgba(0,0,0,0.5);position:absolute;bottom: 0px;z-index:2}
+	
+	</style>
+	<script>
+	$(function () {
+		var timer = null;
+		var timer1 = null;
+		var idx = 0;
+
+		//banner图切换
+		$('.ioi').find('li').click(function () {
+			$(this).css({ 'background': '#cc1313' }).siblings().css({ 'background': '#999' })
+			clearInterval(timer);
+			$('.banners').css({ 'left': 857-857 * $(this).index() + 'px' }).animate({ 'left': 857-857 * ($(this).index() + 1) + 'px' })
+			autoChange();
+		})
+		autoChange();
+		function autoChange() {
+			timer = setInterval(function ()
+			{
+				$('.ioi').find('li').eq(idx % 4).click()
+				idx++;
+			}, 1500)
+		}
+	})
+	</script>
+</head>
+<body>
+    <form id="form1">
+    <div class="wrap">
+		<div class="banner">
+            <div class="banl">
+                <ul class='banners'>
+                    <li>
+                        <a href="#">
+                            <img src="pic.jpg" width="857" height="426" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="pic.jpg" width="857" height="426" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="pic.jpg" width="857" height="426" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="pic.jpg" width="857" height="426" />
+                        </a>
+                    </li>
+                </ul>
+                <ul class='ioi'>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li style="background:#cc1313"></li>
+                </ul>
+                <p>革命圣地西柏坡</p>
+                <div class='shadow'></div>
+            </div>
+        </div>
+	</div>
+    </form>
+</body>
+</html>

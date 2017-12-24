@@ -33,7 +33,7 @@ namespace ConsoleTest
 				PipeTransmissionMode.Message,
 				PipeOptions.Asynchronous | PipeOptions.WriteThrough
 			 );
-			_pipe.BeginWaitForConnection(WaitForConnectionCallback, _pipe);
+			_pipe.BeginWaitForConnection(WaitForConnectionCallback_2, _pipe);
 		}
 
 		private void WaitForConnectionCallback(IAsyncResult ar)
@@ -102,7 +102,7 @@ namespace ConsoleTest
 
 				// 重新等待新的数据链接
 				pipeServer.Disconnect();
-				pipeServer.BeginWaitForConnection(WaitForConnectionCallback, pipeServer);
+				pipeServer.BeginWaitForConnection(WaitForConnectionCallback_2, pipeServer);
 			}
 			catch (Exception)
 			{

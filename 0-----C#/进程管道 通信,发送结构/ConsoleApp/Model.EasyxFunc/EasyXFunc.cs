@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dll.Model
 {
+	[Serializable]
     public class EasyXFunc : IModel
     {
 		private string _ID = null;

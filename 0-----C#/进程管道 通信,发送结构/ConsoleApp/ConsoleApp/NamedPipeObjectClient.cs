@@ -55,18 +55,20 @@ namespace ConsoleApp
 
 					if (_pipe.IsConnected)
 					{
-						_pipe.ReadMode = PipeTransmissionMode.Byte;
+						_pipe.ReadMode = PipeTransmissionMode.Message;
 
 						MemoryStream ms = new MemoryStream();
 						IFormatter formatter = new BinaryFormatter();
 						formatter.Serialize(ms, person);
 						byte[] bytes = ms.GetBuffer();
 
-						_pipe.BeginWrite(bytes, 0, bytes.Length, PipeWriteCallback, _pipe);
-
-						//break;
+						//_pipe.BeginWrite(bytes, 0, bytes.Length, PipeWriteCallback, _pipe);
+						_pipe.Write(bytes, 0, bytes.Length);
+						_pipe.WaitForPipeDrain();
+						//_pipe.Write(bytes, 0, bytes.Length);
 					}
 				}
+
 			}
 			catch (Exception ex)
 			{

@@ -54,7 +54,54 @@ Html.partial和RenderPartial的其它三个重载很有用，第二个重载@{Ht
 
 */
 
+* @RenderSection("css", required: false)	// 将子页面的 <style> 放到预留的位置
+/*
+* 
+------------------------------
+1. Index.cshtml:		// 必须是直接子页面!! 如果Index.cshtml 有 @{Html.RenderPartial("AppList");}, 那么在AppList.cshtml 内使用 2section css{..} 是无效的
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SearchNavbar.cshtml";
+}
+@section css{
+    <style>
+        .software_environment {
+            line-height: 25px;
+        }
 
+            .software_environment .item_name {
+                font-family: 'Arial Unicode MS';
+                font-size: 16px;
+                color: #a59f9f;
+            }
+
+            .software_environment .item_value {
+                font-family: 'Arial Unicode MS';
+                margin-left: 20px;
+                font-size: 14px;
+            }
+    </style>
+}
+--------------------------------
+2.~/Views/Shared/_SearchNavbar.cshtml:
+<!DOCTYPE html>
+<html>
+<head>
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="search" href="/opensearchdescription.xml" type="application/opensearchdescription+xml" title="AppZip" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/custom")
+    @RenderSection("css", required: false)		// 
+</head>
+.....
+
+*/
 
 
 
