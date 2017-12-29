@@ -1,0 +1,304 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="./Content/EasySlider/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="./Content/EasySlider/EasySlider.css" rel="stylesheet" type="text/css" />
+    <script src="jquery-3.2.1.js"></script>
+    <script src="./Content/EasySlider/bootstrap.js"></script>
+    <script src="./Content/EasySlider/EasySlider.js"></script>
+    <style>
+        .easyslider {
+            margin: 0 auto;
+            width: 85%;
+            overflow: hidden;
+            position: relative;
+        }
+
+            .easyslider:hover .easyslider-control button {
+                visibility: visible;
+            }
+
+        .easyslider-img li {
+            padding: 0;
+            margin: 0;
+        }
+
+        .easyslider-img ul {
+            padding: 0;
+        }
+
+        .easyslider-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /*用于切换根据奇偶背景颜色*/
+        .easyslider-text .text-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /*用于移动*/
+        .easyslider-text .text-item .move-part {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding-left: 8%;
+            padding-top: 8%;
+        }
+
+        .easyslider-control button {
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            height: 50px;
+            border: none;
+            padding: 8px;
+            visibility: hidden;
+            color: white;
+            background: #aaa;
+        }
+
+        .easyslider-control .prev {
+        }
+
+        .easyslider-control .next {
+            right: 0;
+        }
+
+        .easyslider-page {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            bottom: 0;
+            z-index: 3;
+            background: #3339;
+            text-align: center;
+        }
+
+        .easyslider-page ul {
+            position: relative;
+            left: 45%;
+            z-index: 3;
+        }
+
+        .easyslider-page li {
+            width: 9px;
+            height: 9px;
+            background: #999;
+            float: left;
+            border-radius: 3px;
+            margin-right: 11px;
+        }
+
+        .easyslider-page li:hover {
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width:768px) {
+            .easyslider {
+                width: 100%;
+            }
+
+            .easyslider-text {
+                position: relative;
+                width: 100%;
+                height: 50%;
+            }
+
+            .easyslider-text .text-item {
+                padding: 0;
+                text-align: center;
+            }
+
+            .easyslider-text .text-item:nth-child(odd) {
+                background: #555;
+            }
+
+            .easyslider-text .text-item:nth-child(even) {
+                background: #eee;
+            }
+        }
+    </style>
+    <script>
+        $(function () {
+            file:///E:/github/jquery%20css%20-----%20demo/%E8%BD%AE%E6%92%AD-%E9%AB%98%E7%BA%A7/b.png
+            $('.easyslider-img li').eq(0).siblings().hide();
+            $('.easyslider-text .text-item').eq(0).siblings().hide();
+            $(".easyslider-page li").eq(0).css({ "background": "red" });
+
+            var size = $(".easyslider-img img").length;
+
+            var timer = null;
+            autoChange();
+            function autoChange() {
+                timer = setInterval(function () {
+                    $(".easyslider-control .next").click();
+                }, 2500)
+            }
+
+            $(".easyslider-page li").click(function () {
+                clearInterval(timer);
+
+                var next_index = $(this).index();
+                var cur_index = $('.easyslider-img li:visible').index();
+                if (cur_index == next_index)
+                    return;
+
+                var img_left_start = "-15px";
+                var img_left_dest = "0px";
+                var text_left_start = "-40px";
+
+                if (cur_index < next_index) {
+                    img_left_start = "0px";
+                    img_left_dest = "-15px";
+                    text_left_start = "40px";
+                }
+
+                $('.easyslider-img li').hide();
+                $('.easyslider-img li').eq(next_index).show();
+
+                $('.easyslider-text .text-item').hide();
+                $('.easyslider-text .text-item').eq(next_index).show();
+
+                $(".easyslider-page li").css({ "background": "#999" });
+                $(".easyslider-page li").eq(next_index).css({ "background": "red" });
+
+                // moving
+                $('.easyslider-img').css({ 'left': img_left_start })
+                    .animate({ left: img_left_dest }, 300, 'swing');
+                $('.easyslider-text .text-item > div').css({ 'left': text_left_start })
+                    .animate({ left: '0px' }, 300, 'swing');
+
+                autoChange();
+            })
+
+            $(".easyslider-control button").click(function () {
+                clearInterval(timer);
+
+                var next_index;
+                var cur_index = $('.easyslider-img li:visible').index();
+                var img_left_start = "-15px";
+                var img_left_dest = "0px";
+                var text_left_start = "-40px";
+
+                if ($(this).hasClass("prev")) {
+                    next_index = cur_index - 1 >= 0 ? cur_index - 1 : size - 1;
+                }
+                if ($(this).hasClass("next")) {
+                    next_index = cur_index + 1 <= size - 1 ? cur_index + 1 : 0;
+
+                    img_left_start = "0px";
+                    img_left_dest = "-15px";
+                    text_left_start = "40px";
+                }
+
+                // show the next-img first
+                $('.easyslider-img li').hide();
+                $('.easyslider-img li').eq(next_index).show();
+                $('.easyslider-text .text-item').hide();
+                $('.easyslider-text .text-item').eq(next_index).show();
+                $(".easyslider-page li").css({ "background": "#999" });
+                $(".easyslider-page li").eq(next_index).css({ "background": "red" });
+
+                // moving
+                $('.easyslider-img').css({ 'left': img_left_start })
+                    .animate({ left: img_left_dest }, 300, 'swing');
+                $('.easyslider-text .text-item > div').css({ 'left': text_left_start })
+                    .animate({ left: '0px' }, 300, 'swing');
+
+                autoChange();
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="easyslider">
+        <div class="easyslider-img" style="width:109%; position:relative;">
+            <ul style="margin:0; ">
+                <li>
+                    <img src="b.png" class="img-responsive" />
+                </li>
+                <li>
+                    <img src="a.png" class="img-responsive" />
+                </li>
+                <li>
+                    <img src="b.png" class="img-responsive" />
+                </li>
+                <li>
+                    <img src="a.png" class="img-responsive" />
+                </li>
+            </ul>
+        </div>
+        <div class="easyslider-text">
+            <div class="text-item">
+                <div class="move-part">
+                    <h1 style="color:#fff">What will you do?</h1>
+                    <h5 style="margin-top:9px; color:#fff">For 1 PC or Mac, 1 tablet including iPad, Android, or Windows, plus 1 </h5>
+                    <button style="width:100px; height:40px;margin-top:19px;">Learn More</button>
+                </div>
+            </div>
+            <div class="text-item">
+                <div class="move-part">
+                    <h1 style="color:#222">What will you do?</h1>
+                    <h5 style="margin-top:9px; color:#222">For 1 PC or Mac, 1 tablet including iPad, Android, or Windows, plus 1 </h5>
+                    <button style="width:100px; height:40px; margin-top:19px;">Learn More</button>
+                </div>
+            </div>
+            <div class="text-item">
+                <div class="move-part">
+                    <h1 style="color:#fff">What will you do?</h1>
+                    <h5 style="margin-top:9px; color:#fff">For 1 PC or Mac, 1 tablet including iPad, Android, or Windows, plus 1 </h5>
+                    <button style="width:100px; height:40px;margin-top:19px;">Learn More</button>
+                </div>
+            </div>
+            <div class="text-item">
+                <div class="move-part">
+                    <h1 style="color:#222">What will you do?</h1>
+                    <h5 style="margin-top:9px; color:#222">For 1 PC or Mac, 1 tablet including iPad, Android, or Windows, plus 1 </h5>
+                    <button style="width:100px; height:40px; margin-top:19px;">Learn More</button>
+                </div>
+            </div>
+        </div>
+        <div class="easyslider-control">
+            <button class="prev"><</button>
+            <button class="next">></button>
+        </div>
+        <div class="easyslider-page">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <!--<div style="width:90%; height:400px; background:#e3e;  margin:0 auto; position:relative;">
+
+        <div style="position:absolute; width:200px; height:200px; background:blue; top:20px;">
+            <div style="position:absolute; width:50px; height:50px; background:red; top:10px;">
+
+            </div>
+            <div style="position:absolute; width:50px; height:50px; background:green; top:10px;">
+
+            </div>
+        </div>
+
+    </div>-->
+    <br />
+</body>
+</html>
+
+
+<!--
+linear，swing，jswing，easeInQuad，easeOutQuad，easeInOutQuad，easeInCubic， easeOutCubic，easeInOutCubic，easeInQuart，easeOutQuart，easeInOutQuart， easeInQuint，easeOutQuint，easeInOutQuint，easeInSine，easeOutSine， easeInOutSine，easeInExpo，easeOutExpo，easeInOutExpo，easeInCirc， easeOutCirc，easeInOutCirc，easeInElastic，easeOutElastic，easeInOutElastic， easeInBack，easeOutBack，easeInOutBack，easeInBounce，easeOutBounce，easeInOutBounce
+-->
