@@ -7,6 +7,10 @@
     <script src="./Content/EasySlider/bootstrap.js"></script>
     <script src="./Content/EasySlider/EasySlider.js"></script>
     <style>
+        body, h1,h2,h3,h4,h5{
+            padding:0;
+            margin:0;
+        }
         .easyslider {
             margin: 0 auto;
             width: 85%;
@@ -32,28 +36,21 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
         }
 
         /*用于切换根据奇偶背景颜色*/
-        .easyslider-text .text-item {
-            position: absolute;
-            top: 0;
-            left: 0;
+            .easyslider-text .text-item {
+                position: relative;
             width: 100%;
-            height: 100%;
-        }
+            }
 
         /*用于移动*/
-        .easyslider-text .text-item .move-part {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding-left: 8%;
-            padding-top: 8%;
-        }
+            .easyslider-text .text-item .move-part {
+                position: relative;
+                width: 100%;
+                padding-left: 8%;
+                padding-top: 8%;
+            }
 
         .easyslider-control button {
             position: absolute;
@@ -103,19 +100,20 @@
             cursor: pointer;
         }
 
+        
         @media only screen and (max-width:768px) {
             .easyslider {
                 width: 100%;
             }
 
             .easyslider-text {
+                padding:0;
                 position: relative;
                 width: 100%;
-                height: 50%;
             }
 
-            .easyslider-text .text-item {
-                padding: 0;
+            .easyslider-text .text-item .move-part {
+                padding-bottom:8%;
                 text-align: center;
             }
 
@@ -130,7 +128,6 @@
     </style>
     <script>
         $(function () {
-            file:///E:/github/jquery%20css%20-----%20demo/%E8%BD%AE%E6%92%AD-%E9%AB%98%E7%BA%A7/b.png
             $('.easyslider-img li').eq(0).siblings().hide();
             $('.easyslider-text .text-item').eq(0).siblings().hide();
             $(".easyslider-page li").eq(0).css({ "background": "red" });
@@ -174,9 +171,10 @@
 
                 // moving
                 $('.easyslider-img').css({ 'left': img_left_start })
-                    .animate({ left: img_left_dest }, 300, 'swing');
-                $('.easyslider-text .text-item > div').css({ 'left': text_left_start })
-                    .animate({ left: '0px' }, 300, 'swing');
+                    .animate({ left: img_left_dest }, 250, 'swing');
+                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start })
+                    .animate({ left: '0px' }, 250, 'swing', function () {
+                    }); 
 
                 autoChange();
             })
@@ -211,9 +209,10 @@
 
                 // moving
                 $('.easyslider-img').css({ 'left': img_left_start })
-                    .animate({ left: img_left_dest }, 300, 'swing');
-                $('.easyslider-text .text-item > div').css({ 'left': text_left_start })
-                    .animate({ left: '0px' }, 300, 'swing');
+                    .animate({ left: img_left_dest }, 250, 'swing');
+                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start })
+                    .animate({ left: '0px' }, 250, 'swing', function () {
+                    }); 
 
                 autoChange();
             })
@@ -288,7 +287,10 @@
             <div style="position:absolute; width:50px; height:50px; background:red; top:10px;">
 
             </div>
-            <div style="position:absolute; width:50px; height:50px; background:green; top:10px;">
+            <div style="position:relative; width:50px; height:50px; background:green; top:20px;">
+
+            </div>
+            <div style="position:relative; width:50px; height:50px; background:green;">
 
             </div>
         </div>
