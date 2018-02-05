@@ -1,0 +1,20 @@
+
+
+		[HttpPost]
+		public ActionResult Test(string param)
+		{
+			return Json(new { name="jack", age=100});
+		}
+		
+		
+		
+			$.ajax( {
+				type:"post",
+				dataType: "json",
+				url: "/Home/Test",
+				data: { param: "asd" },
+				success: function (data) {
+					alert(data.name + " - " + data.age);
+				}
+
+			})

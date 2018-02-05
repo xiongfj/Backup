@@ -1,0 +1,132 @@
+body, h1, h2, h3, h4, h5 {
+    padding: 0;
+    margin: 0;
+}
+
+.easyslider {
+    margin: 0 auto;
+    width: 85%;
+    overflow: hiddenx;
+    position: relative;
+}
+
+    .easyslider:hover .easyslider-control button {
+        visibility: visible;
+    }
+
+    .easyslider li {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        background: #666;
+    }
+
+    .easyslider ul {
+        padding: 0;
+    }
+
+
+.move-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    padding-left: 8%;
+    padding-top: 8%;
+}
+
+.easyslider-control button {
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    height: 50px;
+    border: none;
+    padding: 8px;
+    visibility: hidden;
+    color: white;
+    background: #aaa;
+}
+
+.easyslider-control .prev {
+}
+
+.easyslider-control .next {
+    right: 0;
+}
+
+.easyslider-page {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    bottom: 0;
+    z-index: 3;
+    background: #3339;
+    text-align: center;
+}
+
+    .easyslider-page ul {
+        float: left;
+        position: relative;
+        left: 50%;
+    }
+
+    .easyslider-page li {
+        width: 9px;
+        height: 9px;
+        background: #999;
+        float: left;
+        border-radius: 3px;
+        margin-right: 11px;
+        list-style: none;
+        position: relative;
+        right: 88%;
+    }
+
+        .easyslider-page li:hover {
+            cursor: pointer;
+        }
+
+
+@media only screen and (max-width:768px) {
+    .easyslider {
+        width: 100%;
+    }
+
+    .move-text {
+        padding: 10px;
+        position: relative;
+    }
+
+
+        .move-text .btn-more {
+            position: absolute;
+            top: 0;
+            right: 20px;
+        }
+
+        .move-text .text-header, .move-text .text-des {
+            position: relative;
+            width: 80%;
+        }
+
+    /*.easyslider-text {
+                padding:0;
+                position: relative;
+                width: 100%;
+            }
+
+            .easyslider-text .text-item .move-part {
+                padding-bottom:8%;
+                text-align: center;
+            }
+
+            .easyslider-text .text-item:nth-child(odd) {
+                background: #555;
+            }
+
+            .easyslider-text .text-item:nth-child(even) {
+                background: #eee;
+                 
+            }*/
+}

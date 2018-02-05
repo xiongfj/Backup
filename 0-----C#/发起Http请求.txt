@@ -1,0 +1,40 @@
+
+			string result = "";
+			//首先创建一个HttpWebRequest,申明传输方式POST
+			HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://openapi.baidu.com/oauth/2.0/token?"+
+				"grant_type=authorization_code"+		// 指明登录认证的方式, 还有其它方式必须选择正确!!
+				"&code="+ code +
+				"&client_id=6tSitMHLktVopCoO8D0Z1tAq" +
+				"&client_secret=GTjnXhReW7gxL3o1Ntk5M2UGEIRzmRxc" +
+				"&redirect_uri=http://sso.easyx.cn/callback.aspx");
+			req.ContentType = "application/x-www-form-urlencoded";
+
+			//添加POST参数
+			//byte[] data = Encoding.UTF8.GetBytes(content);
+			//req.ContentLength = data.Length;
+			//using (Stream reqStream = req.GetRequestStream())
+			//{
+			//	reqStream.Write(data, 0, data.Length);
+			//	reqStream.Close();
+			//}
+
+			//申明一个容器resp接收返回数据
+			HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+			Stream stream = resp.GetResponseStream();
+			//获取响应内容 
+			using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+			{
+				result = reader.ReadToEnd();
+			}
+			// 获取的结果如下
+			/*{"expires_in":2592000,"refresh_token":"22.ad103c2f6c6494ecb30c4ff7c8573384.315360000.1833158095.1628322434-10789598","access_token":"21.e869cc0456d28fe52afb17daeee8ddcd.2592000.1520390095.1628322434-10789598","session_secret":"fe94e996b03794a3af60e6e7c22aa866","session_key":"9mnRIQp0NPW8ZF8Y17jPHTMkX3rTPF9dFMK8r4SszTHB4RNztNkGHmJd7xYZlFGzJJGyumrwio0w5qiBDRE4tVaS8PCG9VBEajM=","scope":"basic"} */
+
+
+			FileStream fs = new FileStream(Request.PhysicalApplicationPath + "\\lgo.txt", FileMode.Create);
+			StreamWriter sw = new StreamWriter(fs);
+			sw.Write(code + "\n" + result);
+			sw.Flush();
+			sw.Close();
+			fs.Close();
+
+			Response.Write(result);

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0046) -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+
+<title>asdasd</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="jquery-3.2.1.js"></script>
+<style>
+*, p{
+margin:0;
+padding:0;
+}
+html, body{
+	height: 100%;
+	width: 100%;
+	margin:0;
+	padding:0;
+}
+
+.root{
+overflow: auto;
+	background: #554;
+	height: inherit;
+	width: 100%;
+}
+
+.header{
+	width: 100%;
+	height: 50px;
+	background: black;
+}
+.left{
+	min-height: 90%;
+	width: 40%;
+	background: #4e4;
+	float:left;
+}
+.right{
+margin-left: 40%;
+	min-height: 90%;
+	background: #885;
+}
+.footer{
+	height: 20px;
+	width: 100%;
+	background: red;
+}
+</style>
+<script>
+	$(function(){
+		$(window).resize(function(){
+			$('.right-height').html($('.right').height());
+			$('.left').height($('.right').height());
+		})
+		
+		$("button").click(function(){
+			$('.right').append("<p>11124545vcjnv</p>").append("<p>11124545vcjnv</p>").append("<p>11124545vcjnv</p>").append("<p>11124545vcjnv</p>").append("<p>11124545vcjnv</p>").append("<p>11124545vcjnv</p>");
+			$(window).resize();
+		})
+	})
+</script>
+</head>
+<body>
+
+<div class="root">
+	<div class="header"></div>
+	<div class="left">
+		<button>添加元素</button><br />
+		右半部分高度: <h2 class="right-height"></h2>
+		<pre>
+		左半部分使用代码设置其高度与右半部分相同
+			$('.left').height($('.right').height());
+		</pre>
+	</div>
+	<div class="right">
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	<p>4545asdsad</p>
+	</div>
+	<div class="footer"></div>
+</div>
+</body>
+</html>

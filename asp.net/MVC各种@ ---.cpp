@@ -25,6 +25,11 @@ bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 * 占位符, 实际内容被使用这个布局的子页面 @section abc{@{Html.RegisterMvcPagerScriptResource();}} 大括号的内容代替
 */
 
+* @RenderSection("Scripts", required: false)
+/*
+ 被子页面的 @section Scripts{ ... }  代替
+*/
+
 * @Html.Partial("_LoginPartial")
 /*
 * <!-- 加载主 Views 的 /Shared/_LoginPartial.cshtml 到当前位置显示 -->

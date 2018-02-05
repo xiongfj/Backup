@@ -1,0 +1,9 @@
+Ç°¶Ë cshtml
+	@Html.Raw(ViewData["data"])
+
+
+
+
+
+ºóÌ¨
+ViewData["data"] = HttpContext.Server.HtmlDecode(GetHtm(id.ToString()));

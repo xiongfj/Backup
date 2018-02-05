@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/bundle-ChinaHeart.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/bundle-ChinaHeart-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/xray2005/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/xray2005/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/xray2005/wlwmanifest.xml">
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/jquery-2.2.0.min.js.download"></script>
+<script type="text/javascript">var currentBlogApp = 'xray2005', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/blog-common.js.download" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/xray2005/"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/xray2005/">♂风车车</a></h1>
+<h2>－－给我一个支点，我可以撬起整个地球！</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<!--done-->
+			<ul id="navList">
+				<li><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+				<li><a id="MyLinks1_SpaceLink" class="menu" href="http://home.cnblogs.com/">园子</a></li>
+				<li><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/xray2005/">首页</a></li>
+				<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+				<li><a id="blog_nav_contact" accesskey="9" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E2%99%82%E9%A3%8E%E8%BD%A6%E8%BD%A6">联系</a></li>
+				<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+				<li><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/xray2005/rss">订阅</a>
+				<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/xray2005/rss"><img src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/xml.gif" alt="订阅"></a></li>
+			</ul>
+
+
+		<div class="clear"></div>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔- 81&nbsp;
+文章- 0&nbsp;
+评论- 351&nbsp;
+</div>			
+						
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="topicList">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html">使用Asp.Net4新特性路由创建WebForm应用</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>&nbsp;</p>
+<p align="left"><strong><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;;">ASP.NET 4 </span></strong><strong><span style="font-family: 宋体;">中的路由</span></strong></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">1.<span style="font: 7pt &#39;Times New Roman&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">简介：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">ASP.NET 4 </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">增加了对使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"> Web </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">窗体进行路由的内置支持。</span> <span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">路由是</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"> ASP.NET 3.5 SP1 </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">引入的一项功能，通过此功能可将应用程序配置为使用对用户和搜索引擎有意义的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"> URL</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">，这样无需指定物理文件名。</span> <span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">使用这项功能，可以提高站点的用户友好度，并增加站点内容被搜索引擎发现的概率。</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">因此</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">我们可以使用在</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">WebForm</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中使用路由</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">可以创建出类似</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">mvc</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的那样简洁的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">比如</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">:</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">以前在</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的中</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">我们的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">一般是</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"><a href="http://xray2005.cnblogs.com/artcile.aspx?id=1"><span style="line-height: 150%; font-family: &#39;Calibri&#39;,&#39;sans-serif&#39;; color: black; font-size: 10.5pt; text-decoration: none; text-underline: none;">http://xray2005.cnblogs.com/artcile.aspx?id=1</span></a> </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">这样的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">现在如果使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的路由</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">那么我们的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">可能就是这样</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">: <a href="http://xray2005.cnblogs.com/artcile/1"><span style="line-height: 150%; font-family: &#39;Calibri&#39;,&#39;sans-serif&#39;; color: black; font-size: 10.5pt; text-decoration: none; text-underline: none;">http://xray2005.cnblogs.com/artcile/1</span></a> </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">这样了</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">不需要想以前一样通过</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">urlrewrite</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">来实现了</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">下面介绍具体的步骤</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">2.<span style="font: 7pt &#39;Times New Roman&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">准备环境</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">:</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">下面的例子是在</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">Window7(IIS7.5)+VS2010</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的环境实现的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">当然也可以使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">VS2008 SP1</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">实现(但具体代码存在一些差异)</span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">3.<span style="font: 7pt &#39;Times New Roman&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">添加路由规则：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">首先使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">创建一个空的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">web</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">应用程序</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">然后添加全局文件</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">Global.asax,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">引用命名空间</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">System.Web.Routing,(</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如果没有的话</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">则向项目中添加对</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">System.Web.Routing</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的引用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">)</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">然后在</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">Application_Start</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">事件中注册相应的路由</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">示例代码如下</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">:</span></p>
+<p align="left"><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">using</span><span style="font-family: NSimSun; font-size: 9.5pt;"> System.Web.Routing;</span></p>
+<p align="left">&nbsp;</p>
+<p align="left"><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">protected</span><span style="font-family: NSimSun; font-size: 9.5pt;"> <span style="color: blue;">void</span> Application_Start(<span style="color: blue;">object</span> sender, <span style="color: #2b91af;">EventArgs</span> e)</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegisteRoutes(<span style="color: #2b91af;">RouteTable</span>.Routes);</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+<p align="left">&nbsp;</p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">private</span> <span style="color: blue;">void</span> RegisteRoutes(<span style="color: #2b91af;">RouteCollection</span> routes)</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; routes.MapPageRoute(<span style="color: #a31515;">""</span>, <span style="color: #a31515;">""</span>, <span style="color: #a31515;">"~/Default.aspx"</span>);</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; routes.MapPageRoute(<span style="color: #a31515;">"list"</span>, <span style="color: #a31515;">"Items/{action}"</span>, <span style="color: #a31515;">"~/Items/list.aspx"</span>, <span style="color: blue;">false</span>, <span style="color: blue;">new</span> <span style="color: #2b91af;">RouteValueDictionary</span> { { <span style="color: #a31515;">"action"</span>, <span style="color: #a31515;">"all"</span> } });</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; routes.MapPageRoute(<span style="color: #a31515;">"show"</span>, <span style="color: #a31515;">"Show/{action}"</span>, <span style="color: #a31515;">"~/show.aspx"</span>, <span style="color: blue;">false</span>, <span style="color: blue;">new</span> <span style="color: #2b91af;">RouteValueDictionary</span> { { <span style="color: #a31515;">"action"</span>, <span style="color: #a31515;">"all"</span> } });</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; routes.MapPageRoute(<span style="color: #a31515;">"edit"</span>, <span style="color: #a31515;">"Edit/{id}"</span>, <span style="color: #a31515;">"~/edit.aspx"</span>, <span style="color: blue;">false</span>, <span style="color: blue;">new</span> <span style="color: #2b91af;">RouteValueDictionary</span> { { <span style="color: #a31515;">"id"</span>, <span style="color: #a31515;">"1"</span> } }, <span style="color: blue;">new</span> <span style="color: #2b91af;">RouteValueDictionary</span> { { <span style="color: #a31515;">"id"</span>, <span style="color: #a31515;">@"\d+"</span> } });</span></p>
+<p align="left">&nbsp;</p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">其中需要说明的是</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net 4</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">routes.MapPageRoute</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法来添加相应的路由规则</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">它和</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.net 3.5 sp1</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">routes.add</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">是一样的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">只不过更方便些</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">routes.MapPageRoute:</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">提供用于定义</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"> Web </span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">窗体应用程序的路由的方法。</span> <span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">有如下重载</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">: </span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: Wingdings; color: black; font-size: 9.5pt;">l&nbsp;</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">MapPageRoute(String, String, String)&nbsp;&nbsp;&nbsp; </span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: Wingdings; color: black; font-size: 9.5pt;">l&nbsp;</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">MapPageRoute(String, String, String, Boolean)&nbsp;</span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: Wingdings; color: black; font-size: 9.5pt;">l&nbsp;</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">MapPageRoute(String, String, String, Boolean, RouteValueDictionary) </span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: Wingdings; color: black; font-size: 9.5pt;">l&nbsp;</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">MapPageRoute(String, String, String, Boolean, RouteValueDictionary, RouteValueDictionary) </span></p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: Wingdings; color: black; font-size: 9.5pt;">l&nbsp;</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">MapPageRoute(String, String, String, Boolean, RouteValueDictionary, RouteValueDictionary, RouteValueDictionary)&nbsp;</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">具体每个方法的解析可以查看</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"><a href="http://msdn.microsoft.com/zh-cn/library/system.web.routing.routecollection.mappageroute.aspx"><span style="color: #0000ff; text-decoration: none; text-underline: none;">msdn</span></a></span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left">&nbsp;</p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">下面就是对应注册的路由规则</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">来创建普通的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">ASP.NET</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">页面了</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">Default.aspx,show.aspx.edit.aspx</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">等等</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">然后</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">我们就可以在运行例子来看看效果先了</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如下图所示</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">:</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;"><img src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/aspnet4Routing2.png" alt="" width="503" height="203" border="0"></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">4.<span style="font: 7pt &#39;Times New Roman&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">获取</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">URL</span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">中的参数</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">Page.RouteData</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中包含我们需要的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">URL</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">参数</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">因此</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">我们可以通过以下方法来获取</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">URL</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中的参数</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如下</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">:</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法一：在后台</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.CS</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">文件写如下代码：</span></p>
+<p>&nbsp;</p>
+<p align="left"><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if</span><span style="font-family: NSimSun; font-size: 9.5pt;"> (Page.RouteData.Values.ContainsKey(<span style="color: #a31515;">"id"</span>))</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">this</span>.lb.Text = Page.RouteData.Values[<span style="color: #a31515;">"id"</span>].ToString();</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法二：在页面中直接使用</span><span style="line-height: 150%; font-family: NSimSun; font-size: 9.5pt;">RouteValue</span><span style="line-height: 150%; font-family: 宋体; font-size: 9.5pt;">，如下：</span></p>
+<p align="left"><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="font-family: NSimSun; color: maroon; font-size: 9.5pt;">asp</span><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">:</span><span style="font-family: NSimSun; color: maroon; font-size: 9.5pt;">Label</span><span style="font-family: NSimSun; font-size: 9.5pt;"> <span style="color: red;">ID</span><span style="color: blue;">="lb1"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="</span><span style="background: yellow;">&lt;%</span><span style="color: blue;">$</span>RouteValue:id<span style="background: yellow;">%&gt;</span><span style="color: blue;">"&gt;&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">Label</span><span style="color: blue;">&gt;</span></span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p style="text-align: left; text-indent: -21pt; margin: 0cm 0cm 0pt 21pt;" align="left"><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">5.<span style="font: 7pt &#39;Times New Roman&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">页面</span><span style="font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url</span><span style="font-family: 宋体; color: black; font-size: 9.5pt;">连接的创建</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">在实际应用肯定是要页面跳转的，</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net4</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">提供了多种方法来创建符合路由规则的页面</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">。具体如下：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法一：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">直接按照规则，来创建</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如下：</span></p>
+<p align="left"><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</span><span style="font-family: NSimSun; color: maroon; font-size: 9.5pt;">asp</span><span style="font-family: NSimSun; color: blue; font-size: 9.5pt;">:</span><span style="font-family: NSimSun; color: maroon; font-size: 9.5pt;">HyperLink</span><span style="font-family: NSimSun; font-size: 9.5pt;"> <span style="color: red;">ID</span><span style="color: blue;">="link1"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="Show All"</span> <span style="color: red;">NavigateUrl</span><span style="color: blue;">="~/show/all"&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span><span style="color: blue;">&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">br</span> <span style="color: blue;">/&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span> <span style="color: red;">ID</span><span style="color: blue;">="HyperLink1"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="Edit 1"</span> <span style="color: red;">NavigateUrl</span><span style="color: blue;">="~/Edit/1"&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span><span style="color: blue;">&gt;</span></span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法二：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">RouteUrl</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">来创建</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url,</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">如下：</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span> <span style="color: red;">ID</span><span style="color: blue;">="HyperLink2"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="RouteUrl Show All "</span> <span style="color: red;">NavigateUrl</span><span style="color: blue;">="</span><span style="background: yellow;">&lt;%</span><span style="color: blue;">$</span>RouteUrl:routename=show<span style="background: yellow;">%&gt;</span><span style="color: blue;"> "&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span><span style="color: blue;">&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">br</span> <span style="color: blue;">/&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span> <span style="color: red;">ID</span><span style="color: blue;">="HyperLink3"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="RouteUrl Edit 2"</span> <span style="color: red;">NavigateUrl</span><span style="color: blue;">="</span><span style="background: yellow;">&lt;%</span><span style="color: blue;">$</span>RouteUrl:id=2,routename=edit <span style="background: yellow;">%&gt;</span><span style="color: blue;">"&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span><span style="color: blue;">&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">br</span> <span style="color: blue;">/&gt;</span></span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">这里，我们通过指定</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">routename</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">使得应用能够正确的引用规则，以便避免规则的混淆等等。</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">方法三：</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">通过</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.cs</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">后台代码来现实，比如：页面有个超连接，如下：</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span> <span style="color: red;">ID</span><span style="color: blue;">="HyperLink4"</span> <span style="color: red;">runat</span><span style="color: blue;">="server"</span> <span style="color: red;">Text</span><span style="color: blue;">="Code behind Edit 2"&gt;</span></span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">&lt;/</span><span style="color: maroon;">asp</span><span style="color: blue;">:</span><span style="color: maroon;">HyperLink</span><span style="color: blue;">&gt;</span></span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">那么，后台</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">.cs</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">代码可以来给</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">HyperLink</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">url</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">赋值：</span></p>
+<p style="text-align: left; text-indent: 52.25pt;" align="left"><span style="font-family: NSimSun; color: #2b91af; font-size: 9.5pt;">RouteValueDictionary</span><span style="font-family: NSimSun; font-size: 9.5pt;"> p = <span style="color: blue;">new</span> <span style="color: #2b91af;">RouteValueDictionary</span> { { <span style="color: #a31515;">"id"</span>, <span style="color: #a31515;">"3"</span> } };</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #2b91af;">VirtualPathData</span> vpd = <span style="color: #2b91af;">RouteTable</span>.Routes.GetVirtualPath(<span style="color: blue;">null</span>, <span style="color: #a31515;">"edit"</span>, p);</span></p>
+<p align="left"><span style="font-family: NSimSun; font-size: 9.5pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: blue;">this</span>.HyperLink4.NavigateUrl = vpd.VirtualPath;</span></p>
+<p style="text-align: left; line-height: 150%; text-indent: 19pt;" align="left"><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">至此，我们示范了如何使用</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">asp.net 4</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">中的路由来创建相应的</span><span style="line-height: 150%; font-family: &#39;Segoe UI&#39;,&#39;sans-serif&#39;; color: black; font-size: 9.5pt;">webform</span><span style="line-height: 150%; font-family: 宋体; color: black; font-size: 9.5pt;">应用。</span></p></div><div id="MySignature" style="display: block;"><div style="color: green">&nbsp;</div>
+<div style="color: green">&nbsp;&nbsp;&nbsp;&nbsp; <span style="color: #ff6600">本文版权归作者所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。 </span></div>
+<div style="color: green">&nbsp;</div>
+<div style="color: green">&nbsp;</div>
+</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/xray2005/category/103719.html" target="_blank">.Net Framework</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/xray2005/tag/asp.net4/">asp.net4</a>, <a href="http://www.cnblogs.com/xray2005/tag/asp.net4%20routing/">asp.net4 routing</a>, <a href="http://www.cnblogs.com/xray2005/tag/MapPageRoute/">MapPageRoute</a>, <a href="http://www.cnblogs.com/xray2005/tag/asp.net%204%E8%B7%AF%E7%94%B1/">asp.net 4路由</a>, <a href="http://www.cnblogs.com/xray2005/tag/asp.net%E8%B7%AF%E7%94%B1/">asp.net路由</a>, <a href="http://www.cnblogs.com/xray2005/tag/RouteUrl/">RouteUrl</a>, <a href="http://www.cnblogs.com/xray2005/tag/RouteValue/">RouteValue</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2096938,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;7a763d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/xray2005/" target="_blank"><img src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/u23671.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/xray2005/">♂风车车</a><br>
+            <a href="http://home.cnblogs.com/u/xray2005/followees">关注 - 4</a><br>
+            <a href="http://home.cnblogs.com/u/xray2005/followers">粉丝 - 347</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;7a763d0b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2096938,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">3</span>
+    </div>
+    <div class="buryit" onclick="votePost(2096938,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/xray2005/archive/2011/06/23/2088530.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/xray2005/archive/2011/06/23/2088530.html" title="发布于2011-06-23 23:23">Entity Framework 4-多对多、自关联的关系</a><br><a href="http://www.cnblogs.com/xray2005/archive/2011/07/04/2097840.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/xray2005/archive/2011/07/04/2097840.html" title="发布于2011-07-04 23:25">Asp.Net 4中使用路由时使用SiteMap</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2011-07-03 22:00</span> <a href="http://www.cnblogs.com/xray2005/">♂风车车</a> 阅读(<span id="post_view_count">3117</span>) 评论(<span id="post_comment_count">3</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2096938" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#" onclick="AddToWz(2096938);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=27230,cb_entryId=2096938,cb_blogApp=currentBlogApp,cb_blogUserGuid='7a763d0b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2011/7/3 22:00:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<br>
+<div class="feedback_area_title">发表评论</div>
+<div class="feedbackNoItems"></div>
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#2155763" class="layer">#1楼</a><a name="2155763" id="comment_anchor_2155763"></a> <span class="comment_date">2011-07-20 10:07</span> | <a id="a_comment_author_2155763" href="http://www.cnblogs.com/johnwonder/" target="_blank">john23.net</a> <a href="http://msg.cnblogs.com/send/john23.net" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2155763" class="blog_comment_body">不错</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2155763,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2155763,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2155763_avatar" style="display:none;">http://pic.cnblogs.com/face/u64521.jpg</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#2385771" class="layer">#2楼</a><a name="2385771" id="comment_anchor_2385771"></a> <span class="comment_date">2012-05-25 15:49</span> | <a id="a_comment_author_2385771" href="http://www.cnblogs.com/blsong/" target="_blank">风雨者2</a> <a href="http://msg.cnblogs.com/send/%E9%A3%8E%E9%9B%A8%E8%80%852" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2385771" class="blog_comment_body">不错！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2385771,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2385771,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2385771_avatar" style="display:none;">http://pic.cnblogs.com/face/26515/20160310105425.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#2670882" class="layer">#3楼</a><a name="2670882" id="comment_anchor_2670882"></a><span id="comment-maxId" style="display:none;">2670882</span><span id="comment-maxDate" style="display:none;">2013/5/2 16:18:12</span> <span class="comment_date">2013-05-02 16:18</span> | <a id="a_comment_author_2670882" href="http://www.cnblogs.com/zhanglongjason/" target="_blank">张克龙</a> <a href="http://msg.cnblogs.com/send/%E5%BC%A0%E5%85%8B%E9%BE%99" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2670882" class="blog_comment_body">额，还要版权的啊，汗</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2670882,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2670882,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/xray2005/archive/2011/07/03/2096938.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://dnspod.cloud.tencent.com/act/yearendsales?from=IT&amp;fromSource=gwzcw.741110.741110.741110" target="_blank">【推荐】腾讯云新用户域名抢购1元起，抓紧抢购</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://ke.qq.com/next/index.html?from=176158" target="_blank"><img width="300" height="250" src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/24442-20180108123632644-2119592979.png" alt="ke0108"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/587181/" target="_blank">索尼官方招聘列表消息：正在开发OLED屏手机</a><br> ·  <a href="https://news.cnblogs.com/n/587180/" target="_blank">腾讯声明：腾讯区块链从未与任何机构就代币发行或交易进行合作</a><br> ·  <a href="https://news.cnblogs.com/n/587179/" target="_blank">精准率首次超过人类！阿里巴巴机器阅读理解打破世界纪录</a><br> ·  <a href="https://news.cnblogs.com/n/587158/" target="_blank">技术帖：每天被今日头条推送文章 背后的算法技术是什么？</a><br> ·  <a href="https://news.cnblogs.com/n/587178/" target="_blank">支付宝实体版老黄历问世：全球限量1000册</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/585502/" target="_blank">步入云计算</a><br> ·  <a href="http://kb.cnblogs.com/page/531409/" target="_blank">以操作系统的角度述说线程与进程</a><br> ·  <a href="http://kb.cnblogs.com/page/141729/" target="_blank">软件测试转型之路</a><br> ·  <a href="http://kb.cnblogs.com/page/177402/" target="_blank">门内门外看招聘</a><br> ·  <a href="http://kb.cnblogs.com/page/112506/" target="_blank">大道至简，职场上做人做事做管理</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: topicList 文章列表容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p>&nbsp;</p>
+<p>我的位置:</p>
+<p>中国.四川.成都 <br>
+coder028@foxmail.com </p>
+<br>
+<p>
+</p><div>
+<a href="http://www.cnzz.com/stat/website.php?web_id=1452025" target="_blank" title="站长统计">站长统计</a><script type="text/javascript">window['__document_write_ajax_callbacks__']['7']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['8']();</script><script charset="utf-8" type="text/javascript">window['__document_write_ajax_callbacks__']['6']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['4']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['5']();</script><script language="JavaScript" charset="gb2312">window['__document_write_ajax_callbacks__']['1']();</script>
+访问数:</div><br>
+<a href="http://xyz.freelogs.com/stats/x/xray2005/" target="_top"><img border="0" alt="" src="./使用Asp.Net4新特性路由创建WebForm应用 - ♂风车车 - 博客园_files/index.php" align="middle" hspace="4" vspace="2"></a><script type="text/javascript">window['__document_write_ajax_callbacks__']['9']();</script><script type="text/javascript">window['__document_write_ajax_callbacks__']['10']();</script><script>window['__document_write_ajax_callbacks__']['2']();</script>
+<p></p><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/xray2005/">♂风车车</a><br>园龄：<a href="https://home.cnblogs.com/u/xray2005/" title="入园时间：2007-06-13">10年7个月</a><br>荣誉：<a href="https://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="https://home.cnblogs.com/u/xray2005/followers/">347</a><br>关注：<a href="https://home.cnblogs.com/u/xray2005/followees/">4</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;7a763d0b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div><script type="text/javascript">window['__document_write_ajax_callbacks__']['11']();</script><script>window['__document_write_ajax_callbacks__']['3']();</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/06/01&#39;);return false;">&lt;</a></td><td align="center">2011年7月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2011/08/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td class="CalOtherMonthDay" align="center">29</td><td class="CalOtherMonthDay" align="center">30</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center"><a href="http://www.cnblogs.com/xray2005/archive/2011/07/03.html"><u>3</u></a></td><td align="center"><a href="http://www.cnblogs.com/xray2005/archive/2011/07/04.html"><u>4</u></a></td><td align="center"><a href="http://www.cnblogs.com/xray2005/archive/2011/07/05.html"><u>5</u></a></td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center"><a href="http://www.cnblogs.com/xray2005/archive/2011/07/20.html"><u>20</u></a></td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/xray2005/category/103719.html">.Net Framework(57)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/xray2005/category/198580.html">C/C++(7)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/xray2005/category/931421.html">JavaEE</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/xray2005/category/103721.html">JavaScript(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/xray2005/category/931423.html">Python</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/xray2005/category/123287.html">产品设计与分析(4)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/xray2005/category/231279.html">数据库(2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/xray2005/category/123288.html">项目管理</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/xray2005/category/140224.html">信息安全(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/xray2005/category/278027.html">杂七杂八(3)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/xray2005/archive/2011/11.html">2011年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/xray2005/archive/2011/10.html">2011年10月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/xray2005/archive/2011/09.html">2011年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/xray2005/archive/2011/08.html">2011年8月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/xray2005/archive/2011/07.html">2011年7月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/xray2005/archive/2011/06.html">2011年6月 (4)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/xray2005/archive/2011/01.html">2011年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/xray2005/archive/2010/01.html">2010年1月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/xray2005/archive/2009/11.html">2009年11月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/xray2005/archive/2009/08.html">2009年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/xray2005/archive/2009/07.html">2009年7月 (12)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/xray2005/archive/2009/06.html">2009年6月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/xray2005/archive/2009/05.html">2009年5月 (7)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="http://www.cnblogs.com/xray2005/archive/2008/11.html">2008年11月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="http://www.cnblogs.com/xray2005/archive/2008/06.html">2008年6月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="http://www.cnblogs.com/xray2005/archive/2008/05.html">2008年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="http://www.cnblogs.com/xray2005/archive/2008/03.html">2008年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="http://www.cnblogs.com/xray2005/archive/2008/02.html">2008年2月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="http://www.cnblogs.com/xray2005/archive/2007/11.html">2007年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="http://www.cnblogs.com/xray2005/archive/2007/10.html">2007年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="http://www.cnblogs.com/xray2005/archive/2007/09.html">2007年9月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="http://www.cnblogs.com/xray2005/archive/2007/08.html">2007年8月 (2)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	183150
+	</li><li class="liRank">
+		排名 -	1296
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/07/1452033.html">1. Entity Framework 学习初级篇1--EF基本概况(73454)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/09/1453036.html">2. Entity Framework 学习初级篇3-- LINQ TO Entities(37091)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/07/1452274.html">3. Entity Framework 学习初级篇2--ObjectContext、ObjectQuery、ObjectStateEntry、ObjectStateManager类的介绍(36591)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/11/1453855.html">4. Entity Framework 学习初级篇4--Entity SQL(26116)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/13/1455856.html">5. Entity Framework 学习初级篇5--ObjectQuery查询及方法(22807)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/xray2005/archive/2010/01/06/EF4.html">1. Entity Framework 4 第一篇 POCO(30)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/07/1452033.html">2. Entity Framework 学习初级篇1--EF基本概况(26)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/11/1453855.html">3. Entity Framework 学习初级篇4--Entity SQL(22)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2011/09/01/2161491.html">4. 多核时代 .NET Framework 4 中的并行编程6---并行LINQ(22)</a></li><li><a href="http://www.cnblogs.com/xray2005/archive/2009/05/09/1453036.html">5. Entity Framework 学习初级篇3-- LINQ TO Entities(20)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+<script type="text/javascript">getFollowStatus('7a763d0b-63cf-dd11-9e4d-001cf0cd104b')</script></body></html>

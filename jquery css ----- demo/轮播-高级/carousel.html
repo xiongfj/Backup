@@ -123,6 +123,7 @@
 
             .easyslider-text .text-item:nth-child(even) {
                 background: #eee;
+                 
             }
         }
     </style>
@@ -172,9 +173,8 @@
                 // moving
                 $('.easyslider-img').css({ 'left': img_left_start })
                     .animate({ left: img_left_dest }, 250, 'swing');
-                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start })
-                    .animate({ left: '0px' }, 250, 'swing', function () {
-                    }); 
+                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start, "opacity":"0.5" })
+                    .animate({ left: '0px', "opacity":"1.0" }, 250, 'swing' ); 
 
                 autoChange();
             })
@@ -210,9 +210,8 @@
                 // moving
                 $('.easyslider-img').css({ 'left': img_left_start })
                     .animate({ left: img_left_dest }, 250, 'swing');
-                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start })
-                    .animate({ left: '0px' }, 250, 'swing', function () {
-                    }); 
+                $('.easyslider-text .text-item:visible .move-part').css({ 'left': text_left_start, "opacity": "0.5" })
+                    .animate({ left: '0px', "opacity": "1.0" }, 250, 'swing'); 
 
                 autoChange();
             })
