@@ -15,18 +15,15 @@ public class Vehicle
     private string type;
     private Hashtable parts = new Hashtable();
 
-    public Vehicle(string type)
-    {
+    public Vehicle(string type){
         this.type = type;
     }
-    public object this[string key]
-    {
+    public object this[string key] {
         get { return parts[key]; }
         set { parts[key] = value; }
     }
 
-    public void Show()
-    {
+    public void Show(){
         Console.WriteLine("Vehicle type: " + type);
         Console.WriteLine("Frame: " + parts["frame"]);
         Console.WriteLine("Engine: " + parts["engine"]);

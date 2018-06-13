@@ -13,7 +13,7 @@
 <br>
 
 <div ng-repeat="x in todoList">
-    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span><span>{{x.todoText}}</span>
 </div>
 
 <p><button ng-click="remove()">删除记录</button></p>

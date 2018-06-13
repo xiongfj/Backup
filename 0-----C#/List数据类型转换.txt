@@ -1,0 +1,15 @@
+List<object> currencyListOfType = new List<object>()
+            {
+                new Currency(){Id = Guid.NewGuid(), Name = "a"},
+                new Currency(){Id = Guid.NewGuid(), Name = "b"},
+                new Currency(){Id = Guid.NewGuid(), Name = "c"}
+            };
+
+            List<object> currencyListCast = new List<object>()
+            {
+                "a", "b", "c"
+            };
+            //=>OfType如果元素存在转换不了，也不会出现异常；只转换成功的元素;如果转换不了currencies则为空的List，而不是NULL
+            List<Currency> currencies = currencyListOfType.OfType<Currency>().ToList();
+            //=>Cast如果元素转换不了，则会失败。
+            List<Currency> currencies1 = currencyListCast.Cast<Currency>().ToList();

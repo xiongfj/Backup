@@ -1,0 +1,77 @@
+<ul class="pagination" style="margin: 0px;">
+				<li ng-class="{true:'disabled'}[p_current==1]"><a href="javascript:void(0);" ng-click="p_index()">首页</a></li>
+				<li ng-repeat="page in pages" ng-class="{true:'active'}[p_current==page]"><a href="javascript:void(0);" ng-click="load_page(page)">{{ page }}</a></li>
+				<li ng-class="{true:'disabled'}[p_current==p_all_page]"><a href="javascript:void(0);" ng-click="p_last()">尾页</a></li>
+			</ul>
+			<span style="vertical-align: 12px;">  共：{{count}} 条</span>
+			
+			
+			
+			var app = angular.module("GroupUserApp", []);
+			app.controller("UsersCtrl", function ($scope, $http, $location) {
+				//配置
+				$scope.count = 0;
+				$scope.p_pernum = 10;
+				//变量
+				$scope.p_current = 1;
+				$scope.p_all_page = 0;
+				$scope.pages = [];
+				//获取数据
+				$http.get("/QQRobot/GroupUser/getdata?status=0&page=" + $scope.p_current + "&size=" + $scope.p_pernum).then(function (res) {
+					if (res && res.data.status == 1) {
+						$scope.count = res.data.count;
+						$scope.list = res.data.list;
+						$scope.p_current = $scope.p_current;
+						$scope.p_all_page = Math.ceil($scope.count / $scope.p_pernum);
+						reloadPno();
+					} else {
+						alert("加载失败");
+					}
+				});
+
+				//单选按钮选中
+				$scope.select = function (id) {
+					alert(id);
+				}
+				//首页
+				$scope.p_index = function () {
+					$scope.load_page(1);
+				}
+				//尾页
+				$scope.p_last = function () {
+					$scope.load_page($scope.p_all_page);
+				}
+				//加载某一页
+				$scope.load_page = function (page) {
+					_get(page, $scope.p_pernum, function () { });
+				};
+				//初始化页码
+				var reloadPno = function () {
+					$scope.pages = calculateIndexes($scope.p_current, $scope.p_all_page, 8);
+				};
+				//分页算法
+				var calculateIndexes = function (current, length, displayLength) {
+					var indexes = [];
+					var start = Math.round(current - displayLength / 2);
+					var end = Math.round(current + displayLength / 2);
+					if (start <= 1) {
+						start = 1;
+						end = start + displayLength - 1;
+						if (end >= length - 1) {
+							end = length - 1;
+						}
+					}
+					if (end >= length - 1) {
+						end = length;
+						start = end - displayLength + 1;
+						if (start <= 1) {
+							start = 1;
+						}
+					}
+					for (var i = start; i <= end; i++) {
+						indexes.push(i);
+					}
+					return indexes;
+				};
+
+			});

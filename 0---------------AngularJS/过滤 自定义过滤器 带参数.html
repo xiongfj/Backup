@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-controller="controller">
+原有数据：{{name}}<br/>
+过滤数据：{{name | filter2:5}}
+</div>
+
+<script> 
+	var app = angular.module('app', []);
+	app.controller('controller', function($scope, $filter) {
+	  $scope.name = "John Mack";
+	});
+	
+	app.filter('filter2', function(){
+    return function(item,num){
+        for(var i = 0;i < num;i++){
+            item = item + '!';
+        }
+        return item;
+    }
+});
+</script>
+
+</body>
+</html>
+ 

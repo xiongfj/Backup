@@ -2,89 +2,89 @@
 
 abstract class AbstractFactory
 {
-    abstract public AbstractProductA CreateProductA();  // 有多少个抽象产品子类就要有多少个函数
-    abstract public AbstractProductB CreateProductB();
+    abstract public Steel_Abstract CreateSteel();
+    abstract public Wood_Abstract CreateWood();
 }
 
 class Factory_One : AbstractFactory
 {
-    public override AbstractProductA CreateProductA()
-    {
-        return new ProductA1();
+    public override Steel_Abstract CreateSteel(){
+        return new SteelBar();
     }
-    public override AbstractProductB CreateProductB()
-    {
-        return new ProductB1();
+    public override Wood_Abstract CreateWood(){
+        return new WoodTable();
     }
 }
 
 class Factory_Two : AbstractFactory
 {
-    public override AbstractProductA CreateProductA()
-    {
-        return new ProductA2();
+    public override Steel_Abstract CreateSteel(){
+        return new SteelPanel();
     }
-    public override AbstractProductB CreateProductB()
-    {
-        return new ProductB2();
+    public override Wood_Abstract CreateWood(){
+        return new WoodChair();
     }
 }
 
-// d--------------------------------------------------
-
-abstract class AbstractProductA
+/* 定义了木材类与刚才类的关系 */
+abstract class Steel_Abstract   // 钢类产品
+{ }
+abstract class Wood_Abstract    // 木材类产品
 {
-
-}
-abstract class AbstractProductB
-{
-    abstract public void Interact(AbstractProductA a);
+    abstract public void Interact(Steel_Abstract a);
 }
 
-class ProductA1 : AbstractProductA
-{
+/* 具体关系的实现 */
+class SteelBar : Steel_Abstract	 // 钢条
+{ }
+class SteelPanel : Steel_Abstract// 钢板
+{ }
 
-}
-class ProductB1 : AbstractProductB
+class WoodTable : Wood_Abstract  // 木桌
 {
-    public override void Interact(AbstractProductA a)
-    {
-        Console.WriteLine(this + "interacts with " + a);
+	// 木桌可以使用所有的钢类子产品
+    public override void Interact(Steel_Abstract a)  {
+        Console.WriteLine(this + " interacts with " + a);
     }
 }
-
-class ProductA2 : AbstractProductA
+class WoodChair : Wood_Abstract  // 木椅
 {
-
-}
-class ProductB2 : AbstractProductB
-{
-    public override void Interact(AbstractProductA a)
-    {
-        Console.WriteLine(this + "interacts with " + a);
+	// 木椅也可以使用所有的钢类子产品
+	public override void Interact(Steel_Abstract a)  {
+        Console.WriteLine(this + " interacts with " + a);
     }
 }
-
-/*
- * 接收子工厂 factory 作为变量
- * 决定生产① 还是②产品
- */
+/*  */
 class Environment
 {
-    private AbstractProductA AbstractProductA;
-    private AbstractProductB AbstractProductB;
+    private Steel_Abstract steelPro;
+    private Wood_Abstract woodPro;
 
-    public Environment(AbstractFactory factory)
-    {
-        AbstractProductA = factory.CreateProductA();
-        AbstractProductB = factory.CreateProductB();
+    public Environment(AbstractFactory factory) {
+		steelPro = factory.CreateSteel();
+		woodPro = factory.CreateWood();
     }
 
-    public void Run()
-    {
-        AbstractProductB.Interact(AbstractProductA);
+    public void Run() {
+		woodPro.Interact(steelPro);
     }
 }
+class ClientApp
+{
+    public static void Main() {
+        AbstractFactory factory1 = new Factory_One();
+        Environment e1 = new Environment(factory1);
+        e1.Run();
+
+        AbstractFactory factory2 = new Factory_Two();
+        Environment e2 = new Environment(factory2);
+        e2.Run();
+    }
+}
+/* 输出结果:
+	WoodTable interacts with SteelBar
+	WoodChair interacts with SteelPanel
+*/
 
 /*
                                             (A)                    (B)
@@ -108,16 +108,3 @@ class Environment
 
  */
 
-class ClientApp
-{
-    public static void Main()
-    {
-        AbstractFactory factory1 = new Factory_One();
-        Environment e1 = new Environment(factory1);
-        e1.Run();
-
-        AbstractFactory factory2 = new Factory_Two();
-        Environment e2 = new Environment(factory2);
-        e2.Run();
-    }
-}

@@ -1,5 +1,6 @@
 ﻿using System;
 
+/** 深拷贝 **/
 class ShallowCopy : ICloneable
 {
     public int[] v = { 1,2,3};

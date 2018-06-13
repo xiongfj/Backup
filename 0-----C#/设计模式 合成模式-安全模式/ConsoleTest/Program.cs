@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections;
 
+/*安全模式*/
 abstract class Component
 {
     protected string name;

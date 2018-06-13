@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-controller="controller">
+<h3>一、第一种过滤器：</h3><br/>
+原有数据：{{name}}<br/>
+过滤数据：{{name | filter1}}
+</div>
+
+<script> 
+	var app = angular.module('app', []);
+	app.controller('controller', function($scope, $filter) {
+	  $scope.name = "John Mack";
+	});
+	app.filter('filter1', function(){
+		return function(item){
+			return item + '这里可以修改数据';
+		}
+	});
+</script>
+
+</body>
+</html>
+ 

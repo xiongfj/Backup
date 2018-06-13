@@ -36,7 +36,18 @@ public class TubeLight : Light
         Console.WriteLine("     TubeLight:TurnOff()..");
     }
 }
+// 扩展
+//public class xxLinght : Light
+//{
+//        ...
+//    ...
+//}
 
+
+/* 
+ * 抽象工厂使用抽象 Light,
+ * 每一个子工厂都可以使用抽象 Light 的各种子类
+ */
 public abstract class Creator
 {
     public abstract Light factory();

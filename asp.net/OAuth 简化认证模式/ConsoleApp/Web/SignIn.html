@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
+	</script>
+</head>
+<body>
+	<form id="form1">
+		<div>
+			Access Token<br />
+			<input id="AccessToken" name="AccessToken" />
+			<input id="CallApi" name="submit.CallApi" value="访问受控资源" type="button" />
+		</div>
+		<div id="output">
+		</div>
+	</form>
+
+
+	<script>
+		$(function () {
+			var apiUri = 'http://localhost:55650/api/Values';
+
+			if (hash != "") {
+				var hash = window.location.hash;
+				var access_token = hash.match(/access_token=(\S*?)&/)[1];
+				$('#AccessToken').val(access_token);
+			}
+
+			// 一个access_token 只能访问一次资源, 下一次访问需要重新获取 ??
+			$('#CallApi').click(function () {
+				$.ajax(apiUri, {
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader('Authorization', 'Bearer ' + $('#AccessToken').val());
+					},
+					dataType: 'text',
+					cache: false,
+					success: function (data) {
+						$('#output').text(data);
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>

@@ -4,8 +4,7 @@
  */
 class Shop
 {
-    public void Construct(VehicleBuilder builder)
-    {
+    public void Construct(VehicleBuilder builder){
         builder.BuildFrame();
         builder.BuildEngine();
         builder.BuildWheels();
@@ -25,8 +24,7 @@ class Shop
 
 public class BuilderApp
 {
-    public static void Main()
-    {
+    public static void Main(){
         Shop shop = new Shop();
         VehicleBuilder b1 = new MotorCycleBuilder();
         VehicleBuilder b2 = new CarBuilder();

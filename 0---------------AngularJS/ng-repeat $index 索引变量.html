@@ -1,0 +1,43 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+
+	<div ng-app="myapp" ng-controller="myCtrl">
+		<table>
+			<tr ng-repeat="x in texts | filter:test">
+				<td style="width: 160px">{{x.name}}</td>
+				<td style="width: 160px">{{x.age}}</td>
+				<td style="width: 160px">{{x.city}}</td>
+				<td>
+					<button class="btn btn-danger" ng-click="del($index)">删除</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<script>
+		var app = angular.module('myapp', []);
+		app.controller('myCtrl', function ($scope) {
+			$scope.texts = [
+				{ name: "张三", age: "23", city: "海南" },
+				{ name: "李四", age: "25", city: "香港" },
+				{ name: "王五", age: "25", city: "济南" },
+				{ name: "刘六", age: "22", city: "济南" },
+				{ name: "李七", age: "35", city: "烟台" },
+				{ name: "张八", age: "32", city: "聊城" },
+				{ name: "吕九", age: "30", city: "盘锦" }
+			];
+
+			$scope.del = function ($index) {		// 可以获取列表索引
+				alert($index);
+			};
+		});
+	</script>
+</body>
+
+</html>

@@ -30,7 +30,11 @@ public class TubeLight : Light
     }
 }
 
-// 一般做成单一实例静态的
+/*
+ * 一般做成单一实例静态的
+ * 使用参数获取不同的 Light 
+ */
+
 public class CreatorFactory
 {
     public static Light factory( string type)

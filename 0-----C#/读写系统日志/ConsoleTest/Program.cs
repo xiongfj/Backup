@@ -20,7 +20,7 @@ public class Program
 		WriteLog();
 
 		//ClearLog("Application");
-		//ReadLog();
+		ReadLog();
 
 		//WriteSysLog();
 	}
@@ -28,22 +28,22 @@ public class Program
 	public static void WriteLog()
 	{
 		// 创建的自定义日志貌似不会显示在日志管理器中, 只能在注册表中看到?!
-		if (!EventLog.SourceExists("abc"))
-			EventLog.CreateEventSource("abc", "MyEvent");			// 会在 Application 同级目录下创建 MyEvent; MyEvent 内有创建一个 abc
+		//if (!EventLog.SourceExists("ax"))
+		//	EventLog.CreateEventSource("ax", "Application");           // 会在 Application 同级目录下创建 MyEvent; MyEvent 内有创建一个 abc
 
-		EventLog log = new EventLog();
-		log.Source = "abc";
+		EventLog log = new EventLog("Application");
+		log.Source = "aaa";
 		log.WriteEntry("1111111");
 
-		try
-		{
-			//EventLog.CreateEventSource("news2", "Application");
-			EventLog.WriteEntry("ssss", "info dddddddd", EventLogEntryType.Error, 1009, 0);		// 默认写入 Windows Logs/Application 层里面
-		}
-		catch (Exception e)
-		{
-			EventLog.WriteEntry("abc", e.Message, EventLogEntryType.Error);
-		}
+		//try
+		//{
+		//	//EventLog.CreateEventSource("news2", "Application");
+		//	EventLog.WriteEntry("ssss", "info dddddddd", EventLogEntryType.Error, 1009, 0);     // 默认写入 Windows Logs/Application 层里面
+		//}
+		//catch (Exception e)
+		//{
+		//	EventLog.WriteEntry("abc", e.Message, EventLogEntryType.Error);
+		//}
 	}
 
 	public static void ReadLog()
@@ -52,7 +52,7 @@ public class Program
 		//l.Clear();
 
 		EventLog eventLog = new EventLog();
-		eventLog.Log = "MyEvent";
+		eventLog.Log = "Application";
 
 		EventLogEntryCollection collection = eventLog.Entries;
 		foreach (EventLogEntry entry in collection)

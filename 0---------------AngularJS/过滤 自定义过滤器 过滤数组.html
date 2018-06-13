@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-controller="controller">
+<ul>
+    <li ng-repeat="word in ['aa','bb','vv','mm'] | filter3">{{word}}</li>
+</ul>
+
+<script> 
+	var app = angular.module('app', []);
+	app.controller('controller', function($scope, $filter) {
+	  $scope.name = "John Mack";
+	});
+	
+	app.filter('filter3', function(){
+    return function(items){
+        angular.forEach(items,function(item, i){		// item 是单个数组元素
+            item = i+'、'+ item + '===';
+            console.log(item);
+            items[i] = item;
+        });
+        return items;
+    }
+});
+</script>
+
+</body>
+</html>
+ 

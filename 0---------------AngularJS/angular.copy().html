@@ -33,10 +33,10 @@
     .controller('ExampleController', ['$scope', function($scope) {
         $scope.master= {};
         
-        var test1;
-        console.log(angular.copy(test1));//undefined
+        var test1 = "hello world!";
+        console.log(angular.copy(test1));
         var test3=null;
-        console.log(angular.copy(test2));//undefined
+        console.log(angular.copy(test3));//null
 
         var test2 = "a";
         // console.log(angular.copy(test2,test2));//error!!

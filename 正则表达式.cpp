@@ -6,6 +6,8 @@
 
 ** ((?=[\x21-\x7e]+)[^A-Za-z0-9])		// 匹配除字母和数字之外的字符, 中文文字不会影响
 
+** "".*?[^\\]?""		// 匹配首位用双引号的字符串, 字符串内部双引号用 \" 代替
+
 ------------ 非打印字符 --------------
 
 \n		匹配换行
@@ -104,6 +106,16 @@ $	匹配输入字符串的结尾位置
 /*
 匹配后面跟的不是exp的位置。
 如 "123abc" 正则 "\d{3}(?!\d)"匹配3位数字后非数字的结果
+
+---------------- 获取有 http 的 abc...}}, 一段
+
+string str = "xxx abc ----- }}, abc ------- }}, abc 0000\n00000 000 https://msdn.microsoft.com/zh-cn ......}}, abc ---  ---- }},.htp;;;}},...";
+MatchCollection ms = Regex.Matches(str, @"abc((.|\n)(?!abc))*?http(.|\n)*?}},", RegexOptions.IgnoreCase);
+foreach(Match m in ms)
+{
+	Console.WriteLine(m.Value);	// abc 0000\n00000 000 https://msdn.microsoft.com/zh-cn ......}},
+}
+	
 */
 
 (?<!exp)	

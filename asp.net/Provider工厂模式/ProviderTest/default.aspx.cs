@@ -39,7 +39,7 @@ namespace ProviderTest
             ProvidersHelper.InstantiateProviders(section.Providers, _providers, typeof(BlogProvider));
 
             // 通过名称 获取某个子类的实例化对象
-            _provider = _providers[section.FileStoreProvider];
+            _provider = _providers[section.DefaultProvider];
 
             // 调用的是对应子类的函数
             string str = _provider.TestFunc();

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="namesCtrl">
+
+<p ng-click="sort('name')">循环对象:</p>
+<ul>
+  <li ng-repeat="x in names | orderBy:sortName">
+    {{ x.name + ', ' + x.country }}
+  </li>
+</ul>
+
+</div>
+
+<script>
+	angular.module('myApp',[]).controller('namesCtrl', function($scope){
+	$scope.sortName = "country";
+		$scope.names=[
+			{name:'Jani',country:'Norway'},
+			{name:'Hege',country:'Sweden'}];
+			
+			$scope.sort = function(name){
+				$scope.sortName = name;
+			}
+	});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script> 
+</head>
+<body>
+
+<div ng-app="myApp" a-Bc></div>	
+
+<script>
+
+var app = angular.module("myApp", []);
+
+app.directive("aBc", function() {	// 必须使用 xxYyyyy的方式创建指令
+    return {
+        template : '<h1>这里可以制作html模板</h2><input type="text" value="hello world!"/>'
+    };
+});
+</script>
+
+</body>
+</html>
