@@ -8,6 +8,7 @@ namespace AspNetIdentity2Permission.Mvc.Controllers
     {
         public ActionResult Index()
         {
+			var f = HttpContext.User;
             ClaimsIdentity claimsIdentity = HttpContext.User.Identity as ClaimsIdentity;
            // System.Security.Claims.ClaimTypes sd;
             if (claimsIdentity == null)
