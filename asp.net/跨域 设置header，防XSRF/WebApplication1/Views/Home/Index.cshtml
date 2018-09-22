@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">@Session["name"]
+
+	<form method="post">
+		@Html.AntiForgeryToken()
+		<input name="name" id="name" />
+		<button type="submit">提交</button>
+	</form>
+
+	<p class="result"></p>
+
+	<button id="click">Click</button>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+	</script>
+	<script>
+	$(function () {
+
+		//var forkey = $("[name='__RequestVerificationToken']").val();
+		var forkey = $('@Html.AntiForgeryToken()').val();
+
+		$('#click').click(function () {
+			$.ajax({
+				url: '/Home/ajaxTest',
+				type: 'post',
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('__RequestVerificationToken', forkey);
+				},
+				success: function (data) {
+					alert(data);
+				},
+				error: function (event) {
+					alert(event.data);
+				}
+			});
+		});
+	})
+	</script>
+</div>

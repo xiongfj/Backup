@@ -1,0 +1,25 @@
+* 假设当前浏览器地址栏 url：http://localhost:8000/Login?redirect_uri=http://www.baidu.com
+
+ @using (Html.BeginForm("Index", "Login", new { Q = Request.Url.Query }, FormMethod.Post))
+  {
+
+	<button type="submit" >登录</button>
+}
+
+提交后的URL 为 http://localhost:8000/Login?Q=redirect_uri=http://www.baidu.com
+
+进入跳转后的页面使用Request.QueryString["Q"] 获取 redirect_uri 
+
+
+
+*** 如果写成： 
+ @using (Html.BeginForm("Index", "Login", new { Request.Url.Query }, FormMethod.Post))
+ 会自动变成 http://localhost:8000/Login?Query=redirect_uri=http://www.baidu.com
+ 
+ 
+*** 如果是在 Controller 中的 Action 中调用 
+	
+	var Return = "http://www.hao123.com";
+	RedirectAction("actionName", new {Return});
+	则跳转后的连接为： http://localhost:8000/Login?Return=http://hao123.com
+	会自动把变量名 Return 加上

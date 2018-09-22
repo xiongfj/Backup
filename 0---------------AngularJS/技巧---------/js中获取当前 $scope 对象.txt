@@ -1,0 +1,8 @@
+angular.element(this).scope()
+
+
+
+                    <input type="file" class="input-file-hidden" onchange="angular.element(this).scope().changePicture(this.files)" />
+
+
+即可调用 angular 内的 changePicture 函数

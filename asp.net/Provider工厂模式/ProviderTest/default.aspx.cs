@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProviderTest.FileSystemProvider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,7 +27,10 @@ namespace ProviderTest
         /*这个就是对外的实例接口对象, 所有的操作都可以通过获得的这个对象操作*/
         private static BlogProvider _provider;
 
-        protected void Page_Load(object sender, EventArgs e)
+		private static BlogFileSystemProviderCollection _fproviders;
+		private static BlogFileSystemProvider _fprovider;
+
+		protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack)
                 return;
@@ -45,6 +49,29 @@ namespace ProviderTest
             string str = _provider.TestFunc();
 
             Response.Write(str);
-        }
+
+			TestFileProvider();
+
+		}
+
+		public void TestFileProvider()
+		{
+
+
+			var section = (BlogFileSystemProviderSection)WebConfigurationManager.GetSection("BlogEngine/blogFileSystemProvider");
+
+			_fproviders = new BlogFileSystemProviderCollection();
+
+			// 根据section内容填充 _providers; 会回调 BlogProviderCollection::Add(..) 函数
+			ProvidersHelper.InstantiateProviders(section.Providers, _fproviders, typeof(BlogFileSystemProvider));
+
+			// 通过名称 获取某个子类的实例化对象
+			_fprovider = _fproviders[section.DefaultProvider];
+
+			// 调用的是对应子类的函数
+			string str = _fprovider.func();
+
+			Response.Write("FileProviderTest: -> " + str);
+		}
     }
 }

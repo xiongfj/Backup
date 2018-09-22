@@ -1,0 +1,20 @@
+* angularjs
+{
+*	<div ng-bind-html="asdasxx" ></div> 可以改变局部视图，但是或过滤危险符号，导致不能保持样式显示！！ 需要使用jqeury的ajax().. $(xx).html("html")
+
+	或者使用过滤器保持html
+		app.filter('to_trusted', ['$sce', function ($sce) {
+				return function (text) {
+					return $sce.trustAsHtml(text);
+				};
+			}]);
+		app.controller...{
+			$scope.m="<b>text</b>"
+		}   
+		//html:
+		<p ng-bind-html="m | to_trusted"></p>
+
+-----------------
+
+* ng-view 路由不能加载 cshtml 页面
+}

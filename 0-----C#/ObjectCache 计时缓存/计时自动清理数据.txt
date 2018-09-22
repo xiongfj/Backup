@@ -1,0 +1,20 @@
+
+using System.Runtime.Caching;
+using System.Threading;
+
+
+static void Main(string[] args)
+{
+	ObjectCache cache = new MemoryCache("FreeBird");
+
+	cache.Add(new CacheItem("key", "ahdjkasdasd"), new CacheItemPolicy { AbsoluteExpiration = DateTime.Now + TimeSpan.FromSeconds(4) });
+	cache.Remove("key");
+	cache.Add(new CacheItem("key", "11111111111"), new CacheItemPolicy { AbsoluteExpiration = DateTime.Now + TimeSpan.FromSeconds(4) });
+			
+	Console.WriteLine(cache.Get("key"));
+	Thread.Sleep(10000);
+	Console.WriteLine(cache.Get("key"));		// 数据超时被清空
+	
+	
+	// 还可以设置各种回调， 添加数据回调函数、数据移除时回调函数
+}

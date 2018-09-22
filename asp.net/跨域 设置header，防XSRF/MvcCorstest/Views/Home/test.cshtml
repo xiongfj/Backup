@@ -1,0 +1,70 @@
+﻿
+@{
+	ViewBag.Title = "test";
+}
+
+<h2>test</h2>
+
+22222222222222222222222
+
+<form method="post" action="http://localhost:50475/Home/corsTest">
+	@Html.AntiForgeryToken()
+	<input name="name" id="name" />
+	<button type="submit">提交</button>
+</form>
+
+<button id="SessionTest">SessionTest</button>
+<button id="ajaxCorsAntiforgeryTest">ajaxCorsAntiforgeryTest</button>
+
+<p class="result"></p>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+</script>
+<script>
+	$(function () {
+		
+		$('#SessionTest').click(function () {
+			$.ajax({
+				//url: 'https://www.codeabc.cn/Home/ajaxSessionTest',
+				url: 'http://localhost:50475/Home/ajaxSessionTest',
+				type: 'post',
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success: function (data) {
+					alert(data);
+				},
+				error: function (event) {
+					alert(event.data);
+				}
+			});
+		});
+
+
+		var forkey = $('@Html.AntiForgeryToken()').val();
+		$('#ajaxCorsAntiforgeryTest').click(function () {
+			$.ajax({
+				//url: 'https://www.codeabc.cn/Home/ajaxCorsAntiforgeryTest',
+				url: 'http://localhost:50475/Home/ajaxCorsAntiforgeryTest',
+				type: 'post',
+				data: { obj: "success---" },
+				contentType: 'application/x-www-form-urlencoded',
+				headers: { "__RequestVerificationToken": forkey},
+				xhrFields: {
+					withCredentials: true
+				},
+				//crossDomain: true,
+				//beforeSend: function (xhr) {
+				//	xhr.setRequestHeader('__RequestVerificationToken', forkey);
+				//},
+				success: function (data) {
+					alert("88 " + data);
+					console.log(data);
+				},
+				error: function (event) {
+					alert("error");
+				}
+			});
+		});
+	})
+</script>

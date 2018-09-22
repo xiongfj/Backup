@@ -1,0 +1,104 @@
+OPTIONS - 
+
+OPTIONS - 
+
+OPTIONS - 
+
+OPTIONS - 
+
+POST - localhost
+
+GET - 
+
+GET - localhost
+
+OPTIONS - 
+
+POST - localhost
+
+OPTIONS - 
+
+GET - 
+
+GET - localhost
+
+OPTIONS - 
+
+POST - localhost
+
+OPTIONS - 
+
+POST - localhost
+
+GET - 
+
+GET - localhost
+
+OPTIONS - 
+
+GET - 
+
+GET - localhost
+
+OPTIONS - 
+
+OPTIONS - 
+
+GET - 
+
+GET - 
+
+OPTIONS - http://localhost:50464
+
+POST - http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+GET - 
+
+GET - 
+
+OPTIONS - http://localhost:50464
+
+POST - http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+OPTIONS - http://localhost:50464
+
+POST - http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+GET - 
+
+GET - 
+
+OPTIONS - http://localhost:50464
+
+GET - 
+
+GET - 
+
+OPTIONS - http://localhost:50464
+
+POST - http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+GET - 
+
+GET - 
+
+OPTIONS - http://localhost:50464
+
+POST - http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+
+* OnActionExecuting http://localhost:50464
+

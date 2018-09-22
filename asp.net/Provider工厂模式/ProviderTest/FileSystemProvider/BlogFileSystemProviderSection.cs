@@ -14,7 +14,7 @@ namespace ProviderTest.FileSystemProvider
         ///     Gets or sets the name of the default provider
         /// </summary>
         [StringValidator(MinLength = 1)]
-        [ConfigurationProperty("defaultProvider", DefaultValue = "XmlBlogProvider")]
+        [ConfigurationProperty("defaultProvider", DefaultValue = "XmlFileSystemProvider")]
         public string DefaultProvider
         {
             get

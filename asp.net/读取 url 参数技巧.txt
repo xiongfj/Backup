@@ -1,0 +1,11 @@
+// http://localhost:2933/?a=asdasd&redirect_uri=http://client.com/default.aspx...
+			//var query = HttpContext.Current.Request.UrlReferrer.Query;
+			//if (!string.IsNullOrEmpty(query))
+			//{
+			//	var values = HttpUtility.ParseQueryString(query);
+			//	if (values.AllKeys.Contains("redirect_uri"))
+			//	{
+			//		var redirect = HttpUtility.UrlDecode(values["redirect_uri"]);
+			//		return Redirect(redirect);
+			//	}
+			//}

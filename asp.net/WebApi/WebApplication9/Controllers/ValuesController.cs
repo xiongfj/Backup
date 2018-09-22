@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,8 +23,10 @@ namespace WebApplication9.Controllers
 		}
 
 		// POST api/values
-		public void Post([FromBody]string value)
+		// 发送格式要与接收格式匹配才能正常访问！
+		public string Post(Data value)
 		{
+			return "success;;;; " + value;
 		}
 
 		// PUT api/values/5
@@ -36,4 +39,27 @@ namespace WebApplication9.Controllers
 		{
 		}
 	}
+
+	public class Data
+	{
+		public static Data Instance
+		{
+			get
+			{
+				return new Data
+				{
+					Name = "kajsd young",
+					Email = "password",
+					Labels = new List<string> { "a", "b", "c" }
+				};
+			}
+		}
+
+		public string Name { set; get; }
+
+		public string Email { set; get; }
+
+		public List<string> Labels { set; get; }
+	}
+
 }

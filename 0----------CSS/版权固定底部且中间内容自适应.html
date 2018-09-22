@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		.content {
+			position: relative;
+			min-height:100%;		/*content-body 高度不足时，保持 footer 在底部！！*/
+		}
+
+		.header {
+			height: 50px;
+			background-color: red;
+		}
+
+		.content-body {
+			padding-bottom: 50px; /*预留空间给footer*/
+			background-color: #00ff21;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			background-color: #e1a9a9;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<div class="header"></div>
+		<div class="content-body">
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充</h1>
+			<h1>填充oooooooooo</h1>
+		</div>
+		<div class="footer">
+			<p>底部版本版权的信息...</p>
+		</div>
+	</div>
+</body>
+</html>

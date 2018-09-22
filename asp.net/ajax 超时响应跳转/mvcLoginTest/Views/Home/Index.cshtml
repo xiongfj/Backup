@@ -1,0 +1,73 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+	<h1>ASP.NET</h1>
+	<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+	<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div>
+	<button id="click">about</button>
+	<button id="btn22">Contract</button>
+</div>
+@section scripts{
+<script>
+	$(function () {
+		$.ajaxSetup({
+			contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			complete: function (XMLHttpRequest, textStatus) {
+				var sessionstatus = XMLHttpRequest.getResponseHeader("location"); // 通过XMLHttpRequest取得响应头，sessionstatus，
+				console.log(JSON.stringify(XMLHttpRequest) + " - " + sessionstatus);
+
+				// alert(1);
+				if (sessionstatus == "timeout") {
+					// 如果超时就处理 ，指定要跳转的页面
+					//window.location.replace("/test/index.jsp");
+
+					alert("time out:");
+					window.location.replace("login.jsp");
+				}
+			},
+			statusCode: {
+
+			}
+		}); 
+
+		$('#click').click(function () {
+
+			$.ajax({
+				url: '/home/about',
+				success: function (d, status, xhr) {
+
+					console.log(xhr.getAllResponseHeaders());
+					var json = $.parseJSON(xhr.getResponseHeader('x-responded-json'));
+					console.log(json.headers.location);
+					console.log(json.status);
+				},
+				error: function (d) {
+					//console.log(d);
+				}
+			});
+		})
+
+		$('#btn22').click(function () {
+
+			$.ajax({
+				url: '/home/Contact',
+				success: function (d, status, xhr) {
+					var json = $.parseJSON(xhr.getResponseHeader('x-responded-json'));
+					console.log(json.headers.location);
+					console.log(json.status);
+
+				//	window.location = json.headers.location;   // mvc 自带登录连接
+
+				},
+				error: function (d) {
+					console.log("error: " + d);
+				}
+			});
+		})
+
+	})
+</script>
+	}

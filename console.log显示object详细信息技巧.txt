@@ -1,0 +1,6 @@
+
+一般用于 ajax 返回结果中
+console.log(JSON.stringify(data));		// 将json对象转成字符串
+
+反操作为： $.parseJSON（）  字符串转成 json 对象
+

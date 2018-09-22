@@ -1,0 +1,7 @@
+在 <a href="/asd/sxxx.." id="click">link</a> 
+
+$('#click').click(function(e){
+	e.preventDefault();		// 这样点击连接后页面不会跳转
+
+	location.hash = href;		// 这样可以更改 url 之类的，或者更改 location.url
+})

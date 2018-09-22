@@ -1,0 +1,1 @@
+* v1.5 中$http 的 success 和 error 方法已废弃。使用 then 方法替代。
