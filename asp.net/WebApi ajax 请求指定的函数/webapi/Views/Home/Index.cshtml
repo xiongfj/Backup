@@ -1,0 +1,68 @@
+﻿
+
+
+<button id="get">get()</button>
+<button id="getUser">getUser()</button>
+<button id="post">post</button>
+<button id="postPeople">postPeople</button>
+<button id="postModel">postModel</button>
+
+
+<script>
+	$(function () {
+		$('#get').click(function () {
+			$.ajax({
+				type: 'get',
+				url: 'api/values/Get/5',
+				success: function (data) {
+					alert(data);
+				},
+				error: function (data) {
+					alert(JSON.stringify(data) + "asdas");
+				}
+			});
+		})
+		$('#getUser').click(function () {
+			$.ajax({
+				url: 'api/values/getuser/555',
+				success: function (data) {
+					alert(data);
+				}
+			});
+		})
+
+
+		$('#post').click(function () {
+			$.ajax({
+				type: 'post',
+				url: 'api/values/post/999',
+				success: function (data) {
+					alert(data);
+				}
+			});
+		})
+		$('#postPeople').click(function () {
+			$.ajax({
+				type: 'post',
+				url: 'api/values/postPeople/100',
+				success: function (data) {
+					alert(data);
+				}
+			});
+		})
+		$('#postModel').click(function () {
+			var m = { name: "Jack", address: '就暗杀事件给大家喀什的金卡' };
+			$.ajax({
+				type: 'post',
+				url: 'api/values/postModel/2',	// 2 是为了符合路由匹配原则，实际上没有使用，不然会有多个 post 函数可以匹配导致错误
+				data: m,
+				success: function (data) {
+					alert(data);
+				},
+				error: function (data) {
+					alert(JSON.stringify(data) + "asdas");
+				}
+			});
+		})
+	})
+</script>

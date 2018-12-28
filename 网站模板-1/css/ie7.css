@@ -1,0 +1,16 @@
+.portfolio-item {z-index: 99999; overflow: hidden;}
+.portfolio-item:hover {z-index: 99999; overflow: visible;}
+.hover-description {z-index: 99999;}
+
+.mma-trigger {
+	left: -24px;
+	position: relative;
+	margin-left: 0;
+	
+}
+.mma-pane {
+	padding-right: 0;
+}
+.mma-pane.last-child .mma-trigger {
+	margin-right: -24px;
+}

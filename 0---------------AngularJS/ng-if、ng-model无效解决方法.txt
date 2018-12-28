@@ -1,0 +1,12 @@
+解决方法两个：
+
+* 使用 ng-show 代码
+<select ng-show="IsEditStatus" class="form-control" data-ng-options="l.OptionName for l in languages" data-ng-model="lang"></select>
+<label ng-show="!IsEditStatus" class="control-label">{{item.Lang}}</label>
+
+
+
+* 或者使用 $parent.xxx
+
+<select ng-if="IsEditStatus" class="form-control" data-ng-model="$parent.curTimezone" data-ng-options="t.OptionName for t in timezones"></select>
+<label ng-if="!IsEditStatus" class="control-label">{{item.TimeZnoe}}</label>

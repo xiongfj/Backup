@@ -1,0 +1,37 @@
+* webapi º¯Êý
+    public IHttpActionResult Post([FromBody]List<Guid> guids)
+	
+	
+* ajax ÇëÇó
+
+	$(function () {
+		var guids = ['00a76d4a-e4aa-43de-a30e-e7e054e24c2a', '49da8409-8da6-4cee-ba7a-cc02bd45e679'];
+		$.ajax({
+			url: '/api/MyidHttp',
+			method: 'post',
+			data: { "": guids },
+			success: function (data) {
+				console.log(data);
+			},
+			error: function (data) {
+				console.log("asdasd" + data);
+			}
+		});
+	})
+	
+	
+	
+* HttpClient ÇëÇó
+
+	List<Guid> guids = new List<Guid>();
+	guids.Add ...
+	...
+	
+	string jsonText = JsonConvert.SerializeObject(guids);
+	StringContent content = new StringContent(jsonText, Encoding.UTF8, "application/json");
+
+	HttpClient _httpClient = new HttpClient();
+	//_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _access_token);
+	HttpResponseMessage response = _httpClient.PostAsync("http://localhost:8000/api/TicketUser", content).Result;
+	response.EnsureSuccessStatusCode();
+	string oauthTokenResponse = response.Content.ReadAsStringAsync().Result;

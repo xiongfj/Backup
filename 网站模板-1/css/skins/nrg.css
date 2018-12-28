@@ -1,0 +1,611 @@
+/*****************************************************
+1. OPTIONS ON HTML CLASS: 
+mdf, wood, gradient, 
+light, dark, 
+orange-yellow, orange-purple, purple-yellow, purple-orange, 
+top-block, 
+style-body, style-popdown, style-footer,
+paint, circles, glow, splash, euphoria, pretty, smoke, halftone
+******************************************************/
+/*****************************************************
+1. Textures
+******************************************************/
+html.dark.mdf, html.dark.mdf body {
+	background-image: url(../../images/background/textures/dark/mdf.png);
+	background-repeat: repeat;
+}
+html.light.mdf, html.light.mdf body  {
+	background-image: url(../../images/background/textures/light/mdf.png);
+	background-repeat: repeat;
+}
+html.dark.wood, html.dark.wood body  {
+	background-image: url(../../images/background/textures/dark/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	background-attachment: fixed;
+}
+html.light.wood, html.light.wood body {
+	background-image: url(../../images/background/textures/light/wood.jpg);
+	background-repeat: repeat;
+	background-position: center top;
+	background-attachment: fixed;
+}
+html.dark.gradient, html.dark.gradient body {
+	background-image: url(../../images/background/textures/dark/gradient.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+}
+html.light.gradient, html.light.gradient body {
+	background-image: url(../../images/background/textures/light/gradient.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+}
+/*****************************************************
+2. Light or Dark
+******************************************************/
+html.dark, html.dark body {
+	background-color: #323232; /* main colour */
+}
+html.light, html.light body {
+	background-color: #e3e3e3; /* main colour */
+}
+/*****************************************************
+3. Breakers
+******************************************************/
+html.light.squint-breaker .fullscreen-breaker, html.light.top-block.squint-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/squint-light.png);
+    height: 345px;
+    margin-top: -133px;
+}
+html.dark.squint-breaker .fullscreen-breaker, html.dark.top-block.squint-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/squint-dark.png);
+    height: 345px;
+    margin-top: -133px;
+}
+html.light.simple-breaker .fullscreen-breaker, html.light.top-block.simple-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/simple-light.png);
+	height: 70px;
+    margin-top: -13px;
+}
+html.dark.simple-breaker .fullscreen-breaker, html.dark.top-block.simple-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/simple-dark.png);
+	height: 70px;
+    margin-top: -13px;
+}
+html.light.curve-breaker .fullscreen-breaker, html.light.top-block.curve-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/curve-light.png);
+	height: 290px;
+    margin-top: -112px;
+}
+html.dark.curve-breaker .fullscreen-breaker, html.dark.top-block.curve-breaker #color-block > span {
+	background-image: url(../../images/background/breaks/curve-dark.png);
+	height: 290px;
+    margin-top: -112px;
+}
+/*****************************************************
+4. Style Images
+******************************************************/
+html.paint.style-body #outside, html.paint.style-footer #footer, html.paint.style-popdown #popdown  {
+	background-image: url(../../images/background/patterns/nrg/paint.png);
+}
+html.glow.style-body #outside, html.glow.style-footer #footer, html.glow.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/glow.png);
+}
+html.circles.style-body #outside, html.circles.style-footer #footer, html.circles.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/circles.png)
+}
+html.euphoria.style-body #outside, html.euphoria.style-footer #footer, html.euphoria.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/euphoria.png);
+}
+html.pretty.style-body #outside, html.pretty.style-footer #footer, html.pretty.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/pretty.png);
+}
+html.smoke.style-body #outside, html.smoke.style-footer #footer, html.smoke.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/smoke.png);
+}
+html.halftone.style-body #outside, html.halftone.style-footer #footer, html.halftone.style-popdown #popdown {
+	background-image: url(../../images/background/patterns/nrg/halftone.png);
+}
+/* Style image position if you are using top positioned fullscreen image */
+html.style-body body.fs-absolute #outside {
+	background-position: center 600px;
+}
+/* Style image position if you are using top color block */
+html.top-block.style-body #outside {
+	background-position: center 200px;
+}
+html.style-popdown #popdown {background-position: center top;}
+html.style-footer #footer {background-position: center top;}
+html.style-body #outside {background-position: center top;}
+
+html.style-popdown .popdown-inner, html.style-footer .footer-top-inner  {background: url(../../images/background/transparent/plain-dark-80.png) 0 0 transparent repeat}
+
+/*****************************************************
+5. Adjustments
+******************************************************/
+#slider, .content-wrapper, .logo-slider-wrapper {
+	border-bottom-color: #111; /*--  Box shadow effect*/
+}
+html.light #slider, html.light .content-wrapper, html.light .logo-slider-wrapper {
+	border-bottom-color: #333; /*--  Box shadow effect*/
+}
+.box-border, .fs-slider-controls-outer {
+	background: transparent url(../../images/background/transparent/plain-dark-30.png) repeat;/* -- change transparency of box-border*/
+}
+html.top-block #color-block {
+	height: 350px;
+}
+html.top-block .fullscreen-outer {
+	display: none;
+}
+/*****************************************************
+6.  COLOUR SCHEME (orange / YELLOW)
+******************************************************/
+/**** YELLOW (2) (only on dark) ****/
+
+html.orange-yellow h1.color2, 
+html.orange-yellow h2.color2, 
+html.orange-yellow h3.color2, 
+html.orange-yellow h4.color2, 
+html.orange-yellow h5.color2,
+html.orange-yellow .footer-content h1, 
+html.orange-yellow .footer-content h2, 
+html.orange-yellow .footer-content h3, 
+html.orange-yellow a.med-dark-link, 
+html.orange-yellow .footer-bottom-content span.break, 
+html.orange-yellow .impact-header.one-line-one-col h1, 
+html.orange-yellow .impact-header.one-line-two-col h1, 
+html.orange-yellow .impact-header.two-line-one-col h1, 
+html.orange-yellow .impact-header.two-line-two-col h1, 
+html.orange-yellow ul#horz-nav-ul > li > a:hover, 
+html.orange-yellow #horz-nav-ul ul li a:hover, 
+html.orange-yellow #horz-nav-ul ul li a ul a:hover, 
+html.orange-yellow #horz-nav-ul ul li span:hover, 
+html.orange-yellow #horz-nav-ul ul li a ul span:hover, 
+html.orange-yellow a.go-to-link span:hover, 
+html.orange-yellow .date-overlay .day-month, 
+html.orange-yellow .comments-overlay .number-of-comments, 
+html.orange-yellow .bread-crumbs-wrapper ul li.first span, 
+html.orange-yellow .pagination-wrapper ul li.on span, 
+html.orange-yellow .pt-header h3, 
+html.orange-yellow h3.comments-title, 
+html.orange-yellow .footer-content .tags-wrapper ul li a:hover, 
+html.orange-yellow #footer .widget-wrap.boxed .widget-title h2, 
+html.orange-yellow #footer .accordion h3 a:hover, 
+html.orange-yellow #footer .accordion h3.active a, 
+html.orange-yellow #footer .compact-tabs .tabs > ul > li.active a, 
+html.orange-yellow a.hover-on-font-color2:hover, 
+html.orange-yellow a.font-color2, #popdown h1, 
+html.orange-yellow #popdown h2, 
+html.orange-yellow #popdown h3, 
+html.orange-yellow .font-color2,
+html.orange-yellow a.big-dark-link, 
+html.orange-yellow a.small-dark-link,
+html.orange-yellow .show-tags a:hover,
+html.orange-yellow .divider span.go-to-top a:hover,
+html.orange-yellow .nivo-caption,
+html.orange-yellow #footer .blog-post-snippet-content h3 a,
+html.orange-yellow #horz-nav-ul li a.on, 
+html.orange-yellow #horz-nav-ul li span.on {
+	color: #fde90c!important;
+}
+html.orange-yellow .controls-wrap a.backward:hover, 
+html.orange-yellow .controls-wrap a.forward:hover, 
+html.orange-yellow a.bg-color2, 
+html.orange-yellow .theme-default .nivo-controlNav a.nivo-control.active,
+html.orange-yellow .bg-color2 {
+	background-color: #fde90c;
+}
+/**** orange (1) (mostly on light) ****/
+html.orange-yellow .fullscreen-caption h1,
+html.orange-yellow h1.color1, 
+html.orange-yellow h2.color1, 
+html.orange-yellow h3.color1,
+html.orange-yellow h4.color1,
+html.orange-yellow h5.color1,
+html.orange-yellow h3.mtt-member-title,
+html.orange-yellow .page-heading h1,
+html.orange-yellow #slider h1,
+html.orange-yellow .blog-post-snippet-wrap h3,
+html.orange-yellow .footer-content a.med-dark-link, 
+html.orange-yellow .strap-line, 
+html.orange-yellow ul.horz-mini-menu.sliding li > a:hover, 
+html.orange-yellow .mma-trigger:hover, 
+html.orange-yellow span.details-circle, 
+html.orange-yellow ul.vert-menu li a span.extra, 
+html.orange-yellow .twitter-widget-user-info span.user-name .extra, 
+html.orange-yellow .impact-header-link-wrap a.impact-link:hover span,
+html.orange-yellow .quick-contact-pop-out .quform-inner .submit-button-input-wrapper button:hover span em, 
+html.orange-yellow a.go-to-link, 
+html.orange-yellow .compact-tabs .tabs > ul li a:hover, 
+html.orange-yellow .compact-tabs .tabs > ul li.active a, 
+html.orange-yellow .accordion h3.active a, 
+html.orange-yellow .accordion h3 a:hover, 
+html.orange-yellow .widget-content-wrap .quform-inner .submit-button-input-wrapper button:hover em,
+html.orange-yellow .impact-header-newsletter-signup-wrap .nlsu-button button:hover span em,
+html.orange-yellow .impact-header-newsletter-signup-wrap .nlsu-input input:focus, 
+html.orange-yellow .impress-slider-title, 
+html.orange-yellow .pagination-wrapper ul li a:hover, 
+html.orange-yellow .mtt-links ul.mtt-contact-details li span.extra, 
+html.orange-yellow .mtt-content-wrapper .tab-content h5, 
+html.orange-yellow .search-field-wrap input[type=submit]:hover, 
+html.orange-yellow .grey-button:hover, 
+html.orange-yellow .page-tabs .tabs > ul li.active a, 
+html.orange-yellow .page-tabs .tabs > ul li a:hover, 
+html.orange-yellow #footer .quform-inner .submit-button-input-wrapper button:hover em, 
+html.orange-yellow ul.horz-mini-menu li a:hover, 
+html.orange-yellow a.hover-on-font-color1:hover, 
+html.orange-yellow a.font-color1, 
+html.orange-yellow .twitter-widget-slider .bubble-content a, 
+html.orange-yellow .mma-trigger.mma-active, 
+html.orange-yellow .tags-wrapper ul li a:hover, 
+html.orange-yellow .share-meta-area .entry-meta a.comments > span .extra, 
+html.orange-yellow .portfolio-filter a.active-filter,
+html.orange-yellow .font-color1, 
+html.orange-yellow h2.entry-title a,
+html.orange-yellow .blog-post-snippet-info > li a:hover,
+html.orange-yellow .fs-slider-caption h1,
+html.orange-yellow .serene-caption h1,
+html.orange-yellow .blog-post-snippet-content h3 a {
+	color: #ff9600!important;
+}
+html.orange-yellow a.bg-color1, 
+html.orange-yellow .theme-default .nivo-controlNav a.nivo-control,
+html.orange-yellow.top-block #color-block,
+html.orange-yellow .bg-color1 {
+	background-color: #ff9600;
+}
+/*****************************************************
+7.  COLOUR SCHEME (orange / purple)
+******************************************************/
+/**** purple (2) (only on dark) ****/
+
+html.orange-purple h1.color2, 
+html.orange-purple h2.color2, 
+html.orange-purple h3.color2, 
+html.orange-purple h4.color2, 
+html.orange-purple h5.color2,
+html.orange-purple .footer-content h1, 
+html.orange-purple .footer-content h2, 
+html.orange-purple .footer-content h3, 
+html.orange-purple a.med-dark-link, 
+html.orange-purple .footer-bottom-content span.break, 
+html.orange-purple .impact-header.one-line-one-col h1, 
+html.orange-purple .impact-header.one-line-two-col h1, 
+html.orange-purple .impact-header.two-line-one-col h1, 
+html.orange-purple .impact-header.two-line-two-col h1, 
+html.orange-purple ul#horz-nav-ul > li > a:hover, 
+html.orange-purple #horz-nav-ul ul li a:hover, 
+html.orange-purple #horz-nav-ul ul li a ul a:hover, 
+html.orange-purple #horz-nav-ul ul li span:hover, 
+html.orange-purple #horz-nav-ul ul li a ul span:hover, 
+html.orange-purple a.go-to-link span:hover, 
+html.orange-purple .date-overlay .day-month, 
+html.orange-purple .comments-overlay .number-of-comments, 
+html.orange-purple .bread-crumbs-wrapper ul li.first span, 
+html.orange-purple .pagination-wrapper ul li.on span, 
+html.orange-purple .pt-header h3, 
+html.orange-purple h3.comments-title, 
+html.orange-purple .footer-content .tags-wrapper ul li a:hover, 
+html.orange-purple #footer .widget-wrap.boxed .widget-title h2, 
+html.orange-purple #footer .accordion h3 a:hover, 
+html.orange-purple #footer .accordion h3.active a, 
+html.orange-purple #footer .compact-tabs .tabs > ul > li.active a, 
+html.orange-purple a.hover-on-font-color2:hover, 
+html.orange-purple a.font-color2, #popdown h1, 
+html.orange-purple #popdown h2, 
+html.orange-purple #popdown h3, 
+html.orange-purple .font-color2,
+html.orange-purple a.big-dark-link, 
+html.orange-purple a.small-dark-link,
+html.orange-purple .show-tags a:hover,
+html.orange-purple .divider span.go-to-top a:hover,
+html.orange-purple .nivo-caption,
+html.orange-purple #footer .blog-post-snippet-content h3 a,
+html.orange-purple #horz-nav-ul li a.on, 
+html.orange-purple #horz-nav-ul li span.on {
+	color: #c10d77!important;
+}
+html.orange-purple .controls-wrap a.backward:hover, 
+html.orange-purple .controls-wrap a.forward:hover, 
+html.orange-purple a.bg-color2, 
+html.orange-purple .theme-default .nivo-controlNav a.nivo-control.active,
+html.orange-purple .bg-color2 {
+	background-color: #c10d77;
+}
+/**** orange (1) (mostly on light) ****/
+html.orange-purple .fullscreen-caption h1,
+html.orange-purple h1.color1, 
+html.orange-purple h2.color1, 
+html.orange-purple h3.color1,
+html.orange-purple h4.color1,
+html.orange-purple h5.color1,
+html.orange-purple h3.mtt-member-title,
+html.orange-purple .page-heading h1,
+html.orange-purple #slider h1,
+html.orange-purple .blog-post-snippet-wrap h3,
+html.orange-purple .footer-content a.med-dark-link, 
+html.orange-purple .strap-line, 
+html.orange-purple ul.horz-mini-menu.sliding li > a:hover, 
+html.orange-purple .mma-trigger:hover, 
+html.orange-purple span.details-circle, 
+html.orange-purple ul.vert-menu li a span.extra, 
+html.orange-purple .twitter-widget-user-info span.user-name .extra, 
+html.orange-purple .impact-header-link-wrap a.impact-link:hover span,
+html.orange-purple .quick-contact-pop-out .quform-inner .submit-button-input-wrapper button:hover span em, 
+html.orange-purple a.go-to-link, 
+html.orange-purple .compact-tabs .tabs > ul li a:hover, 
+html.orange-purple .compact-tabs .tabs > ul li.active a, 
+html.orange-purple .accordion h3.active a, 
+html.orange-purple .accordion h3 a:hover, 
+html.orange-purple .widget-content-wrap .quform-inner .submit-button-input-wrapper button:hover em,
+html.orange-purple .impact-header-newsletter-signup-wrap .nlsu-button button:hover span em,
+html.orange-purple .impact-header-newsletter-signup-wrap .nlsu-input input:focus, 
+html.orange-purple .impress-slider-title, 
+html.orange-purple .pagination-wrapper ul li a:hover, 
+html.orange-purple .mtt-links ul.mtt-contact-details li span.extra, 
+html.orange-purple .mtt-content-wrapper .tab-content h5, 
+html.orange-purple .search-field-wrap input[type=submit]:hover, 
+html.orange-purple .grey-button:hover, 
+html.orange-purple .page-tabs .tabs > ul li.active a, 
+html.orange-purple .page-tabs .tabs > ul li a:hover, 
+html.orange-purple #footer .quform-inner .submit-button-input-wrapper button:hover em, 
+html.orange-purple ul.horz-mini-menu li a:hover, 
+html.orange-purple a.hover-on-font-color1:hover, 
+html.orange-purple a.font-color1, 
+html.orange-purple .twitter-widget-slider .bubble-content a, 
+html.orange-purple .mma-trigger.mma-active, 
+html.orange-purple .tags-wrapper ul li a:hover, 
+html.orange-purple .share-meta-area .entry-meta a.comments > span .extra, 
+html.orange-purple .portfolio-filter a.active-filter,
+html.orange-purple .font-color1, 
+html.orange-purple h2.entry-title a,
+html.orange-purple .blog-post-snippet-info > li a:hover,
+html.orange-purple .fs-slider-caption h1,
+html.orange-purple .serene-caption h1,
+html.orange-purple .blog-post-snippet-content h3 a {
+	color: #ff9600!important;
+}
+html.orange-purple a.bg-color1, 
+html.orange-purple .theme-default .nivo-controlNav a.nivo-control,
+html.orange-purple.top-block #color-block,
+html.orange-purple .bg-color1 {
+	background-color: #ff9600;
+}
+/*****************************************************
+8.  COLOUR SCHEME (purple / YELLOW)
+******************************************************/
+/**** YELLOW (2) (only on dark) ****/
+
+html.purple-yellow h1.color2, 
+html.purple-yellow h2.color2, 
+html.purple-yellow h3.color2, 
+html.purple-yellow h4.color2, 
+html.purple-yellow h5.color2,
+html.purple-yellow .footer-content h1, 
+html.purple-yellow .footer-content h2, 
+html.purple-yellow .footer-content h3, 
+html.purple-yellow a.med-dark-link, 
+html.purple-yellow .footer-bottom-content span.break, 
+html.purple-yellow .impact-header.one-line-one-col h1, 
+html.purple-yellow .impact-header.one-line-two-col h1, 
+html.purple-yellow .impact-header.two-line-one-col h1, 
+html.purple-yellow .impact-header.two-line-two-col h1, 
+html.purple-yellow ul#horz-nav-ul > li > a:hover, 
+html.purple-yellow #horz-nav-ul ul li a:hover, 
+html.purple-yellow #horz-nav-ul ul li a ul a:hover, 
+html.purple-yellow #horz-nav-ul ul li span:hover, 
+html.purple-yellow #horz-nav-ul ul li a ul span:hover, 
+html.purple-yellow a.go-to-link span:hover, 
+html.purple-yellow .date-overlay .day-month, 
+html.purple-yellow .comments-overlay .number-of-comments, 
+html.purple-yellow .bread-crumbs-wrapper ul li.first span, 
+html.purple-yellow .pagination-wrapper ul li.on span, 
+html.purple-yellow .pt-header h3, 
+html.purple-yellow h3.comments-title, 
+html.purple-yellow .footer-content .tags-wrapper ul li a:hover, 
+html.purple-yellow #footer .widget-wrap.boxed .widget-title h2, 
+html.purple-yellow #footer .accordion h3 a:hover, 
+html.purple-yellow #footer .accordion h3.active a, 
+html.purple-yellow #footer .compact-tabs .tabs > ul > li.active a, 
+html.purple-yellow a.hover-on-font-color2:hover, 
+html.purple-yellow a.font-color2, #popdown h1, 
+html.purple-yellow #popdown h2, 
+html.purple-yellow #popdown h3, 
+html.purple-yellow .font-color2,
+html.purple-yellow a.big-dark-link, 
+html.purple-yellow a.small-dark-link,
+html.purple-yellow .show-tags a:hover,
+html.purple-yellow .divider span.go-to-top a:hover,
+html.purple-yellow .nivo-caption,
+html.purple-yellow #footer .blog-post-snippet-content h3 a,
+html.purple-yellow #horz-nav-ul li a.on, 
+html.purple-yellow #horz-nav-ul li span.on {
+	color: #fde90c!important;
+}
+html.purple-yellow .controls-wrap a.backward:hover, 
+html.purple-yellow .controls-wrap a.forward:hover, 
+html.purple-yellow a.bg-color2, 
+html.purple-yellow .theme-default .nivo-controlNav a.nivo-control.active,
+html.purple-yellow .bg-color2 {
+	background-color: #fde90c;
+}
+/**** orange (1) (mostly on light) ****/
+html.purple-yellow .fullscreen-caption h1,
+html.purple-yellow h1.color1, 
+html.purple-yellow h2.color1, 
+html.purple-yellow h3.color1,
+html.purple-yellow h4.color1,
+html.purple-yellow h5.color1,
+html.purple-yellow h3.mtt-member-title,
+html.purple-yellow .page-heading h1,
+html.purple-yellow #slider h1,
+html.purple-yellow .blog-post-snippet-wrap h3,
+html.purple-yellow .footer-content a.med-dark-link, 
+html.purple-yellow .strap-line, 
+html.purple-yellow ul.horz-mini-menu.sliding li > a:hover, 
+html.purple-yellow .mma-trigger:hover, 
+html.purple-yellow span.details-circle, 
+html.purple-yellow ul.vert-menu li a span.extra, 
+html.purple-yellow .twitter-widget-user-info span.user-name .extra, 
+html.purple-yellow .impact-header-link-wrap a.impact-link:hover span,
+html.purple-yellow .quick-contact-pop-out .quform-inner .submit-button-input-wrapper button:hover span em, 
+html.purple-yellow a.go-to-link, 
+html.purple-yellow .compact-tabs .tabs > ul li a:hover, 
+html.purple-yellow .compact-tabs .tabs > ul li.active a, 
+html.purple-yellow .accordion h3.active a, 
+html.purple-yellow .accordion h3 a:hover, 
+html.purple-yellow .widget-content-wrap .quform-inner .submit-button-input-wrapper button:hover em,
+html.purple-yellow .impact-header-newsletter-signup-wrap .nlsu-button button:hover span em,
+html.purple-yellow .impact-header-newsletter-signup-wrap .nlsu-input input:focus, 
+html.purple-yellow .impress-slider-title, 
+html.purple-yellow .pagination-wrapper ul li a:hover, 
+html.purple-yellow .mtt-links ul.mtt-contact-details li span.extra, 
+html.purple-yellow .mtt-content-wrapper .tab-content h5, 
+html.purple-yellow .search-field-wrap input[type=submit]:hover, 
+html.purple-yellow .grey-button:hover, 
+html.purple-yellow .page-tabs .tabs > ul li.active a, 
+html.purple-yellow .page-tabs .tabs > ul li a:hover, 
+html.purple-yellow #footer .quform-inner .submit-button-input-wrapper button:hover em, 
+html.purple-yellow ul.horz-mini-menu li a:hover, 
+html.purple-yellow a.hover-on-font-color1:hover, 
+html.purple-yellow a.font-color1, 
+html.purple-yellow .twitter-widget-slider .bubble-content a, 
+html.purple-yellow .mma-trigger.mma-active, 
+html.purple-yellow .tags-wrapper ul li a:hover, 
+html.purple-yellow .share-meta-area .entry-meta a.comments > span .extra, 
+html.purple-yellow .portfolio-filter a.active-filter,
+html.purple-yellow .font-color1, 
+html.purple-yellow h2.entry-title a,
+html.purple-yellow .blog-post-snippet-info > li a:hover,
+html.purple-yellow .fs-slider-caption h1,
+html.purple-yellow .serene-caption h1,
+html.purple-yellow .blog-post-snippet-content h3 a {
+	color: #c10d77!important;
+}
+html.purple-yellow a.bg-color1, 
+html.purple-yellow .theme-default .nivo-controlNav a.nivo-control,
+html.purple-yellow.top-block #color-block,
+html.purple-yellow .bg-color1 {
+	background-color: #c10d77;
+}
+/*****************************************************
+9.  COLOUR SCHEME (purple / orange)
+******************************************************/
+/**** orange (2) (only on dark) ****/
+
+html.purple-orange h1.color2, 
+html.purple-orange h2.color2, 
+html.purple-orange h3.color2, 
+html.purple-orange h4.color2, 
+html.purple-orange h5.color2,
+html.purple-orange .footer-content h1, 
+html.purple-orange .footer-content h2, 
+html.purple-orange .footer-content h3, 
+html.purple-orange a.med-dark-link, 
+html.purple-orange .footer-bottom-content span.break, 
+html.purple-orange .impact-header.one-line-one-col h1, 
+html.purple-orange .impact-header.one-line-two-col h1, 
+html.purple-orange .impact-header.two-line-one-col h1, 
+html.purple-orange .impact-header.two-line-two-col h1, 
+html.purple-orange ul#horz-nav-ul > li > a:hover, 
+html.purple-orange #horz-nav-ul ul li a:hover, 
+html.purple-orange #horz-nav-ul ul li a ul a:hover, 
+html.purple-orange #horz-nav-ul ul li span:hover, 
+html.purple-orange #horz-nav-ul ul li a ul span:hover, 
+html.purple-orange a.go-to-link span:hover, 
+html.purple-orange .date-overlay .day-month, 
+html.purple-orange .comments-overlay .number-of-comments, 
+html.purple-orange .bread-crumbs-wrapper ul li.first span, 
+html.purple-orange .pagination-wrapper ul li.on span, 
+html.purple-orange .pt-header h3, 
+html.purple-orange h3.comments-title, 
+html.purple-orange .footer-content .tags-wrapper ul li a:hover, 
+html.purple-orange #footer .widget-wrap.boxed .widget-title h2, 
+html.purple-orange #footer .accordion h3 a:hover, 
+html.purple-orange #footer .accordion h3.active a, 
+html.purple-orange #footer .compact-tabs .tabs > ul > li.active a, 
+html.purple-orange a.hover-on-font-color2:hover, 
+html.purple-orange a.font-color2, #popdown h1, 
+html.purple-orange #popdown h2, 
+html.purple-orange #popdown h3, 
+html.purple-orange .font-color2, 
+html.purple-orange a.big-dark-link, 
+html.purple-orange a.small-dark-link,
+html.purple-orange .show-tags a:hover,
+html.purple-orange .divider span.go-to-top a:hover,
+html.purple-orange .nivo-caption,
+html.purple-orange #footer .blog-post-snippet-content h3 a,
+html.purple-orange #horz-nav-ul li a.on, 
+html.purple-orange #horz-nav-ul li span.on {
+	color: #ff9600!important;
+}
+html.purple-orange .controls-wrap a.backward:hover, 
+html.purple-orange .controls-wrap a.forward:hover, 
+html.purple-orange a.bg-color2, 
+html.purple-orange .theme-default .nivo-controlNav a.nivo-control.active,
+html.purple-orange .bg-color2 {
+	background-color: #ff9600;
+}
+/**** orange (1) (mostly on light) ****/
+html.purple-orange .fullscreen-caption h1,
+html.purple-orange h1.color1, 
+html.purple-orange h2.color1, 
+html.purple-orange h3.color1,
+html.purple-orange h4.color1,
+html.purple-orange h5.color1,
+html.purple-orange h3.mtt-member-title,
+html.purple-orange .page-heading h1,
+html.purple-orange #slider h1,
+html.purple-orange .blog-post-snippet-wrap h3,
+html.purple-orange .footer-content a.med-dark-link, 
+html.purple-orange .strap-line, 
+html.purple-orange ul.horz-mini-menu.sliding li > a:hover, 
+html.purple-orange .mma-trigger:hover, 
+html.purple-orange span.details-circle, 
+html.purple-orange ul.vert-menu li a span.extra, 
+html.purple-orange .twitter-widget-user-info span.user-name .extra, 
+html.purple-orange .impact-header-link-wrap a.impact-link:hover span,
+html.purple-orange .quick-contact-pop-out .quform-inner .submit-button-input-wrapper button:hover span em, 
+html.purple-orange a.go-to-link, 
+html.purple-orange .compact-tabs .tabs > ul li a:hover, 
+html.purple-orange .compact-tabs .tabs > ul li.active a, 
+html.purple-orange .accordion h3.active a, 
+html.purple-orange .accordion h3 a:hover, 
+html.purple-orange .widget-content-wrap .quform-inner .submit-button-input-wrapper button:hover em,
+html.purple-orange .impact-header-newsletter-signup-wrap .nlsu-button button:hover span em,
+html.purple-orange .impact-header-newsletter-signup-wrap .nlsu-input input:focus, 
+html.purple-orange .impress-slider-title, 
+html.purple-orange .pagination-wrapper ul li a:hover, 
+html.purple-orange .mtt-links ul.mtt-contact-details li span.extra, 
+html.purple-orange .mtt-content-wrapper .tab-content h5, 
+html.purple-orange .search-field-wrap input[type=submit]:hover, 
+html.purple-orange .grey-button:hover, 
+html.purple-orange .page-tabs .tabs > ul li.active a, 
+html.purple-orange .page-tabs .tabs > ul li a:hover, 
+html.purple-orange #footer .quform-inner .submit-button-input-wrapper button:hover em, 
+html.purple-orange ul.horz-mini-menu li a:hover, 
+html.purple-orange a.hover-on-font-color1:hover, 
+html.purple-orange a.font-color1, 
+html.purple-orange .twitter-widget-slider .bubble-content a, 
+html.purple-orange .mma-trigger.mma-active, 
+html.purple-orange .tags-wrapper ul li a:hover, 
+html.purple-orange .share-meta-area .entry-meta a.comments > span .extra, 
+html.purple-orange .portfolio-filter a.active-filter,
+html.purple-orange .font-color1, 
+html.purple-orange h2.entry-title a,
+html.purple-orange .blog-post-snippet-info > li a:hover,
+html.purple-orange .fs-slider-caption h1,
+html.purple-orange .serene-caption h1,
+html.purple-orange .blog-post-snippet-content h3 a {
+	color: #c10d77!important;
+}
+html.purple-orange a.bg-color1, 
+html.purple-orange .theme-default .nivo-controlNav a.nivo-control,
+html.purple-orange.top-block #color-block,
+html.purple-orange .bg-color1 {
+	background-color: #c10d77;
+}
+body .transparent-slider .theme-default .nivo-controlNav a.nivo-control.active,
+body .transparent-slider .theme-default .nivo-controlNav a.nivo-control
+{background-color: transparent; !important}

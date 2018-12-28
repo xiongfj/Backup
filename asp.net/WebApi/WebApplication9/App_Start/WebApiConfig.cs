@@ -26,7 +26,7 @@ namespace WebApplication9
 			);
 			
 			// 可以同时匹配两种路由,action 可以写或不写
-		//	config.Routes.MapHttpRoute("DefaultApiWithActionAndId", "api/{controller}/{action}/{id}"/*, new { id = RouteParameter.Optional }*/);
+		//	config.Routes.MapHttpRoute("DefaultApiWithActionAndId", "api/{controller}/{action}/{id}"/*, new { id = RouteParameter.Optional } 不可使用！*/);
 		}
 	}
 }
